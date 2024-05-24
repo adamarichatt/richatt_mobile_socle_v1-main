@@ -73,8 +73,8 @@ class RLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () => Get.offAll(()=> const NavigationMenu()),
-                //onPressed: () => controller.loginWithEmail(),
+              //    onPressed: () => Get.offAll(()=> const NavigationMenu()),
+              onPressed: () => controller.loginWithEmail(),
                 child: const Text(RTexts.signIn),
               ),
             ),

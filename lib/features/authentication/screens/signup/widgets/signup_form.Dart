@@ -53,18 +53,7 @@ class RSignupForm extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: RSizes.spaceBtwInputFields,
-          ),
-          TextFormField(
-            controller: controller.username,
-           
-            expands: false,
-            decoration: const InputDecoration(
-              labelText: RTexts.username,
-              prefixIcon: Icon(Iconsax.user_edit),
-            ),
-          ),
+         
           const SizedBox(
             height: RSizes.spaceBtwInputFields,
           ),
@@ -99,6 +88,21 @@ class RSignupForm extends StatelessWidget {
             expands: false,
             decoration: const InputDecoration(
               labelText: RTexts.password,
+              prefixIcon: Icon(Iconsax.password_check),
+              suffixIcon: Icon(Iconsax.eye_slash),
+            ),
+          ),
+          const SizedBox(
+            height: RSizes.spaceBtwSections,
+          ),
+
+           TextFormField(
+            controller: controller.confirmPassword,
+           
+            obscureText: true,
+            expands: false,
+            decoration: const InputDecoration(
+              labelText: RTexts.confirmPassword,
               prefixIcon: Icon(Iconsax.password_check),
               suffixIcon: Icon(Iconsax.eye_slash),
             ),

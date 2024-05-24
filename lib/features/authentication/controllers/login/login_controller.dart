@@ -35,8 +35,10 @@ class LoginController extends GetxController{
         final json = jsonDecode(response.body);
        
           var token = json['accessToken'];
+          var email = json['email'];
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
+          await prefs?.setString('email', email);
          
             print(prefs);
           
