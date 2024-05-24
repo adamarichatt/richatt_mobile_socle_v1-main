@@ -19,8 +19,8 @@ class RTexts {
   static const String onBoardingSubTitle3 =
       "veiller ajouter un onboarding specifique au projet";
 // - - Home
-  static const String homeAppbarTitle = "Good day for shopping";
-  static const String homeAppbarSubTitle = "Taimoor Sikander";
+  static const String homeAppbarTitle = "Welcome";
+  static const String homeAppbarSubTitle = "User Test";
 
   // -- Authentication Forms
   static const String firstName = "First Name";

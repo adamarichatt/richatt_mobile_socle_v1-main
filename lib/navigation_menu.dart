@@ -18,25 +18,33 @@ class NavigationMenu extends StatelessWidget {
           height: 80,
           elevation: 0,
           selectedIndex: controller.selectIndex.value,
-          onDestinationSelected: (index)=> controller.selectIndex.value=index, 
+          onDestinationSelected: (index) =>
+              controller.selectIndex.value = index,
           backgroundColor: darkMode ? RColors.black : Colors.white,
-          indicatorColor: darkMode ? RColors.white.withOpacity(0.1) : Colors.black.withOpacity(0.1),
-          destinations:const [
-           NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
-           NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RV'),
-           NavigationDestination(icon: Icon(Iconsax.favorite_chart1), label: 'favorite'),
-           NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
-         
-        ],),
+          indicatorColor: darkMode
+              ? RColors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
+          destinations: const [
+            NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RV'),
+            NavigationDestination(
+                icon: Icon(Iconsax.favorite_chart1), label: 'favorite'),
+            NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
+          ],
+        ),
       ),
       body: Obx(() => controller.screens[controller.selectIndex.value]),
     );
   }
 }
 
-
-class NavigationController extends GetxController{
+class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
-  final screens = [const HomeScreen(),Container(color:Colors.purple),Container(color:Colors.orange),Container(color:Colors.blue)];
+  final screens = [
+    const HomeScreen(),
+    Container(color: Colors.purple),
+    Container(color: Colors.orange),
+    Container(color: Colors.blue)
+  ];
 }

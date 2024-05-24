@@ -15,7 +15,7 @@ class RLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     LoginController controller= Get.put(LoginController());
+    LoginController controller = Get.put(LoginController());
     return Form(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: RSizes.spaceBtwSections),
@@ -24,7 +24,6 @@ class RLoginForm extends StatelessWidget {
             //Email
             TextFormField(
               controller: controller.email,
-            
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: RTexts.email,
@@ -34,8 +33,7 @@ class RLoginForm extends StatelessWidget {
               height: RSizes.spaceBtwInputFields,
             ),
             TextFormField(
-               controller: controller.password,
-           
+              controller: controller.password,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
                 labelText: RTexts.password,
@@ -73,8 +71,8 @@ class RLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () => Get.offAll(()=> const NavigationMenu()),
-                //onPressed: () => controller.loginWithEmail(),
+                //onPressed: () => Get.offAll(() => const NavigationMenu()),
+                onPressed: () => controller.loginWithEmail(),
                 child: const Text(RTexts.signIn),
               ),
             ),

@@ -37,8 +37,8 @@ class RSizes {
   static const double dividerHeight = 1.0;
 
 // Product item dimensions
-  static const double productImageSize = 120.0;
-  static const double productimageRadius = 16.0;
+  static const double doctorImageSize = 120.0;
+  static const double doctorImageRadius = 16.0;
   static const double productItemHeight = 160.0;
 // Input field
   static const double inputFieldRadius = 12.0;
