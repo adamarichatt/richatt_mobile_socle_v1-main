@@ -47,5 +47,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Allow permission to access to photo library</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Allow permission to access your camera</string>
 	</dict>
 </plist>

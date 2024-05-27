@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
   # utility packages
   http: ^1.1.0
@@ -22,6 +23,7 @@ dependencies:
   flutter_native_splash: ^2.4.0
   smooth_page_indicator: ^1.1.0
   shared_preferences: ^2.2.3
+  image_picker: ^1.1.1
 
   # icons
   iconsax: ^0.0.8 
@@ -35,6 +37,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logos/logorichatt.png"
 
  
   flutter_lints: ^3.0.0
