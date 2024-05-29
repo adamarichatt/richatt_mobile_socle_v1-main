@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RdoctorCardVertical.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
@@ -12,6 +14,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProfessionalController());
+
+    // Appeler getCustomerByEmail lors de l'initialisation de la page
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getProf();
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -36,8 +45,8 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(RSizes.defaultSpace),
               child: Column(
                 children: [
-                  GridView.builder(
-                      itemCount: 4,
+                  Obx(() => GridView.builder(
+                      itemCount: controller.featuredProf.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
@@ -47,7 +56,9 @@ class HomeScreen extends StatelessWidget {
                         crossAxisSpacing: RSizes.gridViewSpacing,
                         mainAxisExtent: 288,
                       ),
-                      itemBuilder: (_, index) => const RDoctorCardVertical()),
+                      itemBuilder: (_, index) => RDoctorCardVertical(
+                            professional: controller.featuredProf[index],
+                          ))),
                 ],
               ),
             ),

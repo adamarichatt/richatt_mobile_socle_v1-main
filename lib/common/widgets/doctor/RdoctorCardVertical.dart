@@ -4,16 +4,21 @@ import 'package:iconsax/iconsax.dart';
 import 'package:richatt_mobile_socle_v1/common/styles/shadows.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class RDoctorCardVertical extends StatelessWidget {
-  const RDoctorCardVertical({super.key});
+  const RDoctorCardVertical({super.key, required this.professional});
+
+  final Professional professional;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {},
@@ -70,7 +75,7 @@ class RDoctorCardVertical extends StatelessWidget {
                 children: [
                   //rafractor le text plus tard
                   Text(
-                    'Docteur emine Mohamed',
+                    professional.firstName + ' ' + professional.name,
                     style: Theme.of(context).textTheme.labelSmall,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
