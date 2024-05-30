@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/cameraController.dart';
+import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class CameraScreen extends StatelessWidget {
   final CameraController controller = Get.put(CameraController());
@@ -45,6 +46,10 @@ class CameraScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+               ElevatedButton(
+              onPressed: () => RDeviceUtils.vibrate(Durations.medium1),
+              child: Text('Vibrate'),
+            ),
             ],
           ),
         ),
