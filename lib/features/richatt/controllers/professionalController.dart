@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class ProfessionalController extends GetxController {
   static ProfessionalController get instance => Get.find();
   final isLoading = false.obs;
   RxList<Professional> featuredProf = <Professional>[].obs;
+   final selectedSchedules = <Schedule>[].obs;
   
   Rx<Professional?> selectedProfessional = Rx<Professional?>(null);
 
@@ -117,4 +119,45 @@ class ProfessionalController extends GetxController {
     throw error;
   }
   }
+
+
+Future<List<Schedule>> fetchWeekSchedules(DateTime start, DateTime end, String code) async {
+  final String formattedStart = start.toIso8601String();
+  final String formattedEnd = end.toIso8601String();
+
+  final response = await http.get(Uri.parse('http://195.35.25.110:8733/api/schedules/getWeekSchedules?start=$formattedStart&end=$formattedEnd&code=$code'));
+
+  if (response.statusCode == 200) {
+    List<dynamic> body = jsonDecode(response.body);
+
+    // Print the response to debug
+    print('API Response: ${response.body}');
+
+    return body.map((dynamic item) => Schedule.fromJson(item)).toList();
+  } else {
+    throw Exception('Failed to load schedules');
+  }
+}
+
+
+Future<List<Schedule>> fetchDaySchedules(DateTime date, String professionalId) async {
+  final DateTime start = DateTime(date.year, date.month, date.day, 0, 0, 0);
+  final DateTime end = DateTime(date.year, date.month, date.day, 23, 59, 59);
+  final DateTime now = DateTime.now();
+
+  try {
+    List<Schedule> schedules = await fetchWeekSchedules(start, end, professionalId);
+    return schedules.where((schedule) {
+      String datePart = schedule.dateTime.split('T').first;
+      DateTime scheduleDateTime = DateTime.parse(datePart);
+      return schedule.status == 'Active' && scheduleDateTime.isAfter(now);
+    }).toList();
+  } catch (error) {
+    Get.snackbar('Error', error.toString());
+    return [];
+  }
+}
+
+
+
 }
