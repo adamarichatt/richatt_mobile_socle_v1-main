@@ -7,7 +7,6 @@ import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/widgets/signup_form.dart';
 
-
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
@@ -27,19 +26,20 @@ class SignupScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
-                height: RSizes.spaceBtwSections,
+                height: RSizes.spaceBtwItems,
               ),
-
+              Text(RTexts.signupSubTitle,
+                  style: TextStyle(fontSize: RSizes.md)),
+              const SizedBox(height: RSizes.spaceBtwSections + 10),
               //Form
               RSignupForm(dark: dark),
-              const SizedBox(height: RSizes.spaceBtwSections),
+              const SizedBox(height: RSizes.spaceBtwSections + 10),
               RFormDivider(dividerText: RTexts.orSignUpWith.capitalize!),
               const SizedBox(height: RSizes.spaceBtwSections),
 
               //social buttons
 
               const RSocialButtons(),
-              
             ],
           ),
         ),

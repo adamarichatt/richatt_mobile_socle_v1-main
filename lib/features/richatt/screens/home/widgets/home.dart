@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -8,6 +9,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,6 +41,38 @@ class HomeScreen extends StatelessWidget {
                     height: RSizes.spaceBtwSections,
                   ),
                 ],
+              ),
+            ),
+            Overlay(
+              initialEntries: [
+                OverlayEntry(
+                  builder: (context) => Positioned(
+                    top: 100,
+                    left: 100,
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: RDeviceUtils.getScreenWidth(context),
+              height: 300, // Ensure that the container has an explicit height
+              child: Obx(
+                () => SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      controller.featuredProf.length,
+                      (index) => RDoctorCardVertical(
+                        professional: controller.featuredProf[index],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(

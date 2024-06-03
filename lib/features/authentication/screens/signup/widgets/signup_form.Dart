@@ -32,6 +32,9 @@ class RSignupForm extends StatelessWidget {
                   
                   expands: false,
                   decoration: const InputDecoration(
+                     enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
                     labelText: RTexts.firstName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
@@ -46,6 +49,9 @@ class RSignupForm extends StatelessWidget {
                   
                   expands: false,
                   decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
                     labelText: RTexts.lastName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
@@ -62,6 +68,9 @@ class RSignupForm extends StatelessWidget {
             
             expands: false,
             decoration: const InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
               labelText: RTexts.email,
               prefixIcon: Icon(Iconsax.direct),
             ),
@@ -74,6 +83,9 @@ class RSignupForm extends StatelessWidget {
             
             expands: false,
             decoration: const InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
               labelText: RTexts.phoneNo,
               prefixIcon: Icon(Iconsax.call),
             ),
@@ -87,6 +99,9 @@ class RSignupForm extends StatelessWidget {
             obscureText: true,
             expands: false,
             decoration: const InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
               labelText: RTexts.password,
               prefixIcon: Icon(Iconsax.password_check),
               suffixIcon: Icon(Iconsax.eye_slash),
@@ -102,6 +117,9 @@ class RSignupForm extends StatelessWidget {
             obscureText: true,
             expands: false,
             decoration: const InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
+                  ),
               labelText: RTexts.confirmPassword,
               prefixIcon: Icon(Iconsax.password_check),
               suffixIcon: Icon(Iconsax.eye_slash),

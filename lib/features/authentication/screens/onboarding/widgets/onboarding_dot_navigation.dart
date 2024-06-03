@@ -16,16 +16,19 @@ class OnBoardingDotNavigation extends StatelessWidget {
     final controller = OnBoardingController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
 
-    return Positioned(
-      bottom: RDeviceUtils.getBottomNavigationBarHeight() + 25,
-      left: RSizes.defaultSpace,
-      child: SmoothPageIndicator(
-        controller: controller.pageController,
-        onDotClicked: controller.dotNavigationClick,
-        count: 3,
-        effect: ExpandingDotsEffect(
-          activeDotColor: dark ? RColors.light : RColors.dark,
-          dotHeight: 6,
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+            bottom: RDeviceUtils.getBottomNavigationBarHeight() + 100),
+        child: SmoothPageIndicator(
+          controller: controller.pageController,
+          onDotClicked: controller.dotNavigationClick,
+          count: 3,
+          effect: ExpandingDotsEffect(
+            activeDotColor: dark ? RColors.light : Colors.blue,
+            dotHeight: 6,
+          ),
         ),
       ),
     );

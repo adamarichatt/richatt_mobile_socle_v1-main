@@ -25,6 +25,9 @@ class RLoginForm extends StatelessWidget {
             TextFormField(
               controller: controller.email,
               decoration: const InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.cyan),
+                ),
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: RTexts.email,
               ),
@@ -35,6 +38,9 @@ class RLoginForm extends StatelessWidget {
             TextFormField(
               controller: controller.password,
               decoration: const InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.cyan),
+                ),
                 prefixIcon: Icon(Iconsax.password_check),
                 labelText: RTexts.password,
                 suffixIcon: Icon(Iconsax.eye_slash),

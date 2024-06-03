@@ -14,16 +14,38 @@ class OnBoardingNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = RHelperFunctions.isDarkMode(context);
-    return Positioned(
-      right: RSizes.defaultSpace,
-      bottom: RDeviceUtils.getBottomNavigationBarHeight(),
-      child: ElevatedButton(
-        onPressed: () => OnBoardingController.instance.nextPage(),
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          backgroundColor: dark ? RColors.primary : RColors.black,
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+            bottom: RDeviceUtils.getBottomNavigationBarHeight()),
+        child: SizedBox(
+          width: RDeviceUtils.getScreenWidth(context) *
+              0.9, // Définissez la largeur souhaitée ici
+          child: OutlinedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.blue),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      24), // Définissez le rayon du bord ici
+                ),
+              ),
+            ),
+            onPressed: () => OnBoardingController.instance.nextPage(),
+            child: const Text(
+              'Next',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                height: 0,
+              ),
+            ),
+          ),
         ),
-        child: const Icon(Iconsax.arrow_right_3),
       ),
     );
   }

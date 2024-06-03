@@ -15,30 +15,39 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(RSizes.defaultSpace),
+    return Container(
       child: Column(
         children: [
           Image(
-            width: RHelperFunctions.screenWidth() * 0.8,
+            width: RHelperFunctions.screenWidth(),
             height: RHelperFunctions.screenHeight() * 0.6,
             // ignore: prefer_const_constructors
             image: AssetImage(
               image,
             ),
           ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(RSizes.defaultSpace),
+            child: Text.rich(
+              TextSpan(
+                text: title,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 32,
+                    fontFamily: 'Roboto',
+                    height: 0,
+                    fontWeight: FontWeight.w500),
+                children: [
+                  TextSpan(
+                    text: subTitle,
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(
             height: RSizes.spaceBtwItems,
-          ),
-          Text(
-            subTitle,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
           ),
         ],
       ),

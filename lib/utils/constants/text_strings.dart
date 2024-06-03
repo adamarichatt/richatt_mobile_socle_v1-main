@@ -9,15 +9,15 @@ class RTexts {
   static const String appName = "T-Store";
   static const String tContinue = "Continue";
 // - - OnBoarding Texts
-  static const String onBoardingTitle1 = "onboarding screen 1 richatt ";
-  static const String onBoardingTitle2 = "onboarding screen 2 richatt";
-  static const String onBoardingTitle3 = "onboarding screen 3 richatt";
+
+  static const String onBoardingTitle1 = "Your health is our priority.";
+  static const String onBoardingTitle2 = "Building healthier communities,";
+  static const String onBoardingTitle3 = "Advancing healthcare together,";
   static const String onBoardingSubTitle1 =
-      "veiller ajouter un onboarding specifique au projet";
+      " Welcome to a world of compassionate care ";
   static const String onBoardingSubTitle2 =
-      "veiller ajouter un onboarding specifique au projet";
-  static const String onBoardingSubTitle3 =
-      "veiller ajouter un onboarding specifique au projet";
+      " one appointment at a time. Together, we thrive.";
+  static const String onBoardingSubTitle3 = " towards a healthier future.";
 // - - Home
   static const String homeAppbarTitle = "Welcome";
   static const String homeAppbarSubTitle = "User Test";
@@ -27,14 +27,14 @@ class RTexts {
   static const String lastName = "Last Name";
   static const String email = "E-Mail";
   static const String password = "Password";
-   static const String confirmPassword = "Confirm your password";
+  static const String confirmPassword = "Confirm your password";
   static const String newPassword = "New Password";
   static const String username = "Username";
   static const String phoneNo = "Phone Number";
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password?";
   static const String signIn = "Sign In";
-  static const String createAccount = "Create Account";
+  static const String createAccount = "Sign Up";
   static const String orSignInWith = "or sign in with";
   static const String orSignUpWith = "or sign up with";
   static const String iAgreeTo = "I agree to";
@@ -48,7 +48,8 @@ class RTexts {
   static const String loginTitle = "Welcome back,";
   static const String loginSubTitle =
       "Discover Limitless Choices and Unmatched Convenience.";
-  static const String signupTitle = "Let’s create your account";
+  static const String signupTitle = "Sign Up";
+  static const String signupSubTitle = "Please complete your details to login";
   static const String forgetPasswordTitle = "Forget password";
   static const String forgetPasswordSubTitle =
       "Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.";
