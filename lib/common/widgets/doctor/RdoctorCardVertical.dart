@@ -10,6 +10,8 @@ import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:get/get.dart';
 
 class RDoctorCardVertical extends StatelessWidget {
   const RDoctorCardVertical({super.key, required this.professional});
@@ -21,7 +23,10 @@ class RDoctorCardVertical extends StatelessWidget {
     final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () {},
+       onTap: () async {
+        await controller.getProfessionalById(professional.id!);
+        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!));
+      },
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -87,7 +92,7 @@ class RDoctorCardVertical extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'Cardiologue',
+                       professional.businessSector! ,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelMedium,
@@ -135,4 +140,5 @@ class RDoctorCardVertical extends StatelessWidget {
       ),
     );
   }
+  
 }
