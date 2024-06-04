@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,14 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  var isLoggedIn = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _checkLoginStatus();
+  }
+
   Future<void> loginWithEmail() async {
     print('test login');
     var headers = {
@@ -37,8 +46,7 @@ class LoginController extends GetxController {
 
         print(prefs);
 
-        //email.clear();
-        //password.clear();
+        isLoggedIn.value = true;
         Get.offAll(() => const NavigationMenu());
       } else {
         throw jsonDecode(response.body)["Message"] ?? "Unknown Error Occured";
@@ -55,5 +63,21 @@ class LoginController extends GetxController {
             );
           });
     }
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final SharedPreferences prefs = await _prefs;
+    var token = prefs.getString('token');
+    if (token != null) {
+      isLoggedIn.value = true;
+      Get.offAll(() => const NavigationMenu());
+    }
+  }
+
+  Future<void> logout() async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.clear();
+    isLoggedIn.value = false;
+    Get.offAll(() => const LoginScreen());
   }
 }

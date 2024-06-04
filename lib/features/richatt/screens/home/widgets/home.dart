@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RdoctorCardVertical.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -68,16 +70,14 @@ class HomeScreen extends StatelessWidget {
                       itemCount: controller.featuredProf.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
                         mainAxisSpacing: RSizes.gridViewSpacing,
                         crossAxisSpacing: RSizes.gridViewSpacing,
-                        mainAxisExtent: 288,
+                        mainAxisExtent: 130,
                       ),
-                      itemBuilder: (_, index) => RDoctorCardVertical(
-                            professional: controller.featuredProf[index],
-                          ))),
+                      itemBuilder: (_, index) => profileCard(
+                          professional: controller.featuredProf[index]))),
                 ],
               ),
             ),

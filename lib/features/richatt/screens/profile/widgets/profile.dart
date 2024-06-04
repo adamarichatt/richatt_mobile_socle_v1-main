@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile_update.dart';
 import '../controllers/profile_controller.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
-import 'package:iconsax/iconsax.dart'; 
+import 'package:iconsax/iconsax.dart';
 
 class ProfilePage extends StatelessWidget {
   final String email;
@@ -22,60 +24,13 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Professional Details'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+
+      //body: profile_update(controller: controller),
+      body: SingleChildScrollView(
         child: Column(
-          children: [
-            TextField(
-              controller: controller.firstName,
-               decoration: const InputDecoration(
-                    labelText: RTexts.firstName,
-                    prefixIcon: Icon(Iconsax.user),
-                  ),
-            ),
-             const SizedBox(
-              height: RSizes.spaceBtwInputFields,
-            ),
-            TextField(
-              controller: controller.lastName,
-               decoration: const InputDecoration(
-                    labelText: RTexts.lastName,
-                    prefixIcon: Icon(Iconsax.user),
-                  ),
-            ),
-             const SizedBox(
-              height: RSizes.spaceBtwInputFields,
-            ),
-            TextField(
-              controller: controller.email,
-               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right),
-                labelText: RTexts.email,
-              ),
-            ),
-             const SizedBox(
-              height: RSizes.spaceBtwInputFields,
-            ),
-            TextField(
-              controller: controller.phone,
-                  decoration: const InputDecoration(
-              labelText: RTexts.phoneNo,
-              prefixIcon: Icon(Iconsax.call),
-            ),
-            ),
-           
-             const SizedBox(
-              height: RSizes.spaceBtwInputFields,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                controller.updateCustomer();
-              },
-              child: Text('Update'),
-            ),
-          ],
+          children: [],
         ),
       ),
     );
