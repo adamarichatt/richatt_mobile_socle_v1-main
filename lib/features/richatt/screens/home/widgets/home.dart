@@ -43,21 +43,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Overlay(
-              initialEntries: [
-                OverlayEntry(
-                  builder: (context) => Positioned(
-                    top: 100,
-                    left: 100,
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ],
-            ),
             Container(
               width: RDeviceUtils.getScreenWidth(context),
               height: 300, // Ensure that the container has an explicit height
