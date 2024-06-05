@@ -31,21 +31,19 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const RPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  RHomeAppBar(),
-                  SizedBox(
-                    height: RSizes.spaceBtwSections,
-                  ),
-                  RSearchContainer(
-                    text: 'Search a doctor!',
-                  ),
-                  SizedBox(
-                    height: RSizes.spaceBtwSections,
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                RHomeAppBar(),
+                SizedBox(
+                  height: RSizes.spaceBtwSections,
+                ),
+                RSearchContainer(
+                  text: 'Search a doctor!',
+                ),
+                SizedBox(
+                  height: RSizes.spaceBtwSections,
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(RSizes.defaultSpace),
