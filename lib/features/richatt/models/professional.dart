@@ -15,6 +15,8 @@ class Professional {
   final String? statut;
   final String? speciality;
   final String? entityName;
+
+  
   Professional({
     this.id,
     required this.firstName,

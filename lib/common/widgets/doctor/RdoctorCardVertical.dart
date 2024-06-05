@@ -25,7 +25,7 @@ class RDoctorCardVertical extends StatelessWidget {
     return GestureDetector(
        onTap: () async {
         await controller.getProfessionalById(professional.id!);
-        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!));
+        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional));
       },
       child: Container(
         width: 180,

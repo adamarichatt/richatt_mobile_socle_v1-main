@@ -3,11 +3,14 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingFormPage.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 
 class AppointmentPage extends StatefulWidget {
   final String professionalId;
+  final Professional professional;
 
-  AppointmentPage({required this.professionalId});
+  AppointmentPage({required this.professionalId, required this.professional});
 
   @override
   _AppointmentPageState createState() => _AppointmentPageState();
@@ -97,9 +100,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
         runSpacing: 8.0, // Espace vertical entre les lignes de boutons
         children: schedules.map((schedule) {
           return ElevatedButton(
-            onPressed: () {
-              // Implement schedule selection logic here
-            },
+           onPressed: () {
+            Get.to(() => BookingFormPage(professionalId: widget.professionalId, schedule: schedule, professional: widget.professional));
+          },
             child: Text(schedule.dateTime.substring(11, 16)), // Afficher seulement l'heure (HH:MM)
           );
         }).toList(),

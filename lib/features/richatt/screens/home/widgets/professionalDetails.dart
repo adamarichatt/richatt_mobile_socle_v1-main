@@ -10,8 +10,9 @@ import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
 class ProfessionalDetailsPage extends StatelessWidget {
   final String professionalId;
+  final Professional professional;
 
-  ProfessionalDetailsPage({required this.professionalId});
+  ProfessionalDetailsPage({required this.professionalId, required this.professional });
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +142,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
       ),
       ElevatedButton(
         onPressed: () {
-          Get.to(() => AppointmentPage(professionalId: professionalId));
+          Get.to(() => AppointmentPage( professionalId: professionalId, professional: professional));
         },
         child: Text('Prendre un rendez-vous'),
       ),

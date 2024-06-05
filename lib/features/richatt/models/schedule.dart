@@ -28,4 +28,15 @@ class Schedule {
     );
   }
 
+ Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'status': status,
+      'date_time': dateTime,
+      'duration': duration,
+      'code': code,
+      // 'professional': professional.toJson(), 
+    };
+  }
+
 }
