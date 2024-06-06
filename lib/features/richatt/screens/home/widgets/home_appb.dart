@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
+import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 
 class RHomeAppBar extends StatelessWidget {
@@ -15,26 +16,40 @@ class RHomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return RAppBar(
       title: Row(children: [
-        const Icon(Iconsax.user),
+        Container(
+          width: 52,
+          height: 52,
+          decoration: ShapeDecoration(
+            image: DecorationImage(
+              image: AssetImage(RImages.doctor1),
+              fit: BoxFit.fill,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(500),
+            ),
+          ),
+        ),
         const SizedBox(
           width: 20,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              RTexts.homeAppbarTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .apply(color: RColors.grey),
-            ),
+            Text(RTexts.homeAppbarTitle + ' sarah 👋🏽',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                )),
             Text(
               RTexts.homeAppbarSubTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .apply(color: RColors.grey),
+              style: TextStyle(
+                color: Colors.black.withOpacity(0.5),
+                fontSize: 14,
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ],
         ),

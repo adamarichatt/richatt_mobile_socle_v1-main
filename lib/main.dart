@@ -6,18 +6,17 @@ import 'package:richatt_mobile_socle_v1/app.dart';
 import 'package:richatt_mobile_socle_v1/data/repositories/authentication_repository.dart';
 
 Future<void> main() async {
+//Widget Binding
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
 
-//Widget Binding 
-final WidgetsBinding widgetsBinding =WidgetsFlutterBinding.ensureInitialized();
+// local storage
+  await GetStorage.init();
 
-// local storage 
-await GetStorage.init();
+//await splach intul other items load
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-//await splach intul other items load 
-FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-Get.put(AuthenticationRepository());
-
+  Get.put(AuthenticationRepository());
 
   runApp(const App());
 }

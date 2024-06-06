@@ -19,8 +19,9 @@ class RTexts {
       " one appointment at a time. Together, we thrive.";
   static const String onBoardingSubTitle3 = " towards a healthier future.";
 // - - Home
-  static const String homeAppbarTitle = "Welcome";
-  static const String homeAppbarSubTitle = "User Test";
+  static const String homeAppbarTitle = "Hello";
+  static const String homeAppbarSubTitle =
+      "Let’s Find the right doctor for you";
 
   // -- Authentication Forms
   static const String firstName = "First Name";

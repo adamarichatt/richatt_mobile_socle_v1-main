@@ -23,7 +23,7 @@ class RDoctorCardVertical extends StatelessWidget {
     final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
     return GestureDetector(
-       onTap: () async {
+      onTap: () async {
         await controller.getProfessionalById(professional.id!);
         Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional));
       },
@@ -92,7 +92,7 @@ class RDoctorCardVertical extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                       professional.businessSector! ,
+                        professional.businessSector!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelMedium,
@@ -140,5 +140,4 @@ class RDoctorCardVertical extends StatelessWidget {
       ),
     );
   }
-  
 }
