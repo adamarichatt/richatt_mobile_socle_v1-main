@@ -14,57 +14,62 @@ class profile_update extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          TextField(
-            controller: controller.firstName,
-            decoration: const InputDecoration(
-              labelText: RTexts.firstName,
-              prefixIcon: Icon(Iconsax.user),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile update'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: controller.firstName,
+              decoration: const InputDecoration(
+                labelText: RTexts.firstName,
+                prefixIcon: Icon(Iconsax.user),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: RSizes.spaceBtwInputFields,
-          ),
-          TextField(
-            controller: controller.lastName,
-            decoration: const InputDecoration(
-              labelText: RTexts.lastName,
-              prefixIcon: Icon(Iconsax.user),
+            const SizedBox(
+              height: RSizes.spaceBtwInputFields,
             ),
-          ),
-          const SizedBox(
-            height: RSizes.spaceBtwInputFields,
-          ),
-          TextField(
-            controller: controller.email,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.direct_right),
-              labelText: RTexts.email,
+            TextField(
+              controller: controller.lastName,
+              decoration: const InputDecoration(
+                labelText: RTexts.lastName,
+                prefixIcon: Icon(Iconsax.user),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: RSizes.spaceBtwInputFields,
-          ),
-          TextField(
-            controller: controller.phone,
-            decoration: const InputDecoration(
-              labelText: RTexts.phoneNo,
-              prefixIcon: Icon(Iconsax.call),
+            const SizedBox(
+              height: RSizes.spaceBtwInputFields,
             ),
-          ),
-          const SizedBox(
-            height: RSizes.spaceBtwInputFields,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              controller.updateCustomer();
-            },
-            child: Text('Update'),
-          ),
-        ],
+            TextField(
+              controller: controller.email,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Iconsax.direct_right),
+                labelText: RTexts.email,
+              ),
+            ),
+            const SizedBox(
+              height: RSizes.spaceBtwInputFields,
+            ),
+            TextField(
+              controller: controller.phone,
+              decoration: const InputDecoration(
+                labelText: RTexts.phoneNo,
+                prefixIcon: Icon(Iconsax.call),
+              ),
+            ),
+            const SizedBox(
+              height: RSizes.spaceBtwInputFields,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                controller.updateCustomer();
+              },
+              child: Text('Update'),
+            ),
+          ],
+        ),
       ),
     );
   }

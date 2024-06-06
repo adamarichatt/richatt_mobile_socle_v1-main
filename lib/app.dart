@@ -12,7 +12,14 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: RAppTheme.lightTheme,
       darkTheme: RAppTheme.darkTheme,
-      home: const Scaffold(backgroundColor: RColors.primary,body: Center(child: CircularProgressIndicator(color: Colors.white,),),),
+      home: const Scaffold(
+        backgroundColor: RColors.primary,
+        body: Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }

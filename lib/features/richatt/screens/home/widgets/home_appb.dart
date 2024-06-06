@@ -35,7 +35,7 @@ class RHomeAppBar extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(RTexts.homeAppbarTitle + ' sarah ',
+            Text(RTexts.homeAppbarTitle + ' sarah 👋🏽',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,

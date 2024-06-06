@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
 
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
@@ -48,7 +49,7 @@ class ProfileCardVertical extends StatelessWidget {
                       ),
                     ),
                   ),
-                  FlutterLogo(size: 16),
+                  Icon(Iconsax.heart, size: 16),
                 ],
               ),
             ),
