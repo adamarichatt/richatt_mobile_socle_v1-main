@@ -31,7 +31,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
   String _phoneNumber = '';
   String? _address='';
   String _gender = 'Male';
-  String _age = '';
+ 
   String _description = '';
   String? _selectedService;
   String? _birthdate;
@@ -227,7 +227,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       decoration: InputDecoration(labelText: 'Address'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your address';
+                          return 'Please enter address';
                         }
                         return null;
                       },
@@ -263,14 +263,14 @@ class _BookingFormPageState extends State<BookingFormPage> {
                 readOnly: true,
                 decoration: InputDecoration(
                   labelText: 'Birthdate',
-                  hintText: 'Select your birthdate',
+                  hintText: 'Select birthdate',
                 ),
                 onTap: () {
                   _selectDate(context);
                 },
                 validator: (value) {
                   if (_birthdate == null) {
-                    return 'Please select your birthdate';
+                    return 'Please select birthdate';
                   }
                   return null;
                 },
