@@ -143,24 +143,31 @@ class ProfessionalController extends GetxController {
   }
 
   Future<List<Schedule>> fetchDaySchedules(
-      DateTime date, String professionalId) async {
-    final DateTime start = DateTime(date.year, date.month, date.day, 0, 0, 0);
-    final DateTime end = DateTime(date.year, date.month, date.day, 23, 59, 59);
-    final DateTime now = DateTime.now();
+    DateTime date, String professionalId) async {
+  final DateTime start = DateTime(date.year, date.month, date.day, 0, 0, 0);
+  final DateTime end = DateTime(date.year, date.month, date.day, 23, 59, 59);
+  final DateTime now = DateTime.now();
+  print(now);
 
-    try {
-      List<Schedule> schedules =
-          await fetchWeekSchedules(start, end, professionalId);
-      return schedules.where((schedule) {
-        String datePart = schedule.dateTime.split('T').first;
-        DateTime scheduleDateTime = DateTime.parse(datePart);
-        return schedule.status == 'Active' && scheduleDateTime.isAfter(now);
-      }).toList();
-    } catch (error) {
-      Get.snackbar('Error', error.toString());
-      return [];
-    }
+  try {
+    List<Schedule> schedules = await fetchWeekSchedules(start, end, professionalId);
+    return schedules.where((schedule) {
+     
+      List<String> dateTimeParts = schedule.dateTime.split('T');
+      String datePart = dateTimeParts.first;
+      String timePart = dateTimeParts.last.split('-').first; 
+      String combinedDateTime = '$datePart $timePart';
+      
+      DateTime scheduleDateTime = DateTime.parse(combinedDateTime); 
+      print(scheduleDateTime);
+      return schedule.status == 'Active' && scheduleDateTime.isAfter(now);
+    }).toList();
+  } catch (error) {
+    Get.snackbar('Error', error.toString());
+    return [];
   }
+}
+
 
   Future<void> deleteSchedules(List<Schedule> schedules) async {
     final url =

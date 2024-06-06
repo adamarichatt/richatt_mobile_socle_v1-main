@@ -36,6 +36,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
   String? _selectedService;
   String? _birthdate;
   Professional? _professional;
+  final TextEditingController _birthdateController = TextEditingController();
 
   late ProfessionalController _controller;
   late List<Service> _services =[];
@@ -102,9 +103,13 @@ class _BookingFormPageState extends State<BookingFormPage> {
 
   }
 
+ @override
+  void dispose() {
+    _birthdateController.dispose();
+    super.dispose();
+  }
 
-
-  Future<void> _selectDate(BuildContext context) async {
+   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _birthdate == null ? DateTime.now() : DateTime.parse(_birthdate!),
@@ -114,9 +119,12 @@ class _BookingFormPageState extends State<BookingFormPage> {
     if (picked != null) {
       setState(() {
         _birthdate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').format(picked);
+        _birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
       });
     }
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,13 +258,12 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                 TextFormField(
+                TextFormField(
+                controller: _birthdateController,
                 readOnly: true,
                 decoration: InputDecoration(
                   labelText: 'Birthdate',
-                  hintText: _birthdate == null
-                      ? 'Select your birthdate'
-                      : DateFormat('yyyy-MM-dd').format(DateTime.parse(_birthdate!)),
+                  hintText: 'Select your birthdate',
                 ),
                 onTap: () {
                   _selectDate(context);

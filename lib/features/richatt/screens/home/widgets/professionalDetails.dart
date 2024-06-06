@@ -118,108 +118,15 @@ class ProfessionalDetailsPage extends StatelessWidget {
   }
 
  Widget _buildAvailabilityTab(BuildContext context, ProfessionalController controller, String professionalId) {
-  final DateTime start = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1));
-  final DateTime end = start.add(Duration(days: 6));
-
-  return Column(
-    children: [
-      Expanded(
-        child: FutureBuilder(
-          future: controller.fetchWeekSchedules(start, end, professionalId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || (snapshot.data as List<Schedule>).isEmpty) {
-              return Center(child: Text('No schedules available'));
-            } else {
-              List<Schedule> schedules = snapshot.data as List<Schedule>;
-              return _buildWeeklyScheduleView(context, schedules);
-            }
-          },
-        ),
-      ),
-      ElevatedButton(
+  return Center(
+      child:  ElevatedButton(
         onPressed: () {
           Get.to(() => AppointmentPage( professionalId: professionalId, professional: professional));
         },
         child: Text('Prendre un rendez-vous'),
       ),
-    ],
-  );
+    );
 }
-
-Widget _buildWeeklyScheduleView(BuildContext context, List<Schedule> schedules) {
-  return DefaultTabController(
-    length: 7,
-    child: Column(
-      children: [
-        TabBar(
-          isScrollable: true,
-          tabs: [
-            Tab(text: 'Monday'),
-            Tab(text: 'Tuesday'),
-            Tab(text: 'Wednesday'),
-            Tab(text: 'Thursday'),
-            Tab(text: 'Friday'),
-            Tab(text: 'Saturday'),
-            Tab(text: 'Sunday'),
-          ],
-        ),
-        Expanded(
-          child: TabBarView(
-            children: [
-              _buildScheduleList(schedules, 'Monday'),
-              _buildScheduleList(schedules, 'Tuesday'),
-              _buildScheduleList(schedules, 'Wednesday'),
-              _buildScheduleList(schedules, 'Thursday'),
-              _buildScheduleList(schedules, 'Friday'),
-              _buildScheduleList(schedules, 'Saturday'),
-              _buildScheduleList(schedules, 'Sunday'),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildScheduleList(List<Schedule> schedules, String day) {
-  List<Schedule> filteredSchedules = schedules.where((schedule) {
-    String weekDay = getWeekDayFromString(schedule.dateTime);
-    return weekDay == day && schedule.status == 'Active';
-  }).toList();
-
-  // Trier les horaires par heure
-  filteredSchedules.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-
-  if (filteredSchedules.isEmpty) {
-    return Center(child: Text('No active schedules for $day'));
-  }
-
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Wrap(
-      spacing: 8.0, // Espace horizontal entre les boutons
-      runSpacing: 8.0, // Espace vertical entre les lignes de boutons
-      children: filteredSchedules.map((schedule) {
-        return ElevatedButton(
-          onPressed: () {},
-          child: Text(schedule.dateTime.substring(11, 16)), // Afficher seulement l'heure (HH:MM)
-        );
-      }).toList(),
-    ),
-  );
-}
-
-String getWeekDayFromString(String dateTime) {
-  List<String> weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  String datePart = dateTime.split('T').first;
-  DateTime dt = DateTime.parse(datePart);
-  return weekdays[dt.weekday - 1];
-}
-
 
 }
 

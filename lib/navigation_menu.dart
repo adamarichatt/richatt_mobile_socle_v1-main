@@ -29,7 +29,7 @@ class NavigationMenu extends StatelessWidget {
               : Colors.black.withOpacity(0.1),
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RV'),
+            NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RDVs'),
             NavigationDestination(
                 icon: Icon(Iconsax.favorite_chart1), label: 'favorite'),
             NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
