@@ -163,6 +163,26 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
+                     DropdownButtonFormField<String>(
+                      value: _selectedService,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedService = value;
+                        });
+                      },
+                      items: _services.map((Service service) {
+                        return DropdownMenuItem<String>(
+                          value: service.id,
+                          child: Text(service.name),
+                        );
+                      }).toList(),
+                      decoration: InputDecoration(
+                        labelText: 'Service',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'First Name'),
                       validator: (value) {
@@ -287,26 +307,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    DropdownButtonFormField<String>(
-                      value: _selectedService,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedService = value;
-                        });
-                      },
-                      items: _services.map((Service service) {
-                        return DropdownMenuItem<String>(
-                          value: service.id,
-                          child: Text(service.name),
-                        );
-                      }).toList(),
-                      decoration: InputDecoration(
-                        labelText: 'Service',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
+                   
                     ElevatedButton(
                       onPressed: _bookSchedule,
                       child: Text('Prendre un rendez-vous'),

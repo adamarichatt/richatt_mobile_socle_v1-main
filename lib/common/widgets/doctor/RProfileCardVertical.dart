@@ -21,7 +21,7 @@ class ProfileCardVertical extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
-        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!));
+        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional));
       },
       child: Container(
         width: 157,
@@ -64,7 +64,7 @@ class ProfileCardVertical extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Text(
-              'Dr. Savia Zein',
+              '${professional.firstName} ${professional.name}',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
@@ -76,7 +76,7 @@ class ProfileCardVertical extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Pediatrician',
+              professional.businessSector ?? 'N/A',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black.withOpacity(0.5),

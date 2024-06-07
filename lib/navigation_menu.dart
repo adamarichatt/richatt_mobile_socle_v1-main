@@ -58,6 +58,7 @@ class NavigationController extends GetxController {
 
   Future<void> _loadUserEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    
     String? email = prefs.getString('email');
     //debugPrint('email1' + email!);
     if (email != null) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
+import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile_update.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
@@ -21,6 +22,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
+    final LoginController logincontroller = new LoginController();
 
     // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -184,7 +186,7 @@ class ProfilePage extends StatelessWidget {
             ),
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
-              height: 170,
+              height: 240,
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -212,8 +214,16 @@ class ProfilePage extends StatelessWidget {
                     title: "Privacy policy",
                     icon: Iconsax.security_safe4,
                   ),
+                    CustomListTile(
+                  title: "Logout",
+                  icon: Iconsax.logout,
+                  onPressed:(){logincontroller.logout();} 
+                ),
                 ],
               ),
+            ),
+             SizedBox(
+              height: 15.0,
             ),
           ],
         ),

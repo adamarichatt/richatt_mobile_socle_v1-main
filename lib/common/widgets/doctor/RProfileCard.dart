@@ -24,7 +24,7 @@ class profileCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
-        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!));
+        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional));
       },
       child: Container(
         width: RHelperFunctions.screenWidth(),
@@ -57,23 +57,23 @@ class profileCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Dr. Salme Zein',
+                      '${professional.firstName} ${professional.name}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      'Specialist',
+                      professional.businessSector ?? 'N/A',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 12,
+                        fontSize: 10,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     Text(
-                      'Kissi Hospital',
+                      professional.entityName ?? 'N/A',
                       style: TextStyle(
                         color: Color(0xFF0B9AD3),
                         fontSize: 12,
