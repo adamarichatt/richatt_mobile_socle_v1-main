@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RHelperFunctions {
   static Color? getColor(String value) {
@@ -50,6 +51,21 @@ class RHelperFunctions {
             ),
           ],
         ); // AlertDialog
+      },
+    );
+  }
+
+  static void showLoader() {
+    showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return Center(
+          child: Container(
+              child: LoadingAnimationWidget.fourRotatingDots(
+            color: Colors.blueAccent,
+            size: 50,
+          )),
+        );
       },
     );
   }

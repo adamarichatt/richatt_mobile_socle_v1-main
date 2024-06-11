@@ -214,15 +214,30 @@ class ProfilePage extends StatelessWidget {
                     title: "Privacy policy",
                     icon: Iconsax.security_safe4,
                   ),
-                    CustomListTile(
-                  title: "Logout",
-                  icon: Iconsax.logout,
-                  onPressed:(){logincontroller.logout();} 
-                ),
+                  CustomListTile(
+                      title: "Logout",
+                      icon: Iconsax.logout,
+                      onPressed: () {
+                        Get.defaultDialog(
+                            title: 'etes vous sur de vouloir vous deconnectez?',
+                            titleStyle: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.w300),
+                            titlePadding: EdgeInsets.all(12.0),
+                            content: Container(),
+                            textConfirm: "OUI",
+                            textCancel: "NON",
+                            cancelTextColor: Colors.black,
+                            backgroundColor: Colors.white,
+                            buttonColor: Colors.blueAccent,
+                            onConfirm: () {
+                              logincontroller.logout();
+                            },
+                            onCancel: () {});
+                      }),
                 ],
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 15.0,
             ),
           ],
