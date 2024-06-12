@@ -6,7 +6,7 @@ class Schedule {
   final String dateTime; 
   final double duration;
   final String code;
-  // final Professional professional;
+  //final Professional professional;
   
   Schedule({
     required this.id,
@@ -14,7 +14,7 @@ class Schedule {
     required this.dateTime,
     required this.duration,
     required this.code,
-    // required this.professional,
+  // required this.professional,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
@@ -24,7 +24,7 @@ class Schedule {
       dateTime: json['date_time'] ?? '', 
       duration: json['duration'] ?? 0,
       code: json['code'] ?? '',
-      //  professional: Professional.fromJson(json['professional']),
+       //professional: Professional.fromJson(json['professional']),
     );
   }
 
@@ -35,7 +35,7 @@ class Schedule {
       'date_time': dateTime,
       'duration': duration,
       'code': code,
-      // 'professional': professional.toJson(), 
+      //'professional': professional.toJson(), 
     };
   }
 

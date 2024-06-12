@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
@@ -66,10 +66,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
 
     _formKey.currentState!.save();
 
-    // Split the full name into first name and last name
-    // List<String> nameParts = _fullName.split(' ');
-    // String firstName = nameParts.first;
-    // String lastName = nameParts.sublist(1).join(' ');
+ 
 
     final service =
         _services.firstWhere((service) => service.id == _selectedService);

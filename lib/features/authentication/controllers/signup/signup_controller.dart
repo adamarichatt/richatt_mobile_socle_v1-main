@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/verification_account.dart';
@@ -37,7 +38,7 @@ class SignupController extends GetxController {
 
     try {
       // API de vérification
-      var verifyUrl = Uri.parse('http://195.35.25.110:8733/api/auth/VerifyAccount');
+      var verifyUrl = Uri.parse(APIConstants.apiBackend + 'auth/VerifyAccount');
       Map verifyBody = {
         'email': email.text.trim(),
         'username': lastName.text.trim(),
@@ -51,7 +52,7 @@ class SignupController extends GetxController {
         debugPrint('Verification Code: $verificationCode');
 
         // Inscription de l'utilisateur
-        var signupUrl = Uri.parse('http://195.35.25.110:8733/api/auth/signup');
+        var signupUrl = Uri.parse(APIConstants.apiBackend + 'auth/signup');
         Map signupBody = {
           'firstName': firstName.text.trim(),
           'name': lastName.text.trim(),
@@ -94,7 +95,7 @@ class SignupController extends GetxController {
     };
 
     try {
-      var updateUrl = Uri.parse('http://195.35.25.110:8733/api/auth/UpdateCode');
+      var updateUrl = Uri.parse(APIConstants.apiBackend + 'auth/UpdateCode');
       Map updateBody = {
         'email': email,
       };

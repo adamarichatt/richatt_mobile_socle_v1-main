@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/customer.dart';
 
@@ -22,7 +23,7 @@ class ProfileController extends GetxController {
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
     };
      
-    var url = Uri.parse('http://195.35.25.110:8733/api/customer/getCustomerByEmail/$email');
+    var url = Uri.parse(APIConstants.apiBackend + 'customer/getCustomerByEmail/$email');
 
     try {
       http.Response response = await http.get(url);
@@ -61,7 +62,7 @@ class ProfileController extends GetxController {
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
     };
 
-    var url = Uri.parse('http://195.35.25.110:8733/api/customer/updateCustomer/${customerId.value}');
+    var url = Uri.parse(APIConstants.apiBackend + 'customer/updateCustomer/${customerId.value}');
 
     try {
       Customer customer = Customer(
