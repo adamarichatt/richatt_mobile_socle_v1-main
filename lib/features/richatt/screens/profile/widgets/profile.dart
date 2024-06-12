@@ -13,6 +13,8 @@ import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
+import '../models/customer.dart';
+
 
 class ProfilePage extends StatelessWidget {
   final String email;
@@ -23,12 +25,12 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
     final LoginController logincontroller = new LoginController();
-
+    final customer = ProfileController.instance;
     // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getCustomerByEmail(email);
     });
-
+  
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
@@ -76,7 +78,7 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 child: Text(
-                  'Sara Hamd',
+                  '${customer.firstName.value.text} ${customer.lastName.value.text}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -90,7 +92,8 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.all(1.0),
               child: SizedBox(
                   child: Text(
-                'youremail@domain.com | 37822516',
+              '${customer.email.value.text} | ${customer.phone.value.text}',
+                // 'youremail@domain.com | 37822516',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,

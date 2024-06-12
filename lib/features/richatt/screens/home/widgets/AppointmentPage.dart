@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingFormPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 

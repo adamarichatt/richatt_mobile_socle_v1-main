@@ -33,12 +33,7 @@ class Appointment {
     this.professional,
   });
 
-  // // Méthode pour générer un ID unique pour l'appointment
-  // static String generateId() {
-  //   final now = DateTime.now();
-  //   final randomDigits = now.microsecondsSinceEpoch.toString().substring(9); // Générer des chiffres aléatoires basés sur le temps actuel
-  //   return 'Appointment$randomDigits';
-  // }
+
   static String generateId() {
     final random = Random();
     final randomDigits = List.generate(5, (_) => random.nextInt(10)).join();

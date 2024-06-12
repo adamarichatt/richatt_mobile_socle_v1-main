@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfessionalController extends GetxController {
@@ -34,7 +35,7 @@ class ProfessionalController extends GetxController {
     };
 
     var url = Uri.parse(
-        'http://195.35.25.110:8733/api/professional/getALLProfessional');
+        APIConstants.apiBackend + 'professional/getALLProfessional');
 
     try {
       http.Response response = await http.get(url, headers: headers);
@@ -70,7 +71,7 @@ class ProfessionalController extends GetxController {
     };
 
     var url = Uri.parse(
-        'http://195.35.25.110:8733/api/professional/getProfessionalById/$id');
+        APIConstants.apiBackend + 'professional/getProfessionalById/$id');
 
     try {
       http.Response response = await http.get(url, headers: headers);
@@ -104,7 +105,7 @@ class ProfessionalController extends GetxController {
     };
 
     var url = Uri.parse(
-        'http://195.35.25.110:8733/api/service/getServicesByProfessional/$professionalId');
+       APIConstants.apiBackend +  'service/getServicesByProfessional/$professionalId');
 
     try {
       http.Response response = await http.get(url);
@@ -128,7 +129,7 @@ class ProfessionalController extends GetxController {
     final String formattedEnd = end.toIso8601String();
 
     final response = await http.get(Uri.parse(
-        'http://195.35.25.110:8733/api/schedules/getWeekSchedules?start=$formattedStart&end=$formattedEnd&code=$code'));
+        APIConstants.apiBackend + 'schedules/getWeekSchedules?start=$formattedStart&end=$formattedEnd&code=$code'));
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
@@ -169,9 +170,12 @@ class ProfessionalController extends GetxController {
 }
 
 
+
+ 
+
   Future<void> deleteSchedules(List<Schedule> schedules) async {
     final url =
-        Uri.parse('http://195.35.25.110:8733/api/schedules/deleteSchedules');
+        Uri.parse(APIConstants.apiBackend + 'schedules/deleteSchedules');
     final headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
@@ -189,7 +193,7 @@ class ProfessionalController extends GetxController {
 
   Future<void> addSchedules(List<Schedule> schedules) async {
     final url =
-        Uri.parse('http://195.35.25.110:8733/api/schedules/addSchedules');
+        Uri.parse(APIConstants.apiBackend + 'schedules/addSchedules');
     final headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
@@ -205,9 +209,43 @@ class ProfessionalController extends GetxController {
     }
   }
 
+  Future<List<Schedule>> fetchSchedules(String professionalId) async {
+    final response = await http.get(
+      Uri.parse(APIConstants.apiBackend +
+          'schedules/getAllSchedules?code=$professionalId'),
+    );
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map<Schedule>((schedule) => Schedule.fromJson(schedule))
+          .toList();
+    } else {
+      throw Exception('Failed to load schedules');
+    }
+  }
+
+  Future<void> enableSchedules(List<Schedule> schedules) async {
+    final url =
+        Uri.parse(APIConstants.apiBackend + 'schedules/enableSchedules');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htJF1kOaeXJPd3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    };
+    final body = jsonEncode(schedules.map((s) => s.toJson()).toList());
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to enable schedules');
+    }
+  }
+
   Future<void> reserveSchedules(List<Schedule> schedules) async {
     final url =
-        Uri.parse('http://195.35.25.110:8733/api/schedules/reservedSchedules');
+        Uri.parse(APIConstants.apiBackend + 'schedules/reservedSchedules');
     final headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
@@ -225,7 +263,7 @@ class ProfessionalController extends GetxController {
 
   Future<void> addAppointment(Appointment appointment) async {
     final url =
-        Uri.parse('http://195.35.25.110:8733/api/appointment/addAppointment');
+        Uri.parse(APIConstants.apiBackend + 'appointment/addAppointment');
     final headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
@@ -240,4 +278,49 @@ class ProfessionalController extends GetxController {
       throw Exception('Failed to add appointment');
     }
   }
+
+
+ Future<void> deleteAppointment(String appointmentId) async {
+    final response = await http.delete(
+      Uri.parse(APIConstants.apiBackend +'appointment/deleteAppointment/$appointmentId'),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw Exception('Failed to delete appointment');
+    }
+  }
+
+Future<void> updateAppointment(String appointmentId, Appointment appointment) async {
+    final url =
+        Uri.parse(APIConstants.apiBackend + 'appointment/updateAppointment/$appointmentId');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htJF1kOaeXJPd3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    };
+    final body = jsonEncode(appointment.toJson());
+    debugPrint('appointUpdate:' +body);
+    final response = await http.put(url, headers: headers, body: body);
+
+    if (response.statusCode != 200 ) {
+      throw Exception('Failed to update appointment');
+    }
+  }
+
+
+  Future<List<Appointment>> fetchAppointmentsByEmail(String email) async {
+    final response = await http.get(
+      Uri.parse(APIConstants.apiBackend +'appointment/getAppointmentsByEmail?email=$email'),
+    );
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map<Appointment>((appointment) => Appointment.fromJson(appointment)).toList();
+    } else {
+      throw Exception('Failed to load appointments');
+    }
+  }
+
+
 }

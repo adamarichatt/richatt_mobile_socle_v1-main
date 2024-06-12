@@ -4,7 +4,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 

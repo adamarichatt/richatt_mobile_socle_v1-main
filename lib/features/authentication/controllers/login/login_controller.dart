@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class LoginController extends GetxController {
       'Access-Control-Allow-Origin': '*'
     };
     try {
-      var url = Uri.parse('http://195.35.25.110:8733/api/auth/signin');
+      var url = Uri.parse(APIConstants.apiBackend + 'auth/signin');
       Map body = {'username': email.text.trim(), 'password': password.text};
       http.Response response =
           await http.post(url, body: jsonEncode(body), headers: headers);
@@ -44,9 +44,11 @@ class LoginController extends GetxController {
 
         var token = json['accessToken'];
         var email = json['email'];
+        var phone = json['phone'];
         final SharedPreferences? prefs = await _prefs;
         await prefs?.setString('token', token);
         await prefs?.setString('email', email);
+        await prefs?.setString('phone', phone);
 
         print(prefs);
 
