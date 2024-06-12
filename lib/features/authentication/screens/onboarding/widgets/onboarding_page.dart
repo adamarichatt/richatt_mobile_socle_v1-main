@@ -16,11 +16,13 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: RHelperFunctions.screenWidth(),
       child: Column(
         children: [
           Image(
             width: RHelperFunctions.screenWidth(),
-            height: RHelperFunctions.screenHeight() * 0.6,
+            height: RHelperFunctions.screenHeight() * 0.65,
+            fit: BoxFit.cover,
             // ignore: prefer_const_constructors
             image: AssetImage(
               image,
@@ -33,7 +35,7 @@ class OnBoardingPage extends StatelessWidget {
                 text: title,
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 32,
+                    fontSize: 28,
                     fontFamily: 'Roboto',
                     height: 0,
                     fontWeight: FontWeight.w500),

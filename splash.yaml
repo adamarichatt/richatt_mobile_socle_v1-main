@@ -1,17 +1,20 @@
 flutter_native_splash:
   color: "#FFFFFF"
   color_dark: "#000000"
-  android_gravity: fill # Remplir tout l'écran avec l'image pour Android
-  ios_content_mode: scaleToFill # Remplir tout l'écran avec l'image pour iOS
-  image: assets/logos/miady.png
+  
+  #ios_content_mode: scaleToFill # Remplir tout l'écran avec l'image pour iOS
+   
+  android_gravity: center
+  ios_content_mode: center
+  image: assets/logos/logohori.jpg
   image_dark: assets/logos/logohori.jpg
 
   android_12:
     color: "#FFFFFF"
-    android_gravity: fill # Remplir tout l'écran avec l'image pour Android
+    
   
     color_dark: "#000000"
-    image: assets/logos/miady.png
+    image: assets/logos/logohori.jpg
     image_dark: assets/logos/logohori.jpg
 
 
