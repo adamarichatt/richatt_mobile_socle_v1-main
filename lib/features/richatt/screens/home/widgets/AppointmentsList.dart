@@ -71,10 +71,13 @@ class _AppointmentsListState extends State<AppointmentsList>
                     throw Exception('No matching schedule found');
                   }
                 } catch (error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('Failed to cancel appointment: $error')),
-                  );
+                  Future.delayed(Duration(milliseconds: 300), () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content:
+                              Text('Failed to cancel appointment!: $error')),
+                    );
+                  });
                 }
               },
             ),
@@ -133,8 +136,8 @@ class _AppointmentsListState extends State<AppointmentsList>
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => EditAppointmentPage(
                         appointment: appointment,
-                       
                         email: widget.email,
+                        phone: widget.phone,
                       ),
                     ));
                   },
@@ -147,8 +150,8 @@ class _AppointmentsListState extends State<AppointmentsList>
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => EditAppointmentPage(
                         appointment: appointment,
-                        
                         email: widget.email,
+                        phone: widget.phone,
                       ),
                     ));
                   },
@@ -262,16 +265,16 @@ class _AppointmentsListState extends State<AppointmentsList>
 //                 appointment.lastName = lastNameController.text;
 //                 appointment.reason = reasonController.text;
 
-                // List<Schedule> allSchedules = await _controller.fetchSchedules(appointment.professional!.id!);
+  // List<Schedule> allSchedules = await _controller.fetchSchedules(appointment.professional!.id!);
 
-                // Schedule? originalSchedule = allSchedules.firstWhereOrNull(
-                //   (schedule) => DateTime.parse(schedule.dateTime.split('T').first + ' ' + schedule.dateTime.split('T').last.split('-').first)
-                //       .isAtSameMomentAs(initialDate),
-                // );
+  // Schedule? originalSchedule = allSchedules.firstWhereOrNull(
+  //   (schedule) => DateTime.parse(schedule.dateTime.split('T').first + ' ' + schedule.dateTime.split('T').last.split('-').first)
+  //       .isAtSameMomentAs(initialDate),
+  // );
 
-                // if (originalSchedule == null) {
-                //   throw Exception('Original schedule not found');
-                // }
+  // if (originalSchedule == null) {
+  //   throw Exception('Original schedule not found');
+  // }
 
 //                 Schedule? newSchedule = allSchedules.firstWhereOrNull(
 //                   (schedule) =>
