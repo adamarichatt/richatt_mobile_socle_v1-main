@@ -5,6 +5,7 @@ class RImages {
   static const String lightAppLogo = "assets/logos/miady.png";
 
   static const String google = "assets/logos/google-icon.png";
+  static const String confrim = "assets/logos/confirm.png";
   static const String facebook = "assets/logos/facebook-icon.png";
 
   // -- OnBoarding Texts

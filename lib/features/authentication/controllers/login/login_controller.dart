@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
@@ -24,6 +25,8 @@ class LoginController extends GetxController {
   }
 
   Future<void> loginWithEmail() async {
+    RHelperFunctions.showLoader();
+
     print('test login');
     var headers = {
       'Content-Type': 'application/json',
@@ -78,6 +81,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> logout() async {
+    RHelperFunctions.showLoader();
     final SharedPreferences prefs = await _prefs;
     await prefs.clear();
     isLoggedIn.value = false;
