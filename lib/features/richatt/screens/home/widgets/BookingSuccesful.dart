@@ -8,8 +8,16 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/ho
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 
 class BookingSuccessful extends StatelessWidget {
+
+
+  final Appointment appointment;
+   BookingSuccessful({ required this.appointment});
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +48,7 @@ class BookingSuccessful extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' Dr. Salme Zein',
+                    text: ' Dr ${appointment.professional!.firstName} ${appointment.professional!.name}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -61,7 +69,7 @@ class BookingSuccessful extends StatelessWidget {
                   color: Color(0xFF0B9AD3),
                 ),
                 Text(
-                  'Client Name',
+                  '${appointment.firstName} ${appointment.lastName}',
                   style: TextStyle(
                     color: Color(0xFF0B9AD3),
                     fontSize: 16,
@@ -75,7 +83,7 @@ class BookingSuccessful extends StatelessWidget {
                   color: Color(0xFF0B9AD3),
                 ),
                 Text(
-                  'Chiva Hospital',
+                  '${appointment.address}',
                   style: TextStyle(
                     color: Color(0xFF0B9AD3),
                     fontSize: 16,
@@ -93,7 +101,7 @@ class BookingSuccessful extends StatelessWidget {
                   color: Color(0xFF0B9AD3),
                 ),
                 Text(
-                  '12 August, 2024',
+                  '${appointment.dateTime!.split('T').first}',
                   style: TextStyle(
                     color: Color(0xFF0B9AD3),
                     fontSize: 16,
@@ -107,7 +115,7 @@ class BookingSuccessful extends StatelessWidget {
                   color: Color(0xFF0B9AD3),
                 ),
                 Text(
-                  '10:00 AM',
+                  '${appointment.dateTime!.split('T').last.split('-').first}',
                   style: TextStyle(
                     color: Color(0xFF0B9AD3),
                     fontSize: 16,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
@@ -10,13 +11,17 @@ import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingFormPage extends StatefulWidget {
   final String professionalId;
   final Schedule schedule;
   final Professional professional;
 
-  BookingFormPage({required this.professionalId, required this.schedule, required this.professional});
+  BookingFormPage(
+      {required this.professionalId,
+      required this.schedule,
+      required this.professional});
 
   @override
   _BookingFormPageState createState() => _BookingFormPageState();
@@ -29,17 +34,17 @@ class _BookingFormPageState extends State<BookingFormPage> {
   String _lastName = '';
   String _email = '';
   String _phoneNumber = '';
-  String? _address='';
+
   String _gender = 'Male';
- 
+
   String _description = '';
   String? _selectedService;
   String? _birthdate;
   Professional? _professional;
   final TextEditingController _birthdateController = TextEditingController();
-
+  
   late ProfessionalController _controller;
-  late List<Service> _services =[];
+  late List<Service> _services = [];
 
   @override
   void initState() {
@@ -47,6 +52,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
     _controller = ProfessionalController.instance;
     _professional = widget.professional;
     _fetchServices();
+    _populateUserDetails();
   }
 
   void _fetchServices() async {
@@ -61,12 +67,21 @@ class _BookingFormPageState extends State<BookingFormPage> {
     }
   }
 
+  void _populateUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+    String? phone = prefs.getString('phone');
+    print('email: $email');
+    print('phone: $phone');
+    setState(() {
+      if (email != null) _email = email;
+      if (phone != null) _phoneNumber = phone;
+    });
+  }
   void _bookSchedule() async {
     if (!_formKey.currentState!.validate()) return;
 
     _formKey.currentState!.save();
-
- 
 
     final service =
         _services.firstWhere((service) => service.id == _selectedService);
@@ -80,7 +95,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       lastName: _lastName,
       email: _email,
       phone: _phoneNumber,
-      address: _address,
+      address: _professional!.address,
       dateTime: widget.schedule.dateTime,
       birthdate: _birthdate,
       professional: _professional,
@@ -96,20 +111,22 @@ class _BookingFormPageState extends State<BookingFormPage> {
     } catch (error) {
       Get.snackbar('Error', error.toString());
     }
-    Get.to(() => BookingSuccessful());
-
+    Get.to(() => BookingSuccessful(
+          appointment: appointment,
+        ));
   }
 
- @override
+  @override
   void dispose() {
     _birthdateController.dispose();
     super.dispose();
   }
 
-   Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _birthdate == null ? DateTime.now() : DateTime.parse(_birthdate!),
+      initialDate:
+          _birthdate == null ? DateTime.now() : DateTime.parse(_birthdate!),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
@@ -120,7 +137,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +152,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                     const SizedBox(
+                    const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
                     DropdownButtonFormField<String>(
@@ -160,7 +176,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                     DropdownButtonFormField<String>(
+                    DropdownButtonFormField<String>(
                       value: _selectedService,
                       onChanged: (value) {
                         setState(() {
@@ -207,54 +223,11 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         _lastName = value!;
                       },
                     ),
+                  
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Email'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _email = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Phone Number'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter phone number';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _phoneNumber = value!;
-                      },
-                    ),
-                     const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Address'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter address';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _address = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
+
                     DropdownButtonFormField<String>(
                       value: _gender,
                       onChanged: (value) {
@@ -275,23 +248,23 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                TextFormField(
-                controller: _birthdateController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Birthdate',
-                  hintText: 'Select birthdate',
-                ),
-                onTap: () {
-                  _selectDate(context);
-                },
-                validator: (value) {
-                  if (_birthdate == null) {
-                    return 'Please select birthdate';
-                  }
-                  return null;
-                },
-              ),
+                    TextFormField(
+                      controller: _birthdateController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: 'Birthdate',
+                        hintText: 'Select birthdate',
+                      ),
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                      validator: (value) {
+                        if (_birthdate == null) {
+                          return 'Please select birthdate';
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
@@ -304,7 +277,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                   
+
                     ElevatedButton(
                       onPressed: _bookSchedule,
                       child: Text('Prendre un rendez-vous'),

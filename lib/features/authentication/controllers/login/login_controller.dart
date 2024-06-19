@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -87,4 +88,7 @@ class LoginController extends GetxController {
     isLoggedIn.value = false;
     Get.offAll(() => const LoginScreen());
   }
+
+
+ 
 }
