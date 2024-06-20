@@ -14,12 +14,8 @@ class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
   final String email;
   final String phone;
-
-  EditAppointmentPage({
-    required this.appointment,
-    required this.email,
-    required this.phone,
-  });
+  EditAppointmentPage(
+      {required this.appointment, required this.email, required this.phone});
 
   @override
   _EditAppointmentPageState createState() => _EditAppointmentPageState();
@@ -145,7 +141,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
         Navigator.of(context).pop();
       }
 
-      Get.to(() => AppointmentsList(email: widget.email, phone: widget.phone));
+      Get.back();
     } catch (error) {
       Future.delayed(Duration(milliseconds: 300), () {
         ScaffoldMessenger.of(context).showSnackBar(
