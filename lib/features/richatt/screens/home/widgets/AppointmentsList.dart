@@ -198,62 +198,49 @@ class AppointmentsTab extends StatelessWidget {
         final formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
         final formattedTime = DateFormat('HH:mm').format(dateTime);
 
-        return InkWell(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AppointmentDetailsPage(
-                appointment: appointment,
-              ),
-            ));
-          },
-          child: Card(
-            margin: EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$formattedDate - $formattedTime',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 8),
-                  Text(
-                      'Patient: ${appointment.firstName!} ${appointment.lastName!}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 8),
-                  Text(
-                      'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 4),
-                  Text('Addresse: ${appointment.address!}',
-                      style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 8),
-                  Text('Service: ${appointment.reason!}',
-                      style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 16),
-                  if (showButtons)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            onEdit(appointment);
-                          },
-                          child: Text('Edit'),
+        return Card(
+          margin: EdgeInsets.all(8.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('$formattedDate - $formattedTime',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text(
+                    'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                    style: TextStyle(fontSize: 16)),
+                SizedBox(height: 4),
+                Text('Addresse: ${appointment.address!}',
+                    style: TextStyle(fontSize: 14)),
+                SizedBox(height: 8),
+                Text('Service: ${appointment.reason!}',
+                    style: TextStyle(fontSize: 14)),
+                SizedBox(height: 16),
+                if (showButtons)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          onEdit(appointment);
+                        },
+                        child: Text('Edit'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          onCancel(appointment);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            onCancel(appointment);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                          ),
-                          child: Text('Cancel'),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
+                        child: Text('Cancel'),
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ),
         );

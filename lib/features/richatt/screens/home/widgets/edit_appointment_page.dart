@@ -9,7 +9,6 @@ import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:collection/collection.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
@@ -99,15 +98,10 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
 
       // Check if the date and time have changed
       bool dateTimeChanged = newDateTime != initialDate;
-      // Formatter la date selon le format souhaité sans millisecondes
-//       String formattedDateTime =
-//           DateFormat("yyyy-MM-ddTHH:mm:ss").format(newDateTime);
 
-// // Affecter la date formatée à widget.appointment.dateTime
-//       widget.appointment.dateTime = formattedDateTime;
-
-      widget.appointment.firstName = firstNameController.value.text;
-      widget.appointment.lastName = lastNameController.value.text;
+      widget.appointment.dateTime = newDateTime.toIso8601String();
+      widget.appointment.firstName = firstNameController.text;
+      widget.appointment.lastName = lastNameController.text;
       widget.appointment.reason = service.name;
       widget.appointment.price = service.price;
       widget.appointment.duration = service.duration;
@@ -142,6 +136,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
           await _controller.deleteSchedules([newSchedule]);
           await _controller.addSchedules([newSchedule]);
           await _controller.reserveSchedules([newSchedule]);
+          Navigator.of(context).pop();
         }
       } else {
         RHelperFunctions.showLoader();
