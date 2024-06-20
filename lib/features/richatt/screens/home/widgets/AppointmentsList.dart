@@ -92,7 +92,8 @@ class _AppointmentsListState extends State<AppointmentsList>
     DateTime now = DateTime.now();
     return appointments.where((appointment) {
       DateTime appointmentDate =
-          DateTime.parse(appointment.dateTime!.split('T').first);
+          DateTime.parse(appointment.dateTime!.split('T').first +
+        ' ' + appointment.dateTime!.split('T').last.split('-').first);
       return upcoming
           ? appointmentDate.isAfter(now)
           : appointmentDate.isBefore(now);
