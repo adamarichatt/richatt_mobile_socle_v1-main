@@ -9,12 +9,14 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/Ap
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:collection/collection.dart';
+import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
   final String email;
   final String phone;
-  EditAppointmentPage({required this.appointment, required this.email, required this.phone});
+  EditAppointmentPage(
+      {required this.appointment, required this.email, required this.phone});
 
   @override
   _EditAppointmentPageState createState() => _EditAppointmentPageState();
@@ -126,19 +128,23 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
             SnackBar(content: Text('No available slot at the chosen time')),
           );
         } else {
+          RHelperFunctions.showLoader();
           await _controller.updateAppointment(
               widget.appointment.id!, widget.appointment);
           await _controller.enableSchedules([originalSchedule]);
           await _controller.deleteSchedules([newSchedule]);
           await _controller.addSchedules([newSchedule]);
           await _controller.reserveSchedules([newSchedule]);
+          Navigator.of(context).pop();
         }
       } else {
+        RHelperFunctions.showLoader();
         await _controller.updateAppointment(
             widget.appointment.id!, widget.appointment);
+        Navigator.of(context).pop();
       }
 
-      Get.to(() => AppointmentsList(email:widget.email, phone:widget.phone));
+      Get.back();
     } catch (error) {
       Future.delayed(Duration(milliseconds: 300), () {
         ScaffoldMessenger.of(context).showSnackBar(
