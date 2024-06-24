@@ -259,18 +259,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Address'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter address';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _address = value!;
-                      },
-                    ),
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
