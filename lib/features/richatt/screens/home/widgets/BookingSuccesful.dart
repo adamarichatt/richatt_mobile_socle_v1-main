@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
@@ -12,11 +13,8 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 
 class BookingSuccessful extends StatelessWidget {
-
-
   final Appointment appointment;
-   BookingSuccessful({ required this.appointment});
-
+  BookingSuccessful({required this.appointment});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,8 @@ class BookingSuccessful extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' Dr ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                    text:
+                        ' Dr ${appointment.professional!.firstName} ${appointment.professional!.name}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -129,7 +128,9 @@ class BookingSuccessful extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              // Action lorsque le bouton est pressé
+              Get.to(() => AppointmentDetailsPage(
+                    appointment: appointment,
+                  ));
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
