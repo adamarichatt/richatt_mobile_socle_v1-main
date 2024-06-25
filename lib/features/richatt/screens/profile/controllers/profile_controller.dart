@@ -9,12 +9,12 @@ import '../models/customer.dart';
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+ final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final customerId = ''.obs;
-  final firstName = TextEditingController();
-  final lastName = TextEditingController();
-  final email = TextEditingController();
-  final phone = TextEditingController();
+  final firstName = ''.obs;
+  final lastName = ''.obs;
+  final email = ''.obs;
+  final phone = ''.obs;
   
 
   Future<void> getCustomerByEmail(String email) async {
@@ -34,10 +34,10 @@ class ProfileController extends GetxController {
         final customer = Customer.fromJson(json);
         debugPrint('json:' + json.toString());
         customerId.value = customer.id!;
-        firstName.text = customer.firstName;
-        lastName.text = customer.lastName;
-        this.email.text = customer.email;
-        phone.text = customer.phone;
+        firstName.value = customer.firstName;
+        lastName.value = customer.lastName;
+        this.email.value = customer.email;
+        phone.value = customer.phone;
         
       } else {
         throw Exception('Failed to load customer');
@@ -67,11 +67,11 @@ class ProfileController extends GetxController {
     try {
       Customer customer = Customer(
         id: customerId.value,
-        firstName: firstName.text.trim(),
-        lastName: lastName.text.trim(),
-        email: email.text.trim(),
-        phone: phone.text.trim(),
-        name: email.text.trim(),
+        firstName: firstName.value.trim(),
+        lastName: lastName.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        name: email.value.trim(),
         lange: null,
         presentation: null,
         imageUrl: null,
