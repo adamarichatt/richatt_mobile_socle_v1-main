@@ -15,7 +15,6 @@ import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 import '../models/customer.dart';
 
-
 class ProfilePage extends StatelessWidget {
   final String email;
 
@@ -30,7 +29,7 @@ class ProfilePage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getCustomerByEmail(email);
     });
-  
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
@@ -76,9 +75,9 @@ class ProfilePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                child: Text(
-                  '${customer.firstName.value.text} ${customer.lastName.value.text}',
+              child: Obx(
+                () => Text(
+                  '${controller.firstName.value} ${controller.lastName.value}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -90,19 +89,19 @@ class ProfilePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(1.0),
-              child: SizedBox(
-                  child: Text(
-              '${customer.email.value.text} | ${customer.phone.value.text}',
-                // 'youremail@domain.com | 37822516',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: 'FONTSPRING DEMO - Proxima Nova',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
+              child: Obx(
+                () => Text(
+                  '${controller.email.value} | ${controller.phone.value}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
                 ),
-              )),
+              ),
             ),
             SizedBox(
               height: 50.0,
