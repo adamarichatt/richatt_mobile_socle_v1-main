@@ -98,8 +98,13 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
 
       // Check if the date and time have changed
       bool dateTimeChanged = newDateTime != initialDate;
+      // Formatter la date selon le format souhaité sans millisecondes
+//       String formattedDateTime =
+//           DateFormat("yyyy-MM-ddTHH:mm:ss").format(newDateTime);
 
-      widget.appointment.dateTime = newDateTime.toIso8601String();
+// // Affecter la date formatée à widget.appointment.dateTime
+//       widget.appointment.dateTime = formattedDateTime;
+
       widget.appointment.firstName = firstNameController.value.text;
       widget.appointment.lastName = lastNameController.value.text;
       widget.appointment.reason = service.name;
@@ -130,6 +135,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
             SnackBar(content: Text('No available slot at the chosen time')),
           );
         } else {
+          widget.appointment.dateTime = newSchedule!.dateTime;
           await _controller.updateAppointment(
               widget.appointment.id!, widget.appointment);
           await _controller.enableSchedules([originalSchedule]);
@@ -168,7 +174,8 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
               // final formattedTime = DateFormat('HH:mm').format(dateTime);
               title: Text(
                   "Date: ${DateFormat('dd/MM/yyyy').format(selectedDate)}"),
-              subtitle: Text("Heure: ${DateFormat('HH:mm').format(DateTime(0, 1, 1, selectedTime.hour, selectedTime.minute))}"),
+              subtitle: Text(
+                  "Heure: ${DateFormat('HH:mm').format(DateTime(0, 1, 1, selectedTime.hour, selectedTime.minute))}"),
 
               trailing: Icon(Icons.calendar_today),
               onTap: () {

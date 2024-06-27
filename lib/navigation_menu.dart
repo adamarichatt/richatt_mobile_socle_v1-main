@@ -31,8 +31,6 @@ class NavigationMenu extends StatelessWidget {
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RDVs'),
-            NavigationDestination(
-                icon: Icon(Iconsax.favorite_chart1), label: 'favorite'),
             NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
           ],
         ),
@@ -46,9 +44,9 @@ class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
   final screens = <Widget> [
-    const HomeScreen(),
+    // const HomeScreen(),
+    Container(color: Colors.red),
     Container(color: Colors.purple),
-    CameraScreen(),
     Container(color: Colors.blue),
   ];
 
@@ -64,12 +62,14 @@ Future<void> _loadUserData() async {
     String? phone = prefs.getString('phone');
 
     if (email != null && phone != null) {
+      screens[0] = HomeScreen(email: email);
       screens[1] = AppointmentsList(email: email, phone: phone);
-      screens[3] = ProfilePage(email: email);
+      screens[2] = ProfilePage(email: email);
       debugPrint('User data loaded: email=$email, phone=$phone');
     } else {
+      screens[0] = Container(child: Center(child: Text('User not found')));
       screens[1] = Container(child: Center(child: Text('User info not found')));
-      screens[3] = Container(child: Center(child: Text('User email not found')));
+      screens[2] = Container(child: Center(child: Text('User email not found')));
     }
     
   }
