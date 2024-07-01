@@ -18,6 +18,7 @@ class LoginController extends GetxController {
   final password = TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var isLoggedIn = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
   @override
   void onInit() {
@@ -72,6 +73,10 @@ class LoginController extends GetxController {
     }
   }
 
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
   Future<void> _checkLoginStatus() async {
     final SharedPreferences prefs = await _prefs;
     var token = prefs.getString('token');
@@ -88,7 +93,4 @@ class LoginController extends GetxController {
     isLoggedIn.value = false;
     Get.offAll(() => const LoginScreen());
   }
-
-
- 
 }

@@ -229,39 +229,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Email'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _email = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Phone Number'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter phone number';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _phoneNumber = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
                     DropdownButtonFormField<String>(
                       value: _gender,
                       onChanged: (value) {
