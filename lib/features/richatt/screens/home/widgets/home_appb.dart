@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
@@ -14,6 +16,7 @@ class RHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController controller = Get.put(ProfileController());
     return RAppBar(
       title: Row(children: [
         Container(
@@ -35,13 +38,15 @@ class RHomeAppBar extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(RTexts.homeAppbarTitle + ' sarah 👋🏽',
+            Obx(
+                () =>Text(RTexts.homeAppbarTitle + ' ${controller.firstName.value} 👋🏽',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                 )),
+                   ),
             Text(
               RTexts.homeAppbarSubTitle,
               style: TextStyle(
