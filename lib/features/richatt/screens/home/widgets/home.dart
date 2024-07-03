@@ -47,74 +47,70 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
 
-                // Afficher le prochain rendez-vous
-                Obx(() {
-                  if (controller.nextAppointment.value != null) {
-                    final appointment = controller.nextAppointment.value!;
+Obx(() {
+  final appointment = controller.nextAppointment.value;
+  if (appointment != null) {
+    List<String> dateTimeParts = appointment.dateTime!.split('T');
+    String datePart = dateTimeParts.first;
+    String timePart = dateTimeParts.last.split('-').first;
+    String combinedDateTime = '$datePart $timePart';
 
-                    List<String> dateTimeParts =
-                        appointment.dateTime!.split('T');
-                    String datePart = dateTimeParts.first;
-                    String timePart = dateTimeParts.last.split('-').first;
-                    String combinedDateTime = '$datePart $timePart';
+    DateTime dateTime = DateTime.parse(combinedDateTime);
+    final formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
+    final formattedTime = DateFormat('HH:mm').format(dateTime);
 
-                    DateTime dateTime = DateTime.parse(combinedDateTime);
-                    final formattedDate =
-                        DateFormat('dd/MM/yyyy').format(dateTime);
-                    final formattedTime = DateFormat('HH:mm').format(dateTime);
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AppointmentDetailsPage(
+            appointment: appointment,
+          ),
+        ));
+      },
+      child: Card(
+        margin: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Upcoming appointment',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text('$formattedDate - $formattedTime',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text('Patient: ${appointment.firstName!} ${appointment.lastName!}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 8),
+              Text('Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 4),
+              Text('Adresse: ${appointment.address!}',
+                  style: TextStyle(fontSize: 14)),
+              SizedBox(height: 8),
+              Text('Service: ${appointment.reason!}',
+                  style: TextStyle(fontSize: 14)),
+              SizedBox(height: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  } else {
+    return Center(
+      child: Text('No upcoming appointments',
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold)),
+    );
+  }
+}),
 
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AppointmentDetailsPage(
-                            appointment: appointment,
-                          ),
-                        ));
-                      },
-                      child: Card(
-                        margin: EdgeInsets.all(8.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Upcoming appointment',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(height: 8),
-                              Text('$formattedDate - $formattedTime',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(height: 8),
-                              Text(
-                                  'Patient: ${appointment.firstName!} ${appointment.lastName!}',
-                                  style: TextStyle(fontSize: 16)),
-                              SizedBox(height: 8),
-                              Text(
-                                  'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
-                                  style: TextStyle(fontSize: 16)),
-                              SizedBox(height: 4),
-                              Text('Adresse: ${appointment.address!}',
-                                  style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 8),
-                              Text('Service: ${appointment.reason!}',
-                                  style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 16),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Text('No upcoming appointments',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                    );
-                  }
-                }),
+
               ],
             ),
             Padding(
