@@ -69,6 +69,11 @@ class AppointmentDetailsPage extends StatelessWidget {
                           'Spécialité: ${appointment.professional!.businessSector!}',
                           style: TextStyle(fontSize: 16),
                         ),
+                         SizedBox(height: 8),
+                        Text(
+                          'Hôpital: ${appointment.professional!.entityName!}',
+                          style: TextStyle(fontSize: 16),
+                        ),
                         SizedBox(height: 8),
                         Text(
                           'Adresse: ${appointment.professional!.address!}',

@@ -9,6 +9,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 
 class AppointmentsList extends StatefulWidget {
@@ -206,54 +207,188 @@ class AppointmentsTab extends StatelessWidget {
               ),
             ));
           },
-          child: Card(
+          child: Container(
+            width: 396,
+            height: 256,
             margin: EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$formattedDate - $formattedTime',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 8),
-                  Text(
-                      'Patient: ${appointment.firstName!} ${appointment.lastName!}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 8),
-                  Text(
-                      'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 4),
-                  Text('Addresse: ${appointment.address!}',
-                      style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 8),
-                  Text('Service: ${appointment.reason!}',
-                      style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 16),
-                  if (showButtons)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            onEdit(appointment);
-                          },
-                          child: Text('Edit'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            onCancel(appointment);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                          ),
-                          child: Text('Cancel'),
-                        ),
-                      ],
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x19000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 0),
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 335,
+                  top: -77,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    color: Color(0xFFD9D9D9),
+                  ),
+                ),
+                Positioned(
+                  left: 9,
+                  top: 16,
+                  child: Text(
+                    '$formattedDate - $formattedTime',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -0.38,
                     ),
-                ],
-              ),
+                  ),
+                ),
+                 Positioned(
+                  left: 9,
+                  top: 56,
+                  right: 9,
+                  child: Divider(color: Colors.black),
+                ),
+               
+               Positioned(
+                  left: 9,
+                  top: 78,
+                  child: Container(
+                    width: 80,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(RImages.doctor1), // Utilisation de l'URL de l'image du projet
+                        fit: BoxFit.fill,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 100,
+                  top: 81,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: -0.16,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '${appointment.professional!.businessSector}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          letterSpacing: -0.23,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Available at ${appointment.professional!.entityName}-${appointment.address}',
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.5),
+                          fontSize: 12,
+                          letterSpacing: -0.23,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Text(
+                            appointment.address!,
+                            style: TextStyle(
+                              color: Color(0xFF0B9AD3),
+                              fontSize: 12,
+                              letterSpacing: -0.23,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Text(
+                            '+20 Years of Experience',
+                            style: TextStyle(
+                              color: Color(0xFFC2A404),
+                              fontSize: 12,
+                              letterSpacing: -0.23,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                
+                 if (showButtons)
+                  Positioned(
+                    left: 9,
+                    top: 182,
+                    right: 9,
+                    child: Divider(color: Colors.black),
+                  ),
+                if (showButtons)
+                Positioned(
+                  left: 9,
+                  top: 200,
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () => onCancel(appointment),
+                        child: Container(
+                          width: 181,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xFF0B9AD3)),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: Color(0xFF0B9AD3),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      InkWell(
+                        onTap: () => onEdit(appointment),
+                        child: Container(
+                          width: 181,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF0B9AD3),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Reschedule',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );
