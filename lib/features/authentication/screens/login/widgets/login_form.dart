@@ -35,17 +35,31 @@ class RLoginForm extends StatelessWidget {
             const SizedBox(
               height: RSizes.spaceBtwInputFields,
             ),
-            TextFormField(
-              controller: controller.password,
-              decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan),
-                ),
-                prefixIcon: Icon(Iconsax.password_check),
-                labelText: RTexts.password,
-                suffixIcon: Icon(Iconsax.eye_slash),
-              ),
+            Obx(
+              () {
+                IconData visibilityIcon = controller.isPasswordVisible.value
+                    ? Icons.visibility
+                    : Icons.visibility_off;
+                return TextFormField(
+                  obscureText: !controller.isPasswordVisible.value,
+                  controller: controller.password,
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.cyan),
+                    ),
+                    prefixIcon: Icon(Iconsax.password_check),
+                    labelText: RTexts.password,
+                    suffixIcon: IconButton(
+                      icon: Icon(visibilityIcon),
+                      onPressed: () {
+                        controller.togglePasswordVisibility();
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
+
             const SizedBox(
               height: RSizes.spaceBtwInputFields / 2,
             ),

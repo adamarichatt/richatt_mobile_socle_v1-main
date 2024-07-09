@@ -11,6 +11,7 @@ import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class BookingFormPage extends StatefulWidget {
   final String professionalId;
@@ -111,6 +112,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
     );
 
     try {
+      RHelperFunctions.showLoader();
       await _controller.deleteSchedules([widget.schedule]);
       await _controller.addSchedules([widget.schedule]);
       await _controller.reserveSchedules([widget.schedule]);
@@ -265,11 +267,9 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         _lastName = value!;
                       },
                     ),
-                  
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-
                     DropdownButtonFormField<String>(
                       value: _gender,
                       onChanged: (value) {
@@ -337,7 +337,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-
                     ElevatedButton(
                       onPressed: _bookSchedule,
                       child: Text('Prendre un rendez-vous'),
