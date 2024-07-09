@@ -332,7 +332,7 @@ class AppointmentsTab extends StatelessWidget {
                  if (showButtons)
                   Positioned(
                     left: 9,
-                    top: 182,
+                    top: 56,
                     right: 9,
                     child: Divider(color: Colors.black),
                   ),
@@ -345,7 +345,7 @@ class AppointmentsTab extends StatelessWidget {
                       InkWell(
                         onTap: () => onCancel(appointment),
                         child: Container(
-                          width: 181,
+                          width: 160,
                           height: 40,
                           decoration: BoxDecoration(
                             border: Border.all(color: Color(0xFF0B9AD3)),
@@ -367,7 +367,7 @@ class AppointmentsTab extends StatelessWidget {
                       InkWell(
                         onTap: () => onEdit(appointment),
                         child: Container(
-                          width: 181,
+                          width: 160,
                           height: 40,
                           decoration: BoxDecoration(
                             color: Color(0xFF0B9AD3),
