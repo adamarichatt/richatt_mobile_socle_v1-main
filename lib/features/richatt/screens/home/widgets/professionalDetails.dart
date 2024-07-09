@@ -9,6 +9,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 
 class ProfessionalDetailsPage extends StatelessWidget {
   final String professionalId;
@@ -168,10 +169,85 @@ class ProfessionalDetailsPage extends StatelessWidget {
                         letterSpacing: -0.27,
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('French'),
+                    Text(
+                      'Language Spoken',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
+                    SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              width: 83,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Color(0xFF0B9AD3),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                'French',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0B9AD3),
+                                  fontSize: 16,
+                                  fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
+                                ),
+                              )),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Container(
+                            width: 83,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Color(0xFF0B9AD3),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              'French',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF0B9AD3),
+                                fontSize: 16,
+                                fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ]),
+                    Text(
+                      'Services',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    _buildServicesList(context, controller, professional.id!),
                   ],
                 ),
               ),
@@ -188,9 +264,13 @@ class ProfessionalDetailsPage extends StatelessWidget {
             child: SizedBox(
               width: 100.0, // Set a specific width for the button
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => AppointmentPage(
+                      professionalId: professionalId,
+                      professional: professional));
+                },
                 child: Text(
-                  'Button',
+                  'Prendre un rendez-vous',
                   style: TextStyle(fontSize: 14), // Smaller font size
                 ),
                 style: ElevatedButton.styleFrom(
@@ -330,9 +410,26 @@ Widget _buildServicesList(BuildContext context,
           spacing: 8.0, // Espace horizontal entre les boutons
           runSpacing: 8.0, // Espace vertical entre les lignes de boutons
           children: services.map((service) {
-            return ElevatedButton(
-              onPressed: () {},
-              child: Text(service.name),
+            return Container(
+              height: 28,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xFF0B9AD3),
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                service.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF0B9AD3),
+                  fontSize: 16,
+                  fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
             );
           }).toList(),
         );

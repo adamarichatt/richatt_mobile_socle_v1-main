@@ -35,19 +35,21 @@ class NavigationMenu extends StatelessWidget {
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectIndex.value]),
+      body: Obx(() => controller.isLoading.value
+          ? Center(child: CircularProgressIndicator())
+          : controller.screens[controller.selectIndex.value]),
     );
   }
 }
 
 class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
+  final RxBool isLoading = true.obs; // Variable d'état de chargement
 
-  final screens = <Widget> [
-    // const HomeScreen(),
-    Container(color: Colors.red),
-    Container(color: Colors.purple),
-    Container(color: Colors.blue),
+  final screens = <Widget>[
+    Center(child: CircularProgressIndicator()), // Écran de chargement initial
+    Center(child: CircularProgressIndicator()),
+    Center(child: CircularProgressIndicator()),
   ];
 
   @override
@@ -56,7 +58,7 @@ class NavigationController extends GetxController {
     _loadUserData();
   }
 
-Future<void> _loadUserData() async {
+  Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? phone = prefs.getString('phone');
@@ -69,8 +71,9 @@ Future<void> _loadUserData() async {
     } else {
       screens[0] = Container(child: Center(child: Text('User not found')));
       screens[1] = Container(child: Center(child: Text('User info not found')));
-      screens[2] = Container(child: Center(child: Text('User email not found')));
+      screens[2] =
+          Container(child: Center(child: Text('User email not found')));
     }
-    
+    isLoading.value = false; // Les données sont chargées, mise à jour de l'état
   }
 }

@@ -13,7 +13,6 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/Ap
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class BookingFormPage extends StatefulWidget {
   final String professionalId;
@@ -225,51 +224,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       },
                       onSaved: (value) {
                         _lastName = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Email'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _email = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Phone Number'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter phone number';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _phoneNumber = value!;
-                      },
-                    ),
-                    const SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Address'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter address';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _address = value!;
                       },
                     ),
                     const SizedBox(

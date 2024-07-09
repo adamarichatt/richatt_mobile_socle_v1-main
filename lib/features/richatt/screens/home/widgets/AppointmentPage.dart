@@ -36,38 +36,71 @@ class _AppointmentPageState extends State<AppointmentPage> {
       ),
       body: Column(
         children: [
-          TableCalendar(
-            firstDay: DateTime(2020, 1, 1),
-            lastDay: DateTime(2030, 12, 31),
-            focusedDay: _focusedDay,
-            calendarFormat: _calendarFormat,
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            },
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: ShapeDecoration(
+              color: Color(0x3312AFF0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+            child: TableCalendar(
+              calendarStyle: CalendarStyle(
+                rangeHighlightColor: Colors.blue,
+                markerDecoration: BoxDecoration(
+                    color: Color.fromARGB(255, 43, 141, 191),
+                    shape: BoxShape.circle),
+              ),
+              firstDay: DateTime(2020, 1, 1),
+              lastDay: DateTime(2030, 12, 31),
+              focusedDay: _focusedDay,
+              calendarFormat: _calendarFormat,
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
-                  _calendarFormat = format;
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
                 });
-              }
-            },
+              },
+              onFormatChanged: (format) {
+                if (_calendarFormat != format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                }
+              },
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                'Available Time',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
           Expanded(
             child: FutureBuilder<List<Schedule>>(
-              future: _controller.fetchDaySchedules(_selectedDay, widget.professionalId),
+              future: _controller.fetchDaySchedules(
+                  _selectedDay, widget.professionalId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No active schedules for selected day'));
+                  return Center(
+                      child: Text('No active schedules for selected day'));
                 } else {
                   List<Schedule> schedules = snapshot.data!;
                   schedules.sort((a, b) => a.dateTime.compareTo(b.dateTime));
@@ -76,12 +109,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 }
               },
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Implement appointment booking logic here
-            },
-            child: Text('Prendre un rendez-vous'),
           ),
         ],
       ),
@@ -100,10 +127,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
         runSpacing: 8.0, // Espace vertical entre les lignes de boutons
         children: schedules.map((schedule) {
           return ElevatedButton(
-           onPressed: () {
-            Get.to(() => BookingFormPage(professionalId: widget.professionalId, schedule: schedule, professional: widget.professional));
-          },
-            child: Text(schedule.dateTime.substring(11, 16)), // Afficher seulement l'heure (HH:MM)
+            onPressed: () {
+              Get.to(() => BookingFormPage(
+                  professionalId: widget.professionalId,
+                  schedule: schedule,
+                  professional: widget.professional));
+            },
+            child: Text(schedule.dateTime
+                .substring(11, 16)), // Afficher seulement l'heure (HH:MM)
           );
         }).toList(),
       ),
