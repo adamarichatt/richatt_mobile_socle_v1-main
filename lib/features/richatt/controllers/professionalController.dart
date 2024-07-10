@@ -366,43 +366,4 @@ class ProfessionalController extends GetxController {
       );
     }
   }
-
-  Future<void> getNextAppointmentByEmail(String email) async {
-    final headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htJF1kOaeXJPd3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
-    };
-
-    var url = Uri.parse(
-        APIConstants.apiBackend + 'appointment/nextAppointmentByEmail/$email');
-
-    try {
-      http.Response response = await http.get(url, headers: headers);
-      debugPrint('Next Appointment Response: ${response.body}');
-      if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        debugPrint('Decoded JSON: $json');
-        final appointment = Appointment.fromJson(json as Map<String, dynamic>);
-        nextAppointment.value = appointment;
-      } else if (response.statusCode == 204) {
-        nextAppointment.value = null; // No upcoming appointments
-      } else {
-        throw Exception('Failed to load next appointment');
-      }
-    } catch (error) {
-      debugPrint('Error: $error');
-      showDialog(
-        context: Get.context!,
-        builder: (context) {
-          return SimpleDialog(
-            title: const Text('Error'),
-            contentPadding: const EdgeInsets.all(20),
-            children: [Text(error.toString())],
-          );
-        },
-      );
-    }
-  }
 }
