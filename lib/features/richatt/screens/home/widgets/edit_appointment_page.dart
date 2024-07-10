@@ -15,8 +15,12 @@ class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
   final String email;
   final String phone;
-  EditAppointmentPage(
-      {required this.appointment, required this.email, required this.phone});
+
+  EditAppointmentPage({
+    required this.appointment,
+    required this.email,
+    required this.phone,
+  });
 
   @override
   _EditAppointmentPageState createState() => _EditAppointmentPageState();
@@ -95,10 +99,15 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
 
       // Check if the date and time have changed
       bool dateTimeChanged = newDateTime != initialDate;
+      // Formatter la date selon le format souhaité sans millisecondes
+//       String formattedDateTime =
+//           DateFormat("yyyy-MM-ddTHH:mm:ss").format(newDateTime);
 
-      widget.appointment.dateTime = newDateTime.toIso8601String();
-      widget.appointment.firstName = firstNameController.text;
-      widget.appointment.lastName = lastNameController.text;
+// // Affecter la date formatée à widget.appointment.dateTime
+//       widget.appointment.dateTime = formattedDateTime;
+
+      widget.appointment.firstName = firstNameController.value.text;
+      widget.appointment.lastName = lastNameController.value.text;
       widget.appointment.reason = service.name;
       widget.appointment.price = service.price;
       widget.appointment.duration = service.duration;
@@ -127,13 +136,13 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
             SnackBar(content: Text('No available slot at the chosen time')),
           );
         } else {
+          widget.appointment.dateTime = newSchedule!.dateTime;
           await _controller.updateAppointment(
               widget.appointment.id!, widget.appointment);
           await _controller.enableSchedules([originalSchedule]);
           await _controller.deleteSchedules([newSchedule!]);
           await _controller.addSchedules([newSchedule!]);
           await _controller.reserveSchedules([newSchedule!]);
-          Navigator.of(context).pop();
         }
       } else {
         RHelperFunctions.showLoader();
@@ -142,7 +151,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
         Navigator.of(context).pop();
       }
 
-      Get.back();
+      Get.to(() => AppointmentsList(email: widget.email, phone: widget.phone));
     } catch (error) {
       Future.delayed(Duration(milliseconds: 300), () {
         ScaffoldMessenger.of(context).showSnackBar(

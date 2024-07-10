@@ -9,7 +9,6 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
@@ -30,6 +29,12 @@ class BookingFormPage extends StatefulWidget {
 
 class _BookingFormPageState extends State<BookingFormPage> {
   final _formKey = GlobalKey<FormState>();
+  final _firstNameKey = GlobalKey<FormFieldState>();
+  final _lastNameKey = GlobalKey<FormFieldState>();
+  final _birthdateKey = GlobalKey<FormFieldState>();
+  final _serviceKey = GlobalKey<FormFieldState>();
+  final _descriptionKey = GlobalKey<FormFieldState>();
+
   String _bookingFor = 'My self';
   String _firstName = '';
   String _lastName = '';
@@ -81,7 +86,10 @@ class _BookingFormPageState extends State<BookingFormPage> {
   }
 
   void _bookSchedule() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      _validateAllFields();
+      return;
+    }
 
     _formKey.currentState!.save();
 
@@ -117,6 +125,14 @@ class _BookingFormPageState extends State<BookingFormPage> {
     Get.to(() => BookingSuccessful(
           appointment: appointment,
         ));
+  }
+
+  void _validateAllFields() {
+    _firstNameKey.currentState?.validate();
+    _lastNameKey.currentState?.validate();
+    _birthdateKey.currentState?.validate();
+    _serviceKey.currentState?.validate();
+    _descriptionKey.currentState?.validate();
   }
 
   @override
@@ -180,6 +196,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       height: RSizes.spaceBtwItems,
                     ),
                     DropdownButtonFormField<String>(
+                      key: _serviceKey,
                       value: _selectedService,
                       onChanged: (value) {
                         setState(() {
@@ -194,13 +211,30 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       }).toList(),
                       decoration: InputDecoration(
                         labelText: 'Service',
+                        errorStyle: TextStyle(color: Colors.red),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a service';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'First Name'),
+                      key: _firstNameKey,
+                      decoration: InputDecoration(
+                        labelText: 'First Name',
+                        errorStyle: TextStyle(color: Colors.red),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter first name';
@@ -215,7 +249,14 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       height: RSizes.spaceBtwItems,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Last Name'),
+                      key: _lastNameKey,
+                      decoration: InputDecoration(
+                        labelText: 'Last Name',
+                        errorStyle: TextStyle(color: Colors.red),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter last name';
@@ -250,11 +291,16 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       height: RSizes.spaceBtwItems,
                     ),
                     TextFormField(
+                      key: _birthdateKey,
                       controller: _birthdateController,
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: 'Birthdate',
                         hintText: 'Select birthdate',
+                        errorStyle: TextStyle(color: Colors.red),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                       ),
                       onTap: () {
                         _selectDate(context);
@@ -270,9 +316,22 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       height: RSizes.spaceBtwItems,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Description'),
+                      key: _descriptionKey,
+                      decoration: InputDecoration(
+                        labelText: 'Description',
+                        errorStyle: TextStyle(color: Colors.red),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                      ),
                       onSaved: (value) {
                         _description = value!;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter description';
+                        }
+                        return null;
                       },
                     ),
                     const SizedBox(

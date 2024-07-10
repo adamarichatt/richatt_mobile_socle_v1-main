@@ -71,6 +71,11 @@ class AppointmentDetailsPage extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         Text(
+                          'Hôpital: ${appointment.professional!.entityName!}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
                           'Adresse: ${appointment.professional!.address!}',
                           style: TextStyle(fontSize: 16),
                         ),
@@ -90,7 +95,6 @@ class AppointmentDetailsPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                 
                   SizedBox(width: 16),
                   Expanded(
                     child: Column(
@@ -107,7 +111,8 @@ class AppointmentDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '${appointment.firstName!} ${appointment.lastName!}',
+                                text:
+                                    '${appointment.firstName!} ${appointment.lastName!}',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
