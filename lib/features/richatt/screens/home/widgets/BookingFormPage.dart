@@ -7,6 +7,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
@@ -33,7 +34,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
   final _lastNameKey = GlobalKey<FormFieldState>();
   final _birthdateKey = GlobalKey<FormFieldState>();
   final _serviceKey = GlobalKey<FormFieldState>();
-  final _descriptionKey = GlobalKey<FormFieldState>();
 
   String _bookingFor = 'My self';
   String _firstName = '';
@@ -48,9 +48,10 @@ class _BookingFormPageState extends State<BookingFormPage> {
   String? _birthdate;
   Professional? _professional;
   final TextEditingController _birthdateController = TextEditingController();
-
+  final _descriptionController = TextEditingController();
   late ProfessionalController _controller;
   late List<Service> _services = [];
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   void initState() {
@@ -65,6 +66,12 @@ class _BookingFormPageState extends State<BookingFormPage> {
     try {
       List<Service> services =
           await _controller.getServicesByProfessional(widget.professionalId);
+
+      // Filtrer les services dont la durée est inférieure ou égale à la durée du schedule
+      services = services
+          .where((service) => service.duration! <= widget.schedule.duration)
+          .toList();
+
       setState(() {
         _services = services;
       });
@@ -77,12 +84,29 @@ class _BookingFormPageState extends State<BookingFormPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? phone = prefs.getString('phone');
-    print('email: $email');
-    print('phone: $phone');
-    setState(() {
-      if (email != null) _email = email;
-      if (phone != null) _phoneNumber = phone;
-    });
+
+    if (email != null) {
+      _email = email;
+    }
+    if (phone != null) {
+      _phoneNumber = phone;
+    }
+
+    if (_bookingFor == 'My self') {
+      profileController
+          .getCustomerByEmail(_email); // Assuming this fetches user details
+      await Future.delayed(
+          Duration(milliseconds: 500)); // Delay for the profile data to load
+
+      setState(() {
+        _firstName = profileController.firstName.value;
+        _lastName = profileController.lastName.value;
+
+        // Set initial values for first name and last name fields
+        _firstNameKey.currentState?.didChange(_firstName);
+        _lastNameKey.currentState?.didChange(_lastName);
+      });
+    }
   }
 
   void _bookSchedule() async {
@@ -132,7 +156,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
     _lastNameKey.currentState?.validate();
     _birthdateKey.currentState?.validate();
     _serviceKey.currentState?.validate();
-    _descriptionKey.currentState?.validate();
   }
 
   @override
@@ -163,7 +186,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       appBar: AppBar(
         title: Text('Patient Details'),
       ),
-      body: _services == null
+      body: _services.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16.0),
@@ -179,6 +202,17 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       onChanged: (value) {
                         setState(() {
                           _bookingFor = value!;
+                          if (_bookingFor == 'My self') {
+                            _firstName = profileController.firstName.value;
+                            _lastName = profileController.lastName.value;
+                            _firstNameKey.currentState?.didChange(_firstName);
+                            _lastNameKey.currentState?.didChange(_lastName);
+                          } else {
+                            _firstName = '';
+                            _lastName = '';
+                            _firstNameKey.currentState?.didChange(_firstName);
+                            _lastNameKey.currentState?.didChange(_lastName);
+                          }
                         });
                       },
                       items: ['My self', 'Family relative', 'Friend']
@@ -235,6 +269,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                           borderSide: BorderSide(color: Colors.red),
                         ),
                       ),
+                      initialValue: _firstName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter first name';
@@ -257,6 +292,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                           borderSide: BorderSide(color: Colors.red),
                         ),
                       ),
+                      initialValue: _lastName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter last name';
@@ -315,8 +351,10 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    TextFormField(
-                      key: _descriptionKey,
+                    TextField(
+                      controller: _descriptionController,
+                      maxLines:
+                          5, // Permet un nombre de lignes dynamique (texte multiligne)
                       decoration: InputDecoration(
                         labelText: 'Description',
                         errorStyle: TextStyle(color: Colors.red),
@@ -324,14 +362,8 @@ class _BookingFormPageState extends State<BookingFormPage> {
                           borderSide: BorderSide(color: Colors.red),
                         ),
                       ),
-                      onSaved: (value) {
-                        _description = value!;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter description';
-                        }
-                        return null;
+                      onChanged: (value) {
+                        _description = value;
                       },
                     ),
                     const SizedBox(

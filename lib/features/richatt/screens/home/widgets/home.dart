@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Today',
+                                    'Next appointment',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
