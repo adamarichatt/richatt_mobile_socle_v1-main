@@ -9,6 +9,8 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/models/customer.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 
 class ProfessionalController extends GetxController {
@@ -17,11 +19,10 @@ class ProfessionalController extends GetxController {
   RxList<Professional> featuredProf = <Professional>[].obs;
   final selectedSchedules = <Schedule>[].obs;
 
-  Rx<Professional?> selectedProfessional = Rx<Professional?>(null);
-
   Rx<Appointment?> nextAppointment = Rx<Appointment?>(null);
-
-
+  // Favorite Professionals
+  RxList<Professional> favoriteProfessionals = <Professional>[].obs;
+  Rx<Professional?> selectedProfessional = Rx<Professional?>(null);
   @override
   void onInit() {
     getProf();
@@ -324,46 +325,108 @@ class ProfessionalController extends GetxController {
     }
   }
 
- Future<void> getNextAppointmentByEmail(String email) async {
-  final headers = {
+  Future<void> getNextAppointmentByEmail(String email) async {
+    final headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htJF1kOaeXJPd3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    };
+
+    var url = Uri.parse(
+        APIConstants.apiBackend + 'appointment/nextAppointmentByEmail/$email');
+
+    try {
+      http.Response response = await http.get(url, headers: headers);
+      debugPrint('Next Appointment Response: ${response.body}');
+      if (response.statusCode == 200) {
+        if (response.body != 'null') {
+          final json = jsonDecode(response.body);
+          debugPrint('Decoded JSON: $json');
+          final appointment =
+              Appointment.fromJson(json as Map<String, dynamic>);
+          nextAppointment.value = appointment;
+        } else {
+          nextAppointment.value = null; // No upcoming appointments
+        }
+      } else if (response.statusCode == 204) {
+        nextAppointment.value = null; // No upcoming appointments
+      } else {
+        throw Exception('Failed to load next appointment');
+      }
+    } catch (error) {
+      debugPrint('Error: $error');
+      showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Error'),
+            contentPadding: const EdgeInsets.all(20),
+            children: [Text(error.toString())],
+          );
+        },
+      );
+    }
+  }
+
+  // Add a favorite professional
+  Future<void> addFavoriteProfessional(
+      String customerId, Professional professional) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    };
+
+    var url =
+        Uri.parse(APIConstants.apiBackend + 'customer/$customerId/favorites');
+
+    var body = json.encode(professional.toJson());
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        Professional addedProfessional = Professional.fromJson(responseData);
+        favoriteProfessionals.add(addedProfessional);
+        print('favorites');
+        print(addedProfessional);
+      } else {
+        throw Exception('Failed to add favorite');
+      }
+    } catch (error) {
+      Get.snackbar('Error', error.toString());
+    }
+  }
+
+ Future<void> removeFavoriteProfessional(String customerId, Professional professional) async {
+  var headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
-    'Authorization':
-        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htJF1kOaeXJPd3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
   };
 
-  var url = Uri.parse(
-      APIConstants.apiBackend + 'appointment/nextAppointmentByEmail/$email');
+  var url = Uri.parse(APIConstants.apiBackend + 'customer/$customerId/favorites/${professional.id}');
 
   try {
-    http.Response response = await http.get(url, headers: headers);
-    debugPrint('Next Appointment Response: ${response.body}');
+    final response = await http.delete(
+      url,
+      headers: headers,
+    );
+
     if (response.statusCode == 200) {
-      if (response.body != 'null') {
-        final json = jsonDecode(response.body);
-        debugPrint('Decoded JSON: $json');
-        final appointment = Appointment.fromJson(json as Map<String, dynamic>);
-        nextAppointment.value = appointment;
-      } else {
-        nextAppointment.value = null; // No upcoming appointments
-      }
-    } else if (response.statusCode == 204) {
-      nextAppointment.value = null; // No upcoming appointments
+      favoriteProfessionals.removeWhere((prof) => prof.id == professional.id);
     } else {
-      throw Exception('Failed to load next appointment');
+      throw Exception('Failed to remove favorite');
     }
   } catch (error) {
-    debugPrint('Error: $error');
-    showDialog(
-      context: Get.context!,
-      builder: (context) {
-        return SimpleDialog(
-          title: const Text('Error'),
-          contentPadding: const EdgeInsets.all(20),
-          children: [Text(error.toString())],
-        );
-      },
-    );
+    Get.snackbar('Error', error.toString());
   }
 }
 

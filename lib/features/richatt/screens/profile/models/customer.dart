@@ -1,3 +1,5 @@
+import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+
 class Customer {
   final String? id;
   final String firstName;
@@ -9,6 +11,7 @@ class Customer {
   final String? lange;
   final String? presentation;
   final String? imageUrl;
+  List<Professional>? favoriteProfessionals;
 
   Customer({
     this.id,
@@ -21,9 +24,12 @@ class Customer {
     this.lange,
     this.presentation,
     this.imageUrl,
+    this.favoriteProfessionals,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
+    var list = json['favoriteProfessionals'] as List;
+    List<Professional> favsList = list.map((i) => Professional.fromJson(i)).toList();
     return Customer(
       id: json['id'],
       firstName: json['firstName'],
@@ -35,6 +41,7 @@ class Customer {
       lange: json['lange'],
       presentation: json['presentation'],
       imageUrl: json['imageUrl'],
+      favoriteProfessionals: favsList,
     );
   }
 
@@ -50,6 +57,7 @@ class Customer {
       'lange': lange,
       'presentation': presentation,
       'imageUrl': imageUrl,
+      'favoriteProfessionals': favoriteProfessionals!.map((i) => i.toJson()).toList(),
     };
   }
 }

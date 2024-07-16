@@ -255,7 +255,7 @@ class HomeScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                                          'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.black,
@@ -356,6 +356,7 @@ class HomeScreen extends StatelessWidget {
                                 right: 16.0), // Espace entre les cartes
                             child: ProfileCardVertical(
                               professional: controller.featuredProf[index],
+                              emailCustomer: email,
                             ),
                           ),
                         ),
@@ -408,8 +409,10 @@ class HomeScreen extends StatelessWidget {
                           crossAxisSpacing: RSizes.gridViewSpacing,
                           mainAxisExtent: 130,
                         ),
-                        itemBuilder: (_, index) => profileCard(
-                            professional: controller.featuredProf[index]),
+                        itemBuilder: (_, index) => ProfileCard(
+                          professional: controller.featuredProf[index],
+                          emailCustomer: email,
+                        ),
                       )),
                 ],
               ),
