@@ -105,7 +105,7 @@ class ProfileCard extends StatelessWidget {
                     return IconButton(
                       icon: Icon(
                         isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                        color: isFavorite ? Colors.red : Colors.grey,
+                        color: isFavorite ? Colors.blue : Colors.grey,
                         size: 16,
                       ),
                       onPressed: () async {

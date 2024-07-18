@@ -10,8 +10,11 @@ import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCardVertical.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RdoctorCardVertical.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/FavoriteProfessionalsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
@@ -21,16 +24,19 @@ import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class HomeScreen extends StatelessWidget {
   final String email;
-  const HomeScreen({required this.email});
+  final String phone;
+  const HomeScreen({required this.email, required this.phone});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfessionalController());
-
+    final FavoriteController favoriteController = Get.put(FavoriteController());
     // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getProf();
       controller.getNextAppointmentByEmail(email);
+      // controller.getFavoriteProfessionals(email);
+       favoriteController.getFavoriteProfessionals(email);
     });
 
     return Scaffold(
@@ -64,15 +70,7 @@ class HomeScreen extends StatelessWidget {
                         DateFormat('dd/MM/yyyy').format(dateTime);
                     final formattedTime = DateFormat('HH:mm').format(dateTime);
 
-                    return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentDetailsPage(
-                              appointment: appointment,
-                            ),
-                          ));
-                        },
-                        child: Column(children: [
+                    return  Column(children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -90,16 +88,23 @@ class HomeScreen extends StatelessWidget {
                                     letterSpacing: -0.38,
                                   ),
                                 ),
-                                Text(
-                                  'See All',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0B9AD3),
-                                    fontSize: 14,
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0.11,
-                                    letterSpacing: -0.27,
+                                InkWell(
+                                  onTap: () {
+                                    print('InkWell tapped');
+                                    Get.to(() => AppointmentsList(
+                                        email: email, phone: phone,));
+                                  },
+                                  child: Text(
+                                    'See All',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0B9AD3),
+                                      fontSize: 14,
+                                      fontFamily: 'Nunito',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.11,
+                                      letterSpacing: -0.27,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -108,6 +113,15 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: RSizes.spaceBtwSections,
                           ),
+                          InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AppointmentDetailsPage(
+                              appointment: appointment,
+                            ),
+                          ));
+                        },
+                        child:
                           Stack(clipBehavior: Clip.none, children: [
                             Container(
                               width: 396,
@@ -293,7 +307,8 @@ class HomeScreen extends StatelessWidget {
                               height: 60,
                             ),
                           ]),
-                        ]));
+                          ),
+                        ]);
                   } else {
                     return Center(
                       child: Text('No upcoming appointments',
@@ -303,69 +318,87 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
 
-                // Afficher le prochain rendez-vous
+                
               ],
             ),
             SizedBox(
               height: 60,
             ),
+            
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Favorite',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      height: 0.07,
-                      letterSpacing: -0.38,
-                    ),
-                  ),
-                  Text(
-                    'See All',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF0B9AD3),
-                      fontSize: 14,
-                      fontFamily: 'Nunito',
-                      fontWeight: FontWeight.w400,
-                      height: 0.11,
-                      letterSpacing: -0.27,
-                    ),
-                  ),
-                ],
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Favorites',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  height: 0.07,
+                  letterSpacing: -0.38,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Obx(
-                    () => SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          controller.featuredProf.length,
-                          (index) => Padding(
-                            padding: const EdgeInsets.only(
-                                right: 16.0), // Espace entre les cartes
-                            child: ProfileCardVertical(
-                              professional: controller.featuredProf[index],
-                              emailCustomer: email,
-                            ),
-                          ),
-                        ),
+              InkWell(
+                onTap: () {
+                  print('InkWell tapped');
+                  Get.to(() => FavoriteProfessionalsPage(emailCustomer: email));
+                },
+                child: Text(
+                  'See All',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF0B9AD3),
+                    fontSize: 14,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.w400,
+                    height: 0.11,
+                    letterSpacing: -0.27,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Obx(
+          () {
+            if (favoriteController.favoriteProfessionals.isEmpty) {
+              return Center(
+                child: Text(
+                  'No favorites yet',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              );
+            } else {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    favoriteController.favoriteProfessionals.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 16.0), // Espace entre les cartes
+                      child: ProfileCardVertical(
+                        professional: favoriteController.favoriteProfessionals.elementAt(index),
+                        emailCustomer: email,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            }
+          },
+        ),
+        ),
             SizedBox(
               height: 30,
             ),

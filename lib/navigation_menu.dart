@@ -64,7 +64,7 @@ class NavigationController extends GetxController {
     String? phone = prefs.getString('phone');
  
     if (email != null && phone != null) {
-      screens[0] = HomeScreen(email: email);
+      screens[0] = HomeScreen(email: email, phone: phone);
       screens[1] = AppointmentsList(email: email, phone: phone);
       screens[2] = ProfilePage(email: email);
       debugPrint('User data loaded: email=$email, phone=$phone');

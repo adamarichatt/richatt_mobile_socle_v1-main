@@ -21,7 +21,7 @@ class ProfessionalController extends GetxController {
 
   Rx<Appointment?> nextAppointment = Rx<Appointment?>(null);
   // Favorite Professionals
-  RxList<Professional> favoriteProfessionals = <Professional>[].obs;
+ var favoriteProfessionals = <Professional>{}.obs;
   Rx<Professional?> selectedProfessional = Rx<Professional?>(null);
   @override
   void onInit() {
@@ -64,6 +64,8 @@ class ProfessionalController extends GetxController {
       );
     }
   }
+
+  
 
   Future<void> getProfessionalById(String id) async {
     var headers = {
@@ -429,5 +431,7 @@ class ProfessionalController extends GetxController {
     Get.snackbar('Error', error.toString());
   }
 }
+
+
 
 }
