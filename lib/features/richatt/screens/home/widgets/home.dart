@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
       controller.getProf();
       controller.getNextAppointmentByEmail(email);
       // controller.getFavoriteProfessionals(email);
-       favoriteController.getFavoriteProfessionals(email);
+      favoriteController.getFavoriteProfessionals(email);
     });
 
     return Scaffold(
@@ -50,7 +50,52 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
                 RSearchContainer(
-                  text: 'Search a doctor!', emailCustomer: email,
+                  text: 'Search a doctor!',
+                  emailCustomer: email,
+                ),
+                SizedBox(
+                  height: RSizes.spaceBtwSections,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Upcoming Appointment',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                          height: 0.07,
+                          letterSpacing: -0.38,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          print('InkWell tapped');
+                          Get.to(() => AppointmentsList(
+                                email: email,
+                                phone: phone,
+                              ));
+                        },
+                        child: Text(
+                          'See All',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFF0B9AD3),
+                            fontSize: 14,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.w400,
+                            height: 0.11,
+                            letterSpacing: -0.27,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: RSizes.spaceBtwSections,
@@ -70,50 +115,8 @@ class HomeScreen extends StatelessWidget {
                         DateFormat('dd/MM/yyyy').format(dateTime);
                     final formattedTime = DateFormat('HH:mm').format(dateTime);
 
-                    return  Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Upcoming Appointment',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0.07,
-                                    letterSpacing: -0.38,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    print('InkWell tapped');
-                                    Get.to(() => AppointmentsList(
-                                        email: email, phone: phone,));
-                                  },
-                                  child: Text(
-                                    'See All',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFF0B9AD3),
-                                      fontSize: 14,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0.11,
-                                      letterSpacing: -0.27,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: RSizes.spaceBtwSections,
-                          ),
-                          InkWell(
+                    return Column(children: [
+                      InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => AppointmentDetailsPage(
@@ -121,284 +124,284 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ));
                         },
-                        child:
-                          Stack(clipBehavior: Clip.none, children: [
-                            Container(
-                              width: 396,
-                              height: 156,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 21),
-                              decoration: BoxDecoration(
-                                color: Color(0xFF0B9AD3),
-                                borderRadius: BorderRadius.circular(28),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Next appointment',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2,
-                                      letterSpacing: -0.38,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 9),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(Icons.circle,
-                                                  size: 16,
-                                                  color: Colors.white),
-                                              const SizedBox(width: 7),
-                                              Text(
-                                                '$formattedDate ',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontFamily: 'Nunito',
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.2,
-                                                  letterSpacing: -0.30,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 13),
-                                          Row(
-                                            children: [
-                                              Icon(Icons.circle,
-                                                  size: 16,
-                                                  color: Colors.white),
-                                              const SizedBox(width: 7),
-                                              Text(
-                                                '$formattedTime',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontFamily: 'Nunito',
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.2,
-                                                  letterSpacing: -0.30,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 16,
-                                            backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: Color(0xFF0B9AD3),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 16),
-                                          CircleAvatar(
-                                            radius: 16,
-                                            backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.remove_red_eye_sharp,
-                                              color: Color(0xFF0B9AD3),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                        child: Stack(clipBehavior: Clip.none, children: [
+                          Container(
+                            width: 396,
+                            height: 156,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 21),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF0B9AD3),
+                              borderRadius: BorderRadius.circular(28),
                             ),
-                            Positioned(
-                              bottom:
-                                  -31, // Positionné à moitié dans le premier Container
-                              left: 59,
-                              child: Container(
-                                width: 278,
-                                height: 62,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(28),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 4),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Next appointment',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.2,
+                                    letterSpacing: -0.38,
+                                  ),
                                 ),
-                                child: Row(
+                                const SizedBox(height: 9),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Container(
-                                        width: 42,
-                                        height: 42,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(18),
-                                          image: DecorationImage(
-                                            image: AssetImage(RImages.doctor1),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20,
-                                            fontFamily: 'Roboto',
-                                            fontWeight: FontWeight.w500,
-                                            letterSpacing: 0.80,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.circle,
+                                                size: 16, color: Colors.white),
+                                            const SizedBox(width: 7),
+                                            Text(
+                                              '$formattedDate ',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.2,
+                                                letterSpacing: -0.30,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          '${appointment.professional!.businessSector}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontSize: 14,
-                                            fontFamily: 'Nunito',
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: -0.27,
-                                          ),
+                                        const SizedBox(height: 13),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.circle,
+                                                size: 16, color: Colors.white),
+                                            const SizedBox(width: 7),
+                                            Text(
+                                              '$formattedTime',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.2,
+                                                letterSpacing: -0.30,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                     Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 16),
-                                      child: FlutterLogo(size: 18),
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 16,
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Color(0xFF0B9AD3),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        CircleAvatar(
+                                          radius: 16,
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.remove_red_eye_sharp,
+                                            color: Color(0xFF0B9AD3),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            bottom:
+                                -31, // Positionné à moitié dans le premier Container
+                            left: 59,
+                            child: Container(
+                              width: 278,
+                              height: 62,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(28),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x3F000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Container(
+                                      width: 42,
+                                      height: 42,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        image: DecorationImage(
+                                          image: AssetImage(RImages.doctor1),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w500,
+                                          letterSpacing: 0.80,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        '${appointment.professional!.businessSector}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black.withOpacity(0.5),
+                                          fontSize: 14,
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.w400,
+                                          letterSpacing: -0.27,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 16),
+                                    child: FlutterLogo(size: 18),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: 60,
-                            ),
-                          ]),
                           ),
-                        ]);
+                          SizedBox(
+                            height: 60,
+                          ),
+                        ]),
+                      ),
+                    ]);
                   } else {
                     return Center(
-                      child: Text('No upcoming appointments',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'No upcoming appointments',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                     );
                   }
                 }),
-
-                
               ],
             ),
             SizedBox(
               height: 60,
             ),
-            
             Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Favorites',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                  height: 0.07,
-                  letterSpacing: -0.38,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  print('InkWell tapped');
-                  Get.to(() => FavoriteProfessionalsPage(emailCustomer: email));
-                },
-                child: Text(
-                  'See All',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF0B9AD3),
-                    fontSize: 14,
-                    fontFamily: 'Nunito',
-                    fontWeight: FontWeight.w400,
-                    height: 0.11,
-                    letterSpacing: -0.27,
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Favorites',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500,
+                      height: 0.07,
+                      letterSpacing: -0.38,
+                    ),
                   ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Obx(
-          () {
-            if (favoriteController.favoriteProfessionals.isEmpty) {
-              return Center(
-                child: Text(
-                  'No favorites yet',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              );
-            } else {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    favoriteController.favoriteProfessionals.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(right: 16.0), // Espace entre les cartes
-                      child: ProfileCardVertical(
-                        professional: favoriteController.favoriteProfessionals.elementAt(index),
-                        emailCustomer: email,
+                  InkWell(
+                    onTap: () {
+                      print('InkWell tapped');
+                      Get.to(() =>
+                          FavoriteProfessionalsPage(emailCustomer: email));
+                    },
+                    child: Text(
+                      'See All',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF0B9AD3),
+                        fontSize: 14,
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.w400,
+                        height: 0.11,
+                        letterSpacing: -0.27,
                       ),
                     ),
                   ),
-                ),
-              );
-            }
-          },
-        ),
-        ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(
+                () {
+                  if (favoriteController.favoriteProfessionals.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No favorites yet',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          favoriteController.favoriteProfessionals.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.only(
+                                right: 16.0), // Espace entre les cartes
+                            child: ProfileCardVertical(
+                              professional: favoriteController
+                                  .favoriteProfessionals
+                                  .elementAt(index),
+                              emailCustomer: email,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
             SizedBox(
               height: 30,
             ),

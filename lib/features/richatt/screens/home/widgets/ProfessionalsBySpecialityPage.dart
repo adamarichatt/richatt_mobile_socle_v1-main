@@ -37,9 +37,21 @@ class _ProfessionalsBySpecialityPageState extends State<ProfessionalsBySpecialit
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: 'Filter by city',
+                   decoration: InputDecoration(
+                      hintText: null, 
                       border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal:
+                              10.0), 
+                    ),
+                    hint: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Filter by city',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                     items: controller.getCitiesForSpeciality(widget.speciality).map((city) {
                       return DropdownMenuItem<String>(
@@ -58,9 +70,21 @@ class _ProfessionalsBySpecialityPageState extends State<ProfessionalsBySpecialit
                 SizedBox(width: 8),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: 'Filter by entity',
+                   decoration: InputDecoration(
+                      hintText: null, 
                       border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal:
+                              10.0), 
+                    ),
+                    hint: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Filter by entity',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                     items: controller.getEntitiesForSpeciality(widget.speciality).map((entity) {
                       return DropdownMenuItem<String>(

@@ -10,10 +10,14 @@ class ProfessionalsByEntityPage extends StatefulWidget {
   final String emailCustomer;
   final List<Professional> professionals;
 
-  ProfessionalsByEntityPage({required this.entityName, required this.emailCustomer, required this.professionals});
+  ProfessionalsByEntityPage(
+      {required this.entityName,
+      required this.emailCustomer,
+      required this.professionals});
 
   @override
-  _ProfessionalsByEntityPageState createState() => _ProfessionalsByEntityPageState();
+  _ProfessionalsByEntityPageState createState() =>
+      _ProfessionalsByEntityPageState();
 }
 
 class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
@@ -38,10 +42,24 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
-                      hintText: 'Filter by city',
+                      hintText: null, 
                       border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal:
+                              10.0), 
                     ),
-                    items: controller.getCitiesForEntity(widget.entityName).map((city) {
+                    hint: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Filter by city',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    items: controller
+                        .getCitiesForEntity(widget.entityName)
+                        .map((city) {
                       return DropdownMenuItem<String>(
                         value: city,
                         child: Text(city.isEmpty ? 'No filter' : city),
@@ -50,7 +68,8 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                     onChanged: (value) {
                       setState(() {
                         currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsByEntityAndCity(widget.entityName, value ?? '');
+                        controller.filterProfessionalsByEntityAndCity(
+                            widget.entityName, value ?? '');
                       });
                     },
                   ),
@@ -58,20 +77,36 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                 SizedBox(width: 8),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: 'Filter by speciality',
+                   decoration: InputDecoration(
+                      hintText: null, 
                       border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal:
+                              10.0), 
                     ),
-                    items: controller.getSpecialitiesForEntity(widget.entityName).map((speciality) {
+                    hint: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Filter by speciality',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    items: controller
+                        .getSpecialitiesForEntity(widget.entityName)
+                        .map((speciality) {
                       return DropdownMenuItem<String>(
                         value: speciality,
-                        child: Text(speciality.isEmpty ? 'No filter' : speciality),
+                        child:
+                            Text(speciality.isEmpty ? 'No filter' : speciality),
                       );
                     }).toList(),
                     onChanged: (value) {
                       setState(() {
                         currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsByEntityAndSpeciality(widget.entityName, value ?? '');
+                        controller.filterProfessionalsByEntityAndSpeciality(
+                            widget.entityName, value ?? '');
                       });
                     },
                   ),
@@ -88,7 +123,8 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
               // Pagination logic
               int totalItems = controller.filteredProfessionals.length;
               int totalPages = (totalItems / itemsPerPage).ceil();
-              List<Professional> professionalsToDisplay = controller.filteredProfessionals
+              List<Professional> professionalsToDisplay = controller
+                  .filteredProfessionals
                   .skip(currentPage * itemsPerPage)
                   .take(itemsPerPage)
                   .toList();
@@ -103,10 +139,10 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                         return InkWell(
                           onTap: () {
                             Get.to(() => ProfessionalDetailsPage(
-                              professionalId: professional.id!,
-                              professional: professional,
-                              emailCustomer: widget.emailCustomer,
-                            ));
+                                  professionalId: professional.id!,
+                                  professional: professional,
+                                  emailCustomer: widget.emailCustomer,
+                                ));
                           },
                           child: ProfileCard(
                             professional: professional,
