@@ -10,7 +10,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:collection/collection.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:table_calendar/table_calendar.dart';
+
 
 class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
@@ -149,7 +149,21 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
             ),
             
               const SizedBox(height: RSizes.spaceBtwInputFields),
-              TableCalendar(
+               Container(
+            padding: const EdgeInsets.all(16),
+            decoration: ShapeDecoration(
+              color: Color(0x3312AFF0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+             child: TableCalendar(
+                 calendarStyle: CalendarStyle(
+                rangeHighlightColor: Colors.blue,
+                markerDecoration: BoxDecoration(
+                    color: Color.fromARGB(255, 43, 141, 191),
+                    shape: BoxShape.circle),
+              ),
                 firstDay: DateTime(2020, 1, 1),
                 lastDay: DateTime(2030, 12, 31),
                 focusedDay: _focusedDay,
@@ -170,6 +184,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
                     });
                   }
                 },
+              ),
               ),
               const SizedBox(height: RSizes.spaceBtwInputFields),
               FutureBuilder<List<Schedule>>(

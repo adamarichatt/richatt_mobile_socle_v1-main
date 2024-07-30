@@ -270,6 +270,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         ),
                       ),
                       initialValue: _firstName,
+                      enabled: _bookingFor != 'My self',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter first name';
@@ -293,6 +294,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         ),
                       ),
                       initialValue: _lastName,
+                      enabled: _bookingFor != 'My self',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter last name';

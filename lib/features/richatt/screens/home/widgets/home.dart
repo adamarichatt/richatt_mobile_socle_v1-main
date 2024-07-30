@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
                 RSearchContainer(
-                  text: 'Search a doctor!',
+                  text: 'Search a doctor!', emailCustomer: email,
                 ),
                 SizedBox(
                   height: RSizes.spaceBtwSections,

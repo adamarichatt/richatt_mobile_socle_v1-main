@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
@@ -145,6 +146,7 @@ class _AppointmentsListState extends State<AppointmentsList>
                       ),
                     ));
                   },
+                  onRedirect: null,
                 ),
                 AppointmentsTab(
                   appointments: completedAppointments,
@@ -156,6 +158,15 @@ class _AppointmentsListState extends State<AppointmentsList>
                         appointment: appointment,
                         email: widget.email,
                         phone: widget.phone,
+                      ),
+                    ));
+                  },
+                  onRedirect: (appointment) {
+                    // Handle the redirection logic here
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AppointmentPage(
+                        professionalId: appointment.professional!.id!,
+                        professional: appointment.professional!,
                       ),
                     ));
                   },
@@ -176,12 +187,14 @@ class AppointmentsTab extends StatelessWidget {
   final bool showButtons;
   final Function(Appointment) onCancel;
   final Function(Appointment) onEdit;
+  final Function(Appointment)? onRedirect;
 
   const AppointmentsTab({
     required this.appointments,
     required this.showButtons,
     required this.onCancel,
     required this.onEdit,
+    this.onRedirect,
   });
 
   @override
@@ -241,20 +254,21 @@ class AppointmentsTab extends StatelessWidget {
                     '$formattedDate - $formattedTime',
                     style: TextStyle(
                       color: Colors.black,
+                      fontFamily: 'Roboto',
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.38,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -1.9,
+                      
                     ),
                   ),
                 ),
-                 Positioned(
+                Positioned(
                   left: 9,
                   top: 56,
                   right: 9,
                   child: Divider(color: Colors.black),
                 ),
-               
-               Positioned(
+                Positioned(
                   left: 9,
                   top: 78,
                   child: Container(
@@ -262,7 +276,8 @@ class AppointmentsTab extends StatelessWidget {
                     height: 90,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(RImages.doctor1), // Utilisation de l'URL de l'image du projet
+                        image: AssetImage(RImages
+                            .doctor1), // Utilisation de l'URL de l'image du projet
                         fit: BoxFit.fill,
                       ),
                       borderRadius: BorderRadius.circular(16),
@@ -279,6 +294,7 @@ class AppointmentsTab extends StatelessWidget {
                         'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
                         style: TextStyle(
                           color: Colors.black,
+                          fontFamily: 'Roboto',
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           letterSpacing: -0.16,
@@ -289,6 +305,7 @@ class AppointmentsTab extends StatelessWidget {
                         '${appointment.professional!.businessSector}',
                         style: TextStyle(
                           color: Colors.black,
+                          fontFamily: 'Nunito',
                           fontSize: 12,
                           letterSpacing: -0.23,
                         ),
@@ -298,6 +315,7 @@ class AppointmentsTab extends StatelessWidget {
                         'Available at ${appointment.professional!.entityName}-${appointment.address}',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
+                          fontFamily: 'Nunito',
                           fontSize: 12,
                           letterSpacing: -0.23,
                         ),
@@ -309,6 +327,7 @@ class AppointmentsTab extends StatelessWidget {
                             appointment.address!,
                             style: TextStyle(
                               color: Color(0xFF0B9AD3),
+                              fontFamily: 'Nunito',
                               fontSize: 12,
                               letterSpacing: -0.23,
                             ),
@@ -318,6 +337,7 @@ class AppointmentsTab extends StatelessWidget {
                             '+20 Years of Experience',
                             style: TextStyle(
                               color: Color(0xFFC2A404),
+                              fontFamily: 'Nunito',
                               fontSize: 12,
                               letterSpacing: -0.23,
                             ),
@@ -327,9 +347,7 @@ class AppointmentsTab extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 
-                 if (showButtons)
                   Positioned(
                     left: 9,
                     top: 56,
@@ -337,57 +355,112 @@ class AppointmentsTab extends StatelessWidget {
                     child: Divider(color: Colors.black),
                   ),
                 if (showButtons)
-                Positioned(
-                  left: 9,
-                  top: 200,
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () => onCancel(appointment),
-                        child: Container(
-                          width: 160,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFF0B9AD3)),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: Color(0xFF0B9AD3),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                  Positioned(
+                    left: 9,
+                    top: 200,
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () => onCancel(appointment),
+                          child: Container(
+                            width: 181,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xFF0B9AD3)),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Color(0xFF0B9AD3),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 16),
-                      InkWell(
-                        onTap: () => onEdit(appointment),
-                        child: Container(
-                          width: 160,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF0B9AD3),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Reschedule',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                        SizedBox(width: 16),
+                        InkWell(
+                          onTap: () => onEdit(appointment),
+                          child: Container(
+                            width: 181,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF0B9AD3),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Reschedule',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                if (!showButtons && onRedirect != null)
+                 Positioned(
+                    left: 9,
+                    top: 200,
+                    child: Row(
+                      children: [
+                         InkWell(
+                          onTap: () => onRedirect!(appointment),
+                          child: Container(
+                            width: 181,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF0B9AD3),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Re Book',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        InkWell(
+                          onTap: () => onRedirect!(appointment),
+                          child: Container(
+                            width: 181,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xFF0B9AD3)),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Add to favorites',
+                                style: TextStyle(
+                                  color: Color(0xFF0B9AD3),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        
+                       
+                      ],
+                    ),
+                  ),
+                
               ],
             ),
           ),
