@@ -266,7 +266,7 @@ class AppointmentsTab extends StatelessWidget {
                   left: 9,
                   top: 56,
                   right: 9,
-                  child: Divider(color: Colors.black),
+                  child: Divider(color: Colors.grey),
                 ),
                 Positioned(
                   left: 9,
@@ -352,7 +352,7 @@ class AppointmentsTab extends StatelessWidget {
                     left: 9,
                     top: 56,
                     right: 9,
-                    child: Divider(color: Colors.black),
+                    child: Divider(color: Colors.grey),
                   ),
                 if (showButtons)
                   Positioned(

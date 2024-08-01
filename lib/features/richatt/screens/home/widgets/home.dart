@@ -15,6 +15,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/FavoriteProfessionalsPage.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
@@ -116,92 +117,96 @@ class HomeScreen extends StatelessWidget {
                     final formattedTime = DateFormat('HH:mm').format(dateTime);
 
                     return Column(children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentDetailsPage(
-                              appointment: appointment,
-                            ),
-                          ));
-                        },
-                        child: Stack(clipBehavior: Clip.none, children: [
-                          Container(
-                            width: 396,
-                            height: 156,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 21),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF0B9AD3),
-                              borderRadius: BorderRadius.circular(28),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Next appointment',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.2,
-                                    letterSpacing: -0.38,
-                                  ),
+                      Stack(clipBehavior: Clip.none, children: [
+                        Container(
+                          width: 396,
+                          height: 156,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 21),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF0B9AD3),
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Next appointment',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.2,
+                                  letterSpacing: -0.38,
                                 ),
-                                const SizedBox(height: 9),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.circle,
-                                                size: 16, color: Colors.white),
-                                            const SizedBox(width: 7),
-                                            Text(
-                                              '$formattedDate ',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.2,
-                                                letterSpacing: -0.30,
-                                              ),
+                              ),
+                              const SizedBox(height: 9),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.circle,
+                                              size: 16, color: Colors.white),
+                                          const SizedBox(width: 7),
+                                          Text(
+                                            '$formattedDate ',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Nunito',
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.2,
+                                              letterSpacing: -0.30,
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 13),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.circle,
-                                                size: 16, color: Colors.white),
-                                            const SizedBox(width: 7),
-                                            Text(
-                                              '$formattedTime',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.2,
-                                                letterSpacing: -0.30,
-                                              ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 13),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.circle,
+                                              size: 16, color: Colors.white),
+                                          const SizedBox(width: 7),
+                                          Text(
+                                            '$formattedTime',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Nunito',
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.2,
+                                              letterSpacing: -0.30,
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditAppointmentPage(
+                                              appointment: appointment,
+                                              email: email,
+                                              phone: phone,
+                                            ),
+                                          ));
+                                        },
+                                        child: CircleAvatar(
                                           radius: 16,
                                           backgroundColor: Colors.white,
                                           child: Icon(
@@ -209,8 +214,19 @@ class HomeScreen extends StatelessWidget {
                                             color: Color(0xFF0B9AD3),
                                           ),
                                         ),
-                                        const SizedBox(width: 16),
-                                        CircleAvatar(
+                                      ),
+                                      const SizedBox(width: 16),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                AppointmentDetailsPage(
+                                              appointment: appointment,
+                                            ),
+                                          ));
+                                        },
+                                        child: CircleAvatar(
                                           radius: 16,
                                           backgroundColor: Colors.white,
                                           child: Icon(
@@ -218,92 +234,91 @@ class HomeScreen extends StatelessWidget {
                                             color: Color(0xFF0B9AD3),
                                           ),
                                         ),
-                                      ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          bottom:
+                              -31, // Positionné à moitié dans le premier Container
+                          left: 59,
+                          child: Container(
+                            width: 278,
+                            height: 62,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(28),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    width: 42,
+                                    height: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(18),
+                                      image: DecorationImage(
+                                        image: AssetImage(RImages.doctor1),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.80,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      '${appointment.professional!.businessSector}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5),
+                                        fontSize: 14,
+                                        fontFamily: 'Nunito',
+                                        fontWeight: FontWeight.w400,
+                                        letterSpacing: -0.27,
+                                      ),
                                     ),
                                   ],
+                                ),
+                                Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: FlutterLogo(size: 18),
                                 ),
                               ],
                             ),
                           ),
-                          Positioned(
-                            bottom:
-                                -31, // Positionné à moitié dans le premier Container
-                            left: 59,
-                            child: Container(
-                              width: 278,
-                              height: 62,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(28),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
-                                  )
-                                ],
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Container(
-                                      width: 42,
-                                      height: 42,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(18),
-                                        image: DecorationImage(
-                                          image: AssetImage(RImages.doctor1),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.80,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        '${appointment.professional!.businessSector}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.black.withOpacity(0.5),
-                                          fontSize: 14,
-                                          fontFamily: 'Nunito',
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: -0.27,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 16),
-                                    child: FlutterLogo(size: 18),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 60,
-                          ),
-                        ]),
-                      ),
+                        ),
+                        SizedBox(
+                          height: 60,
+                        ),
+                      ]),
                     ]);
                   } else {
                     return Center(
