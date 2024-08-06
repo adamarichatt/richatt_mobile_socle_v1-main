@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
@@ -87,11 +88,42 @@ class SignupController extends GetxController {
       );
     }
   }
+  Future<void> verifyCode(String email, String code) async {
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      var verifyCodeUrl = Uri.parse(APIConstants.apiBackend + 'auth/verifyCode');
+      Map verifyBody = {
+        'email': email,
+        'code': code,
+      };
+
+      http.Response verifyCodeResponse = await http.post(verifyCodeUrl, body: jsonEncode(verifyBody), headers: headers);
+
+      if (verifyCodeResponse.statusCode == 200) {
+        updateUserCode(email);
+      } else {
+        throw jsonDecode(verifyCodeResponse.body)["Message"] ?? "Une erreur inconnue s'est produite";
+      }
+    } catch (error) {
+      showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Erreur'),
+            contentPadding: const EdgeInsets.all(20),
+            children: [Text(error.toString())],
+          );
+        },
+      );
+    }
+  }
 
   Future<void> updateUserCode(String email) async {
     var headers = {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
     };
 
     try {
@@ -104,7 +136,7 @@ class SignupController extends GetxController {
 
       if (updateResponse.statusCode == 200) {
         Get.snackbar("Succès", "Votre compte a été activé avec succès.");
-        Get.offAll(() => const NavigationMenu());
+        Get.offAll(() => const LoginScreen());
       } else {
         throw jsonDecode(updateResponse.body)["Message"] ?? "Une erreur inconnue s'est produite";
       }
@@ -121,5 +153,37 @@ class SignupController extends GetxController {
       );
     }
   }
+
+
+   Future<void> sendResetPasswordEmail(String email) async {
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      var resetUrl = Uri.parse(APIConstants.apiBackend + 'auth/sendResetPasswordMail?email=$email');
+
+      http.Response response = await http.post(resetUrl, headers: headers);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Succès", "Un e-mail de réinitialisation du mot de passe a été envoyé.");
+        Get.offAll(() => const LoginScreen());
+      } else {
+        throw jsonDecode(response.body)["Message"] ?? "Une erreur inconnue s'est produite";
+      }
+    } catch (error) {
+      showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Erreur'),
+            contentPadding: const EdgeInsets.all(20),
+            children: [Text(error.toString())],
+          );
+        },
+      );
+    }
+  }
 }
 
+ 

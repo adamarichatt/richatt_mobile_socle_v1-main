@@ -19,7 +19,7 @@ class _RSearchPageState extends State<RSearchPage> {
   final controller = Get.find<ProfessionalController>();
   final TextEditingController _searchController = TextEditingController();
 
-  // Variables de pagination
+  // Variables de pagination 
   int currentPage = 0;
   final int itemsPerPage = 4;
 

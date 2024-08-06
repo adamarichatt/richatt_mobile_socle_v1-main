@@ -15,6 +15,7 @@ class FavoriteController extends GetxController {
 
   bool isFavorite(Professional professional) {
     return favoriteProfessionals.any((fav) => fav.id == professional.id);
+    
   }
 
   Future<void> toggleFavorite(Professional professional, String idCustomer) async {

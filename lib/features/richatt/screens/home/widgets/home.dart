@@ -428,7 +428,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Available now',
+                        'Professionals',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
+import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/ResetPasswordPage.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/signup.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
@@ -77,8 +78,10 @@ class RLoginForm extends StatelessWidget {
                 ),
 
                 // Forget Password
-                TextButton(
-                  onPressed: () {},
+                 TextButton(
+                  onPressed: () {
+                    Get.to(() => ResetPasswordPage());  // Naviguez vers la page de réinitialisation
+                  },
                   child: const Text(RTexts.forgetPassword),
                 ),
               ],
