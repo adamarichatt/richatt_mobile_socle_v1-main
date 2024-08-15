@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
+
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:collection/collection.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 
 class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;
@@ -31,14 +31,11 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
   late TimeOfDay initialTime;
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
-  late TextEditingController firstNameController;
-  late TextEditingController lastNameController;
-  List<Service> services = [];
-  String? selectedReason;
+
   final ProfessionalController _controller = ProfessionalController();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  bool _showCalendar = false;
+
   Schedule? newSchedule;
 
   @override
@@ -57,30 +54,6 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
 
     selectedDate = initialDate;
     selectedTime = initialTime;
-
-    firstNameController =
-        TextEditingController(text: widget.appointment.firstName);
-    lastNameController =
-        TextEditingController(text: widget.appointment.lastName);
-
-    _fetchServices();
-  }
-
-  Future<void> _fetchServices() async {
-    try {
-      List<Service> fetchedServices = await _controller
-          .getServicesByProfessional(widget.appointment.professional!.id!);
-      setState(() {
-        services = fetchedServices;
-        selectedReason = services
-            .firstWhere((service) => service.name == widget.appointment.reason)
-            .id;
-      });
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to fetch services: $error')),
-      );
-    }
   }
 
   Future<void> _updateAppointment() async {
@@ -94,62 +67,45 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
         selectedTime.minute,
       );
 
-      final service =
-          services.firstWhere((service) => service.id == selectedReason);
-
-      // Check if the date and time have changed
-      bool dateTimeChanged = newDateTime != initialDate;
-      // Formatter la date selon le format souhaité sans millisecondes
-//       String formattedDateTime =
-//           DateFormat("yyyy-MM-ddTHH:mm:ss").format(newDateTime);
-
-// // Affecter la date formatée à widget.appointment.dateTime
-//       widget.appointment.dateTime = formattedDateTime;
-
-      widget.appointment.firstName = firstNameController.value.text;
-      widget.appointment.lastName = lastNameController.value.text;
-      widget.appointment.reason = service.name;
-      widget.appointment.price = service.price;
-      widget.appointment.duration = service.duration;
       widget.appointment.email = widget.email;
       widget.appointment.phone = widget.phone;
       widget.appointment.address = widget.appointment.address;
       widget.appointment.description = widget.appointment.description;
 
-      if (dateTimeChanged) {
-        List<Schedule> allSchedules = await _controller
-            .fetchSchedules(widget.appointment.professional!.id!);
+      List<Schedule> allSchedules = await _controller
+          .fetchSchedules(widget.appointment.professional!.id!);
 
-        Schedule? originalSchedule = allSchedules.firstWhereOrNull(
-          (schedule) => DateTime.parse(schedule.dateTime.split('T').first +
-                  ' ' +
-                  schedule.dateTime.split('T').last.split('-').first)
-              .isAtSameMomentAs(initialDate),
+      Schedule? originalSchedule = allSchedules.firstWhereOrNull(
+        (schedule) => DateTime.parse(schedule.dateTime.split('T').first +
+                ' ' +
+                schedule.dateTime.split('T').last.split('-').first)
+            .isAtSameMomentAs(initialDate),
+      );
+
+      if (originalSchedule == null) {
+        throw Exception('Original schedule not found');
+      }
+
+      if (newSchedule == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No available slot at the chosen time')),
         );
-
-        if (originalSchedule == null) {
-          throw Exception('Original schedule not found');
-        }
-
-        if (newSchedule == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('No available slot at the chosen time')),
-          );
-        } else {
-          widget.appointment.dateTime = newSchedule!.dateTime;
-          await _controller.updateAppointment(
-              widget.appointment.id!, widget.appointment);
-          await _controller.enableSchedules([originalSchedule]);
-          await _controller.deleteSchedules([newSchedule!]);
-          await _controller.addSchedules([newSchedule!]);
-          await _controller.reserveSchedules([newSchedule!]);
-        }
       } else {
-        RHelperFunctions.showLoader();
+        widget.appointment.dateTime = newSchedule!.dateTime;
         await _controller.updateAppointment(
             widget.appointment.id!, widget.appointment);
+        await _controller.enableSchedules([originalSchedule]);
+        await _controller.deleteSchedules([newSchedule!!]);
+        await _controller.addSchedules([newSchedule!!]);
+        await _controller.reserveSchedules([newSchedule!!]);
         Navigator.of(context).pop();
       }
+      // } else {
+      //   RHelperFunctions.showLoader();
+      //   await _controller.updateAppointment(
+      //       widget.appointment.id!, widget.appointment);
+      //   Navigator.of(context).pop();
+      // }
 
       Get.to(() => AppointmentsList(email: widget.email, phone: widget.phone));
     } catch (error) {
@@ -173,23 +129,28 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
           children: [
             const SizedBox(height: RSizes.spaceBtwInputFields),
             ListTile(
-              //       final formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
-              // final formattedTime = DateFormat('HH:mm').format(dateTime);
               title: Text(
                   "Date: ${DateFormat('dd/MM/yyyy').format(selectedDate)}"),
               subtitle: Text(
                   "Heure: ${DateFormat('HH:mm').format(DateTime(0, 1, 1, selectedTime.hour, selectedTime.minute))}"),
-
               trailing: Icon(Icons.calendar_today),
-              onTap: () {
-                setState(() {
-                  _showCalendar = !_showCalendar;
-                });
-              },
             ),
-            if (_showCalendar) ...[
-              const SizedBox(height: RSizes.spaceBtwInputFields),
-              TableCalendar(
+            const SizedBox(height: RSizes.spaceBtwInputFields),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: ShapeDecoration(
+                color: Color(0x3312AFF0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(28),
+                ),
+              ),
+              child: TableCalendar(
+                calendarStyle: CalendarStyle(
+                  rangeHighlightColor: Colors.blue,
+                  markerDecoration: BoxDecoration(
+                      color: Color.fromARGB(255, 43, 141, 191),
+                      shape: BoxShape.circle),
+                ),
                 firstDay: DateTime(2020, 1, 1),
                 lastDay: DateTime(2030, 12, 31),
                 focusedDay: _focusedDay,
@@ -211,59 +172,39 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
                   }
                 },
               ),
-              const SizedBox(height: RSizes.spaceBtwInputFields),
-              FutureBuilder<List<Schedule>>(
-                future: _controller.fetchDaySchedules(
-                    selectedDate, widget.appointment.professional!.id!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(
-                        child: Text('No active schedules for selected day'));
-                  } else {
-                    List<Schedule> schedules = snapshot.data!;
-                    schedules.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+            ),
+            const SizedBox(height: RSizes.spaceBtwInputFields),
+            FutureBuilder<List<Schedule>>(
+              future: _controller.fetchDaySchedules(
+                  selectedDate, widget.appointment.professional!.id!),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(
+                      child: Text('No active schedules for selected day'));
+                } else {
+                  List<Schedule> schedules = snapshot.data!;
+                  schedules.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
-                    return _activeSchedulesForSelectedDay(schedules);
-                  }
-                },
-              ),
-            ],
-            const SizedBox(height: RSizes.spaceBtwInputFields),
-            TextField(
-              controller: firstNameController,
-              decoration: InputDecoration(labelText: 'First Name'),
-            ),
-            const SizedBox(height: RSizes.spaceBtwInputFields),
-            TextField(
-              controller: lastNameController,
-              decoration: InputDecoration(labelText: 'Last Name'),
-            ),
-            const SizedBox(height: RSizes.spaceBtwInputFields),
-            DropdownButtonFormField<String>(
-              value: selectedReason,
-              onChanged: (value) {
-                setState(() {
-                  selectedReason = value;
-                });
+                  return _activeSchedulesForSelectedDay(schedules);
+                }
               },
-              items: services.map((Service service) {
-                return DropdownMenuItem<String>(
-                  value: service.id,
-                  child: Text(service.name),
-                );
-              }).toList(),
-              decoration: InputDecoration(
-                labelText: 'Service',
-              ),
             ),
             const SizedBox(height: RSizes.spaceBtwInputFields),
             ElevatedButton(
               onPressed: _updateAppointment,
-              child: Text('Enregistrer'),
+              child: Text(
+                'Enregistrer',
+                style: TextStyle(fontSize: 14),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 8), // Smaller padding
+              ),
             ),
           ],
         ),
@@ -296,7 +237,7 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
                       schedule.dateTime.split('T').last.split(':')[1]),
                 );
                 newSchedule = schedule;
-                _showCalendar = false;
+                // _showCalendar = false;
               });
             },
             child: Text(schedule.dateTime

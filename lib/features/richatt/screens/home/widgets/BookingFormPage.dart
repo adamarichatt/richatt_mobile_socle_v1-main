@@ -7,6 +7,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:richatt_mobile_socle_v1/notification/notification.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
@@ -34,7 +35,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
   final _lastNameKey = GlobalKey<FormFieldState>();
   final _birthdateKey = GlobalKey<FormFieldState>();
   final _serviceKey = GlobalKey<FormFieldState>();
-  final _descriptionKey = GlobalKey<FormFieldState>();
 
   String _bookingFor = 'My self';
   String _firstName = '';
@@ -49,9 +49,10 @@ class _BookingFormPageState extends State<BookingFormPage> {
   String? _birthdate;
   Professional? _professional;
   final TextEditingController _birthdateController = TextEditingController();
-
+  final _descriptionController = TextEditingController();
   late ProfessionalController _controller;
   late List<Service> _services = [];
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   void initState() {
@@ -66,6 +67,12 @@ class _BookingFormPageState extends State<BookingFormPage> {
     try {
       List<Service> services =
           await _controller.getServicesByProfessional(widget.professionalId);
+
+      // Filtrer les services dont la durée est inférieure ou égale à la durée du schedule
+      services = services
+          .where((service) => service.duration! <= widget.schedule.duration)
+          .toList();
+
       setState(() {
         _services = services;
       });
@@ -78,12 +85,29 @@ class _BookingFormPageState extends State<BookingFormPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? phone = prefs.getString('phone');
-    print('email: $email');
-    print('phone: $phone');
-    setState(() {
-      if (email != null) _email = email;
-      if (phone != null) _phoneNumber = phone;
-    });
+
+    if (email != null) {
+      _email = email;
+    }
+    if (phone != null) {
+      _phoneNumber = phone;
+    }
+
+    if (_bookingFor == 'My self') {
+      profileController
+          .getCustomerByEmail(_email); // Assuming this fetches user details
+      await Future.delayed(
+          Duration(milliseconds: 500)); // Delay for the profile data to load
+
+      setState(() {
+        _firstName = profileController.firstName.value;
+        _lastName = profileController.lastName.value;
+
+        // Set initial values for first name and last name fields
+        _firstNameKey.currentState?.didChange(_firstName);
+        _lastNameKey.currentState?.didChange(_lastName);
+      });
+    }
   }
 
   void _bookSchedule() async {
@@ -135,7 +159,6 @@ class _BookingFormPageState extends State<BookingFormPage> {
     _lastNameKey.currentState?.validate();
     _birthdateKey.currentState?.validate();
     _serviceKey.currentState?.validate();
-    _descriptionKey.currentState?.validate();
   }
 
   @override
@@ -166,7 +189,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       appBar: AppBar(
         title: Text('Patient Details'),
       ),
-      body: _services == null
+      body: _services.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16.0),
@@ -177,11 +200,39 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Booking For',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
                     DropdownButtonFormField<String>(
                       value: _bookingFor,
                       onChanged: (value) {
                         setState(() {
                           _bookingFor = value!;
+                          if (_bookingFor == 'My self') {
+                            _firstName = profileController.firstName.value;
+                            _lastName = profileController.lastName.value;
+                            _firstNameKey.currentState?.didChange(_firstName);
+                            _lastNameKey.currentState?.didChange(_lastName);
+                          } else {
+                            _firstName = '';
+                            _lastName = '';
+                            _firstNameKey.currentState?.didChange(_firstName);
+                            _lastNameKey.currentState?.didChange(_lastName);
+                          }
                         });
                       },
                       items: ['My self', 'Family relative', 'Friend']
@@ -192,7 +243,32 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         );
                       }).toList(),
                       decoration: InputDecoration(
-                        labelText: 'Booking for',
+                        hintText: 'Booking for',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Service',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -213,10 +289,25 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         );
                       }).toList(),
                       decoration: InputDecoration(
-                        labelText: 'Service',
-                        errorStyle: TextStyle(color: Colors.red),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      hint: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Service',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -229,15 +320,38 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'First Name',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
                     TextFormField(
                       key: _firstNameKey,
                       decoration: InputDecoration(
-                        labelText: 'First Name',
-                        errorStyle: TextStyle(color: Colors.red),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
+                        hintText: 'First Name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
                         ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
+                      initialValue: _firstName,
+                      enabled: _bookingFor != 'My self',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter first name';
@@ -251,15 +365,38 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Last Name',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
                     TextFormField(
                       key: _lastNameKey,
                       decoration: InputDecoration(
-                        labelText: 'Last Name',
-                        errorStyle: TextStyle(color: Colors.red),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
+                        hintText: 'Last Name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
                         ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
+                      initialValue: _lastName,
+                      enabled: _bookingFor != 'My self',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter last name';
@@ -269,6 +406,23 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       onSaved: (value) {
                         _lastName = value!;
                       },
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Gender',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
@@ -287,7 +441,32 @@ class _BookingFormPageState extends State<BookingFormPage> {
                         );
                       }).toList(),
                       decoration: InputDecoration(
-                        labelText: 'Gender',
+                        hintText: 'Gender',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Birthdate',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -298,12 +477,15 @@ class _BookingFormPageState extends State<BookingFormPage> {
                       controller: _birthdateController,
                       readOnly: true,
                       decoration: InputDecoration(
-                        labelText: 'Birthdate',
                         hintText: 'Select birthdate',
-                        errorStyle: TextStyle(color: Colors.red),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
                         ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
                       onTap: () {
                         _selectDate(context);
@@ -318,23 +500,39 @@ class _BookingFormPageState extends State<BookingFormPage> {
                     const SizedBox(
                       height: RSizes.spaceBtwItems,
                     ),
-                    TextFormField(
-                      key: _descriptionKey,
-                      decoration: InputDecoration(
-                        labelText: 'Description',
-                        errorStyle: TextStyle(color: Colors.red),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
+                    SizedBox(
+                      width: 396,
+                      height: 21,
+                      child: Text(
+                        'Description',
+                        style: TextStyle(
+                          color: Color(0xFF17181A),
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
                         ),
                       ),
-                      onSaved: (value) {
-                        _description = value!;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter description';
-                        }
-                        return null;
+                    ),
+                    const SizedBox(
+                      height: RSizes.spaceBtwItems,
+                    ),
+                    TextField(
+                      controller: _descriptionController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: 'Description',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFFD9E1E7)),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      onChanged: (value) {
+                        _description = value;
                       },
                     ),
                     const SizedBox(

@@ -5,7 +5,6 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/camera/camera.d
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,13 +28,10 @@ class NavigationMenu extends StatelessWidget {
           indicatorColor: darkMode
               ? RColors.white.withOpacity(0.1)
               : Colors.black.withOpacity(0.1),
-          destinations: [
-            NavigationDestination(
-                icon: Icon(Iconsax.home), label: S.of(context).Home),
-            NavigationDestination(
-                icon: Icon(Iconsax.calendar), label: S.of(context).rdvs),
-            NavigationDestination(
-                icon: Icon(Iconsax.user), label: S.of(context).Profile),
+          destinations: const [
+            NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Iconsax.calendar), label: 'RDVs'),
+            NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
           ],
         ),
       ),
@@ -68,7 +64,7 @@ class NavigationController extends GetxController {
     String? phone = prefs.getString('phone');
 
     if (email != null && phone != null) {
-      screens[0] = HomeScreen(email: email);
+      screens[0] = HomeScreen(email: email, phone: phone);
       screens[1] = AppointmentsList(email: email, phone: phone);
       screens[2] = ProfilePage(email: email);
       debugPrint('User data loaded: email=$email, phone=$phone');

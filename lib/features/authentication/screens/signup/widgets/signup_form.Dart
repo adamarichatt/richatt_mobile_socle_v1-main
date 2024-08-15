@@ -7,9 +7,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
 
-class RSignupForm extends StatelessWidget {
+class RSignupForm extends StatefulWidget {
   const RSignupForm({
     super.key,
     required this.dark,
@@ -18,8 +18,16 @@ class RSignupForm extends StatelessWidget {
   final bool dark;
 
   @override
+  _RSignupFormState createState() => _RSignupFormState();
+}
+
+class _RSignupFormState extends State<RSignupForm> {
+  final controller = Get.put(SignupController());
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
-    final controller= Get.put(SignupController());
     return Form(
       key: controller.signupFormKey,
       child: Column(
@@ -29,15 +37,15 @@ class RSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.firstName,
-                  
                   expands: false,
                   decoration: const InputDecoration(
-                     enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+                    ),
                     labelText: RTexts.firstName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
+                  validator: (value) => RValidator.validateEmptyText('First name', value),
                 ),
               ),
               const SizedBox(
@@ -46,93 +54,106 @@ class RSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.lastName,
-                  
                   expands: false,
                   decoration: const InputDecoration(
                     enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+                      borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+                    ),
                     labelText: RTexts.lastName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
+                  validator: (value) => RValidator.validateEmptyText('Last name', value),
                 ),
               ),
             ],
           ),
-         
           const SizedBox(
             height: RSizes.spaceBtwInputFields,
           ),
           TextFormField(
             controller: controller.email,
-            
             expands: false,
             decoration: const InputDecoration(
               enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+                borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+              ),
               labelText: RTexts.email,
               prefixIcon: Icon(Iconsax.direct),
             ),
+            validator: RValidator.validateEmail,
           ),
           const SizedBox(
             height: RSizes.spaceBtwInputFields,
           ),
           TextFormField(
             controller: controller.phoneNumber,
-            
             expands: false,
             decoration: const InputDecoration(
               enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+                borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+              ),
               labelText: RTexts.phoneNo,
               prefixIcon: Icon(Iconsax.call),
             ),
+            validator: RValidator.validatePhoneNumber,
           ),
           const SizedBox(
             height: RSizes.spaceBtwInputFields,
           ),
           TextFormField(
             controller: controller.password,
-           
-            obscureText: true,
+            obscureText: !_passwordVisible,
             expands: false,
-            decoration: const InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+            decoration: InputDecoration(
+              enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+              ),
               labelText: RTexts.password,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+              prefixIcon: const Icon(Iconsax.password_check),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _passwordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
             ),
+            validator: RValidator.validatePassword,
           ),
           const SizedBox(
             height: RSizes.spaceBtwSections,
           ),
-
-           TextFormField(
+          TextFormField(
             controller: controller.confirmPassword,
-           
-            obscureText: true,
+            obscureText: !_confirmPasswordVisible,
             expands: false,
-            decoration: const InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color:Color(0xFFA8A6A7),),
-                  ),
+            decoration: InputDecoration(
+              enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFA8A6A7)),
+              ),
               labelText: RTexts.confirmPassword,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+              prefixIcon: const Icon(Iconsax.password_check),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _confirmPasswordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _confirmPasswordVisible = !_confirmPasswordVisible;
+                  });
+                },
+              ),
             ),
+            validator: (value) => RValidator.validateConfirmPassword(value, controller.password.text),
           ),
           const SizedBox(
             height: RSizes.spaceBtwSections,
           ),
-    
-          // Terms and Condition Checkbox
           Row(
             children: [
-              
               SizedBox(
                 width: 20,
                 height: 20,
@@ -147,15 +168,10 @@ class RSignupForm extends StatelessWidget {
                   ),
                   TextSpan(
                     text: '${RTexts.privacyPolicy} ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .apply(
-                          color:
-                              dark ? RColors.white : RColors.primary,
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          color: widget.dark ? RColors.white : RColors.primary,
                           decoration: TextDecoration.underline,
-                          decorationColor:
-                              dark ? RColors.white : RColors.primary,
+                          decorationColor: widget.dark ? RColors.white : RColors.primary,
                         ),
                   ),
                   TextSpan(
@@ -164,15 +180,10 @@ class RSignupForm extends StatelessWidget {
                   ),
                   TextSpan(
                     text: '${RTexts.termsOfUse} ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .apply(
-                          color:
-                              dark ? RColors.white : RColors.primary,
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          color: widget.dark ? RColors.white : RColors.primary,
                           decoration: TextDecoration.underline,
-                          decorationColor:
-                              dark ? RColors.white : RColors.primary,
+                          decorationColor: widget.dark ? RColors.white : RColors.primary,
                         ),
                   ),
                 ]),
@@ -185,8 +196,9 @@ class RSignupForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () => controller.signup(),
-                child: const Text(RTexts.createAccount)),
+              onPressed: () => controller.signup(),
+              child: const Text(RTexts.createAccount),
+            ),
           ),
         ],
       ),

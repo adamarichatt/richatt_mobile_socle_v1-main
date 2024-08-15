@@ -57,7 +57,7 @@ class LoginController extends GetxController {
         isLoggedIn.value = true;
         Get.offAll(() => const NavigationMenu());
       } else {
-        throw jsonDecode(response.body)["Message"] ?? "Unknown Error Occured";
+        throw jsonDecode(response.body)["Message"] ?? "Nom d'utilisateur ou mot de passe incorrect.";
       }
     } catch (error) {
       Get.back();

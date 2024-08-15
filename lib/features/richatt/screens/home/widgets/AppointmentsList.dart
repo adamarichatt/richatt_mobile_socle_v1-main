@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
@@ -133,6 +137,7 @@ class _AppointmentsListState extends State<AppointmentsList>
               controller: _tabController,
               children: [
                 AppointmentsTab(
+                  email: widget.email,
                   appointments: upcomingAppointments,
                   showButtons: true,
                   onCancel: _showCancelDialog,
@@ -145,8 +150,11 @@ class _AppointmentsListState extends State<AppointmentsList>
                       ),
                     ));
                   },
+                  onRedirect: null,
+                  onToggleFavorite: null,
                 ),
                 AppointmentsTab(
+                  email: widget.email,
                   appointments: completedAppointments,
                   showButtons: false,
                   onCancel: _showCancelDialog,
@@ -159,6 +167,16 @@ class _AppointmentsListState extends State<AppointmentsList>
                       ),
                     ));
                   },
+                  onRedirect: (appointment) {
+                    // Handle the redirection logic here
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AppointmentPage(
+                        professionalId: appointment.professional!.id!,
+                        professional: appointment.professional!,
+                      ),
+                    ));
+                  },
+                  onToggleFavorite: _showFavoriteConfirmationDialog,
                 ),
               ],
             );
@@ -169,27 +187,87 @@ class _AppointmentsListState extends State<AppointmentsList>
       ),
     );
   }
+
+  Future<void> _showFavoriteConfirmationDialog(
+      Professional professional) async {
+    final isFavorite = favoriteController.isFavorite(professional);
+
+    // Message à afficher dans le dialogue
+    final message = isFavorite
+        ? 'Vous voulez supprimer ce professionnel de vos favoris ?'
+        : 'Vous voulez ajouter ce professionnel à vos favoris ?';
+
+    final action = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Confirmation'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('Non'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text('Oui'),
+          ),
+        ],
+      ),
+    );
+
+    if (action == true) {
+      await _toggleFavorite(professional, customer.customerId.value);
+      await favoriteController.getFavoriteProfessionals(widget.email);
+    }
+  }
 }
 
-class AppointmentsTab extends StatelessWidget {
+final favoriteController = Get.put(FavoriteController());
+final ProfileController customer = Get.put(ProfileController());
+
+Future<void> _toggleFavorite(
+    Professional professional, String idCustomer) async {
+  await favoriteController.toggleFavorite(professional, idCustomer);
+}
+
+class AppointmentsTab extends StatefulWidget {
+  final String email;
   final List<Appointment> appointments;
   final bool showButtons;
   final Function(Appointment) onCancel;
   final Function(Appointment) onEdit;
+  final Function(Appointment)? onRedirect;
+  final Function(Professional)? onToggleFavorite;
 
   const AppointmentsTab({
+    required this.email,
     required this.appointments,
     required this.showButtons,
     required this.onCancel,
     required this.onEdit,
+    this.onRedirect,
+    this.onToggleFavorite,
   });
+
+  @override
+  _AppointmentsTabState createState() => _AppointmentsTabState();
+}
+
+class _AppointmentsTabState extends State<AppointmentsTab> {
+  final FavoriteController favoriteController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    favoriteController.getFavoriteProfessionals(widget.email);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: appointments.length,
+      itemCount: widget.appointments.length,
       itemBuilder: (context, index) {
-        final appointment = appointments[index];
+        final appointment = widget.appointments[index];
         List<String> dateTimeParts = appointment.dateTime!.split('T');
         String datePart = dateTimeParts.first;
         String timePart = dateTimeParts.last.split('-').first;
@@ -241,9 +319,10 @@ class AppointmentsTab extends StatelessWidget {
                     '$formattedDate - $formattedTime',
                     style: TextStyle(
                       color: Colors.black,
+                      fontFamily: 'Roboto',
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.38,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -1.9,
                     ),
                   ),
                 ),
@@ -251,7 +330,7 @@ class AppointmentsTab extends StatelessWidget {
                   left: 9,
                   top: 56,
                   right: 9,
-                  child: Divider(color: Colors.black),
+                  child: Divider(color: Colors.grey),
                 ),
                 Positioned(
                   left: 9,
@@ -261,8 +340,7 @@ class AppointmentsTab extends StatelessWidget {
                     height: 90,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(RImages
-                            .doctor1), // Utilisation de l'URL de l'image du projet
+                        image: AssetImage(RImages.doctor1),
                         fit: BoxFit.fill,
                       ),
                       borderRadius: BorderRadius.circular(16),
@@ -279,6 +357,7 @@ class AppointmentsTab extends StatelessWidget {
                         'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
                         style: TextStyle(
                           color: Colors.black,
+                          fontFamily: 'Roboto',
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           letterSpacing: -0.16,
@@ -289,6 +368,7 @@ class AppointmentsTab extends StatelessWidget {
                         '${appointment.professional!.businessSector}',
                         style: TextStyle(
                           color: Colors.black,
+                          fontFamily: 'Nunito',
                           fontSize: 12,
                           letterSpacing: -0.23,
                         ),
@@ -298,6 +378,7 @@ class AppointmentsTab extends StatelessWidget {
                         'Available at ${appointment.professional!.entityName}-${appointment.address}',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
+                          fontFamily: 'Nunito',
                           fontSize: 12,
                           letterSpacing: -0.23,
                         ),
@@ -309,6 +390,7 @@ class AppointmentsTab extends StatelessWidget {
                             appointment.address!,
                             style: TextStyle(
                               color: Color(0xFF0B9AD3),
+                              fontFamily: 'Nunito',
                               fontSize: 12,
                               letterSpacing: -0.23,
                             ),
@@ -318,6 +400,7 @@ class AppointmentsTab extends StatelessWidget {
                             '+20 Years of Experience',
                             style: TextStyle(
                               color: Color(0xFFC2A404),
+                              fontFamily: 'Nunito',
                               fontSize: 12,
                               letterSpacing: -0.23,
                             ),
@@ -327,21 +410,20 @@ class AppointmentsTab extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (showButtons)
-                  Positioned(
-                    left: 9,
-                    top: 182,
-                    right: 9,
-                    child: Divider(color: Colors.black),
-                  ),
-                if (showButtons)
+                Positioned(
+                  left: 9,
+                  top: 56,
+                  right: 9,
+                  child: Divider(color: Colors.grey),
+                ),
+                if (widget.showButtons)
                   Positioned(
                     left: 9,
                     top: 200,
                     child: Row(
                       children: [
                         InkWell(
-                          onTap: () => onCancel(appointment),
+                          onTap: () => widget.onCancel(appointment),
                           child: Container(
                             width: 181,
                             height: 40,
@@ -363,7 +445,7 @@ class AppointmentsTab extends StatelessWidget {
                         ),
                         SizedBox(width: 16),
                         InkWell(
-                          onTap: () => onEdit(appointment),
+                          onTap: () => widget.onEdit(appointment),
                           child: Container(
                             width: 181,
                             height: 40,
@@ -383,6 +465,65 @@ class AppointmentsTab extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                if (!widget.showButtons && widget.onRedirect != null)
+                  Positioned(
+                    left: 9,
+                    top: 200,
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () => widget.onRedirect!(appointment),
+                          child: Container(
+                            width: 181,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF0B9AD3),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Re Book',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        Obx(() {
+                          final isFavorite = favoriteController
+                              .isFavorite(appointment.professional!);
+                          return InkWell(
+                            onTap: () => widget
+                                .onToggleFavorite!(appointment.professional!),
+                            child: Container(
+                              width: 181,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFF0B9AD3)),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  isFavorite ? 'Favori' : 'Add to favorites',
+                                  style: TextStyle(
+                                    color: Color(0xFF0B9AD3),
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: -1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
                       ],
                     ),
                   ),

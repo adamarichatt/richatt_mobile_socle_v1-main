@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
 
 
-
 class VerificationPage extends StatelessWidget {
   final String email;
   final verificationCodeController = TextEditingController();
@@ -25,7 +24,7 @@ class VerificationPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                SignupController.instance.updateUserCode(email);
+                SignupController.instance.verifyCode(email, verificationCodeController.text);
               },
               child: Text('Vérifier'),
             ),

@@ -6,30 +6,44 @@ import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
 
-class profileCard extends StatelessWidget {
-  const profileCard({
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
     super.key,
     required this.professional,
+    required this.emailCustomer,
   });
 
   final Professional professional;
-
+  final String emailCustomer;
   @override
   Widget build(BuildContext context) {
     final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
+    final ProfileController customer = Get.put(ProfileController());
+    final favoriteController = Get.put(FavoriteController());
+
+    // Appeler getCustomerByEmail lors de l'initialisation de la page
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      customer.getCustomerByEmail(emailCustomer);
+    });
+
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
         Get.to(() => ProfessionalDetailsPage(
-            professionalId: professional.id!, professional: professional));
+              professionalId: professional.id!,
+              professional: professional,
+              emailCustomer: emailCustomer,
+            ));
       },
       child: Container(
         width: RHelperFunctions.screenWidth(),
-        height: 30,
+        height: 130,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Color(0x7FC5C5C5), width: 0.5),
@@ -89,7 +103,21 @@ class profileCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
               child: Column(
                 children: [
-                  Icon(Iconsax.heart, size: 16),
+                  Obx(() {
+                    bool isFavorite =
+                        favoriteController.isFavorite(professional);
+                    return IconButton(
+                      icon: Icon(
+                        isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                        color: isFavorite ? Colors.blue : Colors.grey,
+                        size: 16,
+                      ),
+                      onPressed: () async {
+                        await favoriteController.toggleFavorite(
+                            professional, customer.customerId.value);
+                      },
+                    );
+                  }),
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.all(20.0),

@@ -15,6 +15,7 @@ class Professional {
   final String? statut;
   final String? speciality;
   final String? entityName;
+  final String? city;
 
   
   Professional({
@@ -31,7 +32,8 @@ class Professional {
     this.imageUrl,
     this.entityName,
     this.speciality,
-    this.statut
+    this.statut,
+    this.city
   });
 
   factory Professional.fromJson(Map<String, dynamic> json) =>
@@ -56,6 +58,7 @@ Professional _$ProfessionalFromJson(Map<String, dynamic> json) {
     statut: json['statut'],
     speciality: json['speciality'],
     entityName: json['entityName'],
+    city: json['city'],
   );
 }
 
@@ -75,4 +78,5 @@ Map<String, dynamic> _$ProfessionalToJson(Professional instance) =>
       'statut': instance.statut,
       'speciality': instance.speciality,
       'entityName': instance.entityName,
+      'city':instance.city,
     };
