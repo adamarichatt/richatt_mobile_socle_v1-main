@@ -6,6 +6,7 @@ import 'package:richatt_mobile_socle_v1/features/authentication/screens/onboardi
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/onboarding/widgets/onboarding_next_button.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/onboarding/widgets/onboarding_page.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/screens/onboarding/widgets/onboarding_skip.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
@@ -24,21 +25,21 @@ class OnBoardingScreen extends StatelessWidget {
           PageView(
             controller: controller.pageController,
             onPageChanged: controller.updatePageIndicator,
-            children: const [
+            children: [
               OnBoardingPage(
                 image: RImages.onBoardingImage1,
-                title: RTexts.onBoardingTitle1,
-                subTitle: RTexts.onBoardingSubTitle1,
+                title: S.of(context).onBoardingTitle1,
+                subTitle: S.of(context).onBoardingSubTitle1,
               ),
               OnBoardingPage(
                 image: RImages.onBoardingImage2,
-                title: RTexts.onBoardingTitle2,
-                subTitle: RTexts.onBoardingSubTitle2,
+                title: S.of(context).onBoardingTitle2,
+                subTitle: S.of(context).onBoardingSubTitle2,
               ),
               OnBoardingPage(
                 image: RImages.onBoardingImage3,
-                title: RTexts.onBoardingTitle3,
-                subTitle: RTexts.onBoardingSubTitle3,
+                title: S.of(context).onBoardingTitle3,
+                subTitle: S.of(context).onBoardingSubTitle3,
               ),
             ],
           ),

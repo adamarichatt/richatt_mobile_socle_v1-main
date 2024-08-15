@@ -12,6 +12,7 @@ import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RdoctorCardVertica
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
@@ -43,10 +44,42 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
                 RSearchContainer(
-                  text: 'Search a doctor!',
+                  text: S.of(context).search,
                 ),
                 SizedBox(
                   height: RSizes.spaceBtwSections,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        S.of(context).upcoming_app,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                          height: 0.07,
+                          letterSpacing: -0.38,
+                        ),
+                      ),
+                      Text(
+                        S.of(context).SeeAll,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF0B9AD3),
+                          fontSize: 14,
+                          fontFamily: 'Nunito',
+                          fontWeight: FontWeight.w400,
+                          height: 0.11,
+                          letterSpacing: -0.27,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Obx(() {
                   if (controller.nextAppointment.value != null) {
@@ -72,38 +105,6 @@ class HomeScreen extends StatelessWidget {
                           ));
                         },
                         child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Upcoming Appointment',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0.07,
-                                    letterSpacing: -0.38,
-                                  ),
-                                ),
-                                Text(
-                                  'See All',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0B9AD3),
-                                    fontSize: 14,
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0.11,
-                                    letterSpacing: -0.27,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           SizedBox(
                             height: RSizes.spaceBtwSections,
                           ),
@@ -120,18 +121,6 @@ class HomeScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Today',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2,
-                                      letterSpacing: -0.38,
-                                    ),
-                                  ),
                                   const SizedBox(height: 9),
                                   Row(
                                     crossAxisAlignment:
@@ -254,7 +243,7 @@ class HomeScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                                          'Dr ${appointment.professional!.firstName} ${appointment.professional!.name}',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.black,
@@ -295,7 +284,7 @@ class HomeScreen extends StatelessWidget {
                         ]));
                   } else {
                     return Center(
-                      child: Text('No upcoming appointments',
+                      child: Text(S.of(context).no_upcoming_app,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     );
@@ -314,7 +303,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Favorite',
+                    S.of(context).Favorite,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -326,7 +315,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'See All',
+                    S.of(context).SeeAll,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF0B9AD3),
@@ -339,6 +328,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 35,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -375,7 +367,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Available now',
+                        S.of(context).available_now,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -385,7 +377,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'See All',
+                        S.of(context).SeeAll,
                         style: TextStyle(
                           color: Color(0xFF0B9AD3),
                           fontSize: 14,
@@ -396,6 +388,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   // Add a small, controlled space
                   Obx(() => GridView.builder(
                         itemCount: controller.featuredProf.length,

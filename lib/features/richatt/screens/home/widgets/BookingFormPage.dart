@@ -7,6 +7,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_socle_v1/notification/notification.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
@@ -122,6 +123,8 @@ class _BookingFormPageState extends State<BookingFormPage> {
     } catch (error) {
       Get.snackbar('Error', error.toString());
     }
+    NotificationService.showInstantNotification('RICHATT RDV ',
+        'Prise de rendez vous confirmer a ${appointment.dateTime} ');
     Get.to(() => BookingSuccessful(
           appointment: appointment,
         ));

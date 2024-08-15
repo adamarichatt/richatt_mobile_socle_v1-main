@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
@@ -39,16 +40,18 @@ class RHomeAppBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(
-                () =>Text(RTexts.homeAppbarTitle + ' ${controller.firstName.value} 👋🏽',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                )),
-                   ),
+              () => Text(
+                  S.of(context).gretting +
+                      ' ${controller.firstName.value} 👋🏽',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                  )),
+            ),
             Text(
-              RTexts.homeAppbarSubTitle,
+              S.of(context).gretting2,
               style: TextStyle(
                 color: Colors.black.withOpacity(0.5),
                 fontSize: 14,

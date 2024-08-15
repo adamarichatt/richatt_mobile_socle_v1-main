@@ -43,7 +43,8 @@ class ProfessionalController extends GetxController {
 
       debugPrint('response:' + response.body);
       if (response.statusCode == 200) {
-        final List<dynamic> responseData = json.decode(response.body);
+        final List<dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
         featuredProf
             .assignAll(responseData.map((data) => Professional.fromJson(data)));
       } else {
@@ -78,7 +79,10 @@ class ProfessionalController extends GetxController {
       http.Response response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Map<String, dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
+        print('response  ${responseData}');
+
         selectedProfessional.value = Professional.fromJson(responseData);
       } else {
         throw Exception('Failed to load professional');

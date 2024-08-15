@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:richatt_mobile_socle_v1/app.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile_update.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 import '../controllers/profile_controller.dart';
@@ -14,6 +14,7 @@ import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 import '../models/customer.dart';
+// Make sure to import your LanguageController
 
 class ProfilePage extends StatelessWidget {
   final String email;
@@ -23,20 +24,20 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
-    final LoginController logincontroller = new LoginController();
+    final LoginController logincontroller = LoginController();
+    final LanguageController languageController =
+        Get.find<LanguageController>();
     final customer = ProfileController.instance;
-    // Appeler getCustomerByEmail lors de l'initialisation de la page
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getCustomerByEmail(email);
     });
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Profile'.tr),
         centerTitle: true,
       ),
-
-      //body: profile_update(controller: controller),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -55,19 +56,20 @@ class ProfilePage extends StatelessWidget {
                       right: -12,
                       bottom: 0,
                       child: SizedBox(
-                          height: 46,
-                          width: 46,
-                          child: TextButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.grey)),
-                            child: Icon(
-                              Iconsax.camera,
-                              color: Colors.white,
-                            ),
-                          )),
+                        height: 46,
+                        width: 46,
+                        child: TextButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.grey),
+                          ),
+                          child: Icon(
+                            Iconsax.camera,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -103,9 +105,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 50.0,
-            ),
+            SizedBox(height: 50.0),
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
               height: 170,
@@ -124,7 +124,7 @@ class ProfilePage extends StatelessWidget {
               ),
               child: Column(children: [
                 CustomListTile(
-                  title: "Edit profile information",
+                  title: S.of(context).editprofile,
                   icon: Iconsax.edit,
                   onPressed: () async {
                     print('tap');
@@ -132,26 +132,66 @@ class ProfilePage extends StatelessWidget {
                   },
                 ),
                 CustomListTile(
-                  title: "Notifications",
+                  title: S.of(context).notif,
                   icon: Iconsax.notification,
                   trailing: Text(
-                    'ON',
+                    'ON'.tr,
                     style: TextStyle(color: Colors.blue),
                   ),
                 ),
-                CustomListTile(
-                  title: "Language",
-                  icon: Iconsax.global,
-                  trailing: Text(
-                    'Arabic',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
+                Obx(() => CustomListTile(
+                      title: S.of(context).langue,
+                      icon: Iconsax.global,
+                      trailing: Text(
+                        languageController.currentLanguage.value == 'en'
+                            ? S.of(context).english
+                            : languageController.currentLanguage.value == 'fr'
+                                ? S.of(context).french
+                                : S.of(context).arabic,
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onPressed: () {
+                        Get.bottomSheet(
+                          Container(
+                            color: Colors.white,
+                            child: Wrap(
+                              children: [
+                                ListTile(
+                                  leading: Icon(Icons.language),
+                                  title: Text(S.of(context).english),
+                                  onTap: () {
+                                    languageController.changeLanguage('en');
+                                    Get.back();
+                                  },
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.language),
+                                  title: Text(S.of(context).arabic),
+                                  onTap: () {
+                                    languageController.changeLanguage('ar');
+                                    Get.back();
+                                  },
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.language),
+                                  title: Text(S.of(context).french),
+                                  onTap: () {
+                                    languageController.changeLanguage('fr');
+                                    Get.back();
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )),
               ]),
             ),
-            SizedBox(
-              height: 30.0,
-            ),
+            SizedBox(height: 30.0),
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
               height: 115,
@@ -171,9 +211,10 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   CustomListTile(
-                      title: "Security", icon: Iconsax.security_user),
+                      title: S.of(context).Security,
+                      icon: Iconsax.security_user),
                   CustomListTile(
-                    title: "Theme",
+                    title: S.of(context).Theme,
                     icon: Iconsax.moon,
                     trailing: Text(
                       'Light mode',
@@ -183,9 +224,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 30.0,
-            ),
+            SizedBox(height: 30.0),
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
               height: 240,
@@ -205,43 +244,43 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   CustomListTile(
-                    title: "Help & Support",
+                    title: S.of(context).Help,
                     icon: Iconsax.message_question,
                   ),
                   CustomListTile(
-                    title: "Contact us",
+                    title: S.of(context).contact,
                     icon: Iconsax.message,
                   ),
                   CustomListTile(
-                    title: "Privacy policy",
+                    title: S.of(context).Privacy,
                     icon: Iconsax.security_safe4,
                   ),
                   CustomListTile(
-                      title: "Logout",
-                      icon: Iconsax.logout,
-                      onPressed: () {
-                        Get.defaultDialog(
-                            title: 'etes vous sur de vouloir vous deconnectez?',
-                            titleStyle: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.w300),
-                            titlePadding: EdgeInsets.all(12.0),
-                            content: Container(),
-                            textConfirm: "OUI",
-                            textCancel: "NON",
-                            cancelTextColor: Colors.black,
-                            backgroundColor: Colors.white,
-                            buttonColor: Colors.blueAccent,
-                            onConfirm: () {
-                              logincontroller.logout();
-                            },
-                            onCancel: () {});
-                      }),
+                    title: S.of(context).Logout,
+                    icon: Iconsax.logout,
+                    onPressed: () {
+                      Get.defaultDialog(
+                        title: 'Are you sure you want to log out?'.tr,
+                        titleStyle: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.w300),
+                        titlePadding: EdgeInsets.all(12.0),
+                        content: Container(),
+                        textConfirm: "YES".tr,
+                        textCancel: "NO".tr,
+                        cancelTextColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        buttonColor: Colors.blueAccent,
+                        onConfirm: () {
+                          logincontroller.logout();
+                        },
+                        onCancel: () {},
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 15.0,
-            ),
+            SizedBox(height: 15.0),
           ],
         ),
       ),
@@ -254,12 +293,14 @@ class CustomListTile extends StatelessWidget {
   final IconData icon;
   final Widget? trailing;
   final VoidCallback? onPressed;
-  const CustomListTile(
-      {super.key,
-      required this.title,
-      required this.icon,
-      this.trailing,
-      this.onPressed});
+
+  const CustomListTile({
+    Key? key,
+    required this.title,
+    required this.icon,
+    this.trailing,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

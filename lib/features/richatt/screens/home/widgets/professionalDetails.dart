@@ -23,9 +23,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
     final controller = ProfessionalController.instance;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Professional Details'),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
           child: Stack(
         clipBehavior: Clip.none, // To allow overflow of Positioned widget
@@ -48,7 +46,6 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 width: double.infinity,
                 height: 100.0,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.elliptical(20, 10),
                     bottomRight: Radius.elliptical(10, 20),
@@ -57,31 +54,34 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Dr. Salme Zein',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${professional.firstName} ${professional.name}',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Specialist',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w400,
+                          Text(
+                            professional.businessSector ?? 'N/A',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -95,107 +95,137 @@ class ProfessionalDetailsPage extends StatelessWidget {
                           width: 30,
                         ),
                         Icon(Iconsax.heart),
+                        SizedBox(
+                          width: 15,
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Divider(
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Iconsax.location),
-                            Text(
-                              'Chiva Hospital',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.badge),
-                            Text(
-                              'Since 1998',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Text(
-                      'Biography',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Divider(
+                        indent: 10,
+                        endIndent: 10,
                       ),
-                    ),
-                    Text(
-                      'Lorem ipsum dolor sit amet consectetur. Eget amet dolor interdum aliquet amet lacus sagittis blandit arcu. Lacus placerat est nunc nunc nulla ultrices ut posuere. Dui sit metus cras magna purus amet a eu. Aliquam elementum potenti eros netus sodales morbi mattis.\n\nEget amet dolor interdum aliquet amet lacus sagittis blandit arcu. Lacus placerat est nunc nunc nulla ultrices ut posuere. Dui sit metus cras magna purus amet a eu. \n\nEget amet dolor interdum aliquet amet lacus sagittis blandit arcu. Lacus placerat est nunc nunc nulla ultrices ut posuere. Dui sit metus cras magna purus amet a eu. ',
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Nunito',
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.27,
-                      ),
-                    ),
-                    Text(
-                      'Language Spoken',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                              width: 83,
-                              height: 28,
+                          Row(
+                            children: [
+                              Icon(Iconsax.location),
+                              Text(
+                                professional.address ?? 'N/A',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.badge),
+                              Text(
+                                'Since 1998',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        indent: 10,
+                        endIndent: 10,
+                      ),
+                      Text(
+                        'Biography',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        professional.presentation ?? 'N/A',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: -0.27,
+                        ),
+                      ),
+                      Text(
+                        'Language Spoken',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: RSizes.spaceBtwItems,
+                      ),
+                      Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xFF0B9AD3),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                child: Text(
+                                  'French',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF0B9AD3),
+                                    fontSize: 16,
+                                    fontFamily:
+                                        'FONTSPRING DEMO - Proxima Nova',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0,
+                                  ),
+                                )),
+                            SizedBox(
+                              width: 15.0,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Color(0xFF0B9AD3),
                                   width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(28),
                               ),
                               child: Text(
                                 'French',
@@ -207,48 +237,28 @@ class ProfessionalDetailsPage extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   height: 0,
                                 ),
-                              )),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Container(
-                            width: 83,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Color(0xFF0B9AD3),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              'French',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF0B9AD3),
-                                fontSize: 16,
-                                fontFamily: 'FONTSPRING DEMO - Proxima Nova',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
                               ),
                             ),
-                          ),
-                        ]),
-                    Text(
-                      'Services',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+                          ]),
+                      SizedBox(
+                        height: 15,
                       ),
-                    ),
-                    SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    _buildServicesList(context, controller, professional.id!),
-                  ],
+                      Text(
+                        'Services',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: RSizes.spaceBtwItems,
+                      ),
+                      _buildServicesList(context, controller, professional.id!),
+                    ],
+                  ),
                 ),
               ),
 
@@ -262,7 +272,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
             left: 46, // Adjust as per your requirement
             right: 46, // Adjust as per your requirement
             child: SizedBox(
-              width: 100.0, // Set a specific width for the button
+              // Set a specific width for the button
               child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => AppointmentPage(
@@ -271,12 +281,12 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 },
                 child: Text(
                   'Prendre un rendez-vous',
-                  style: TextStyle(fontSize: 14), // Smaller font size
+                  style: TextStyle(fontSize: 16), // Smaller font size
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 8), // Smaller padding
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10), // Smaller padding
                 ),
               ),
             ),
@@ -411,13 +421,13 @@ Widget _buildServicesList(BuildContext context,
           runSpacing: 8.0, // Espace vertical entre les lignes de boutons
           children: services.map((service) {
             return Container(
-              height: 28,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Color(0xFF0B9AD3),
                   width: 1,
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(28),
               ),
               child: Text(
                 service.name,
