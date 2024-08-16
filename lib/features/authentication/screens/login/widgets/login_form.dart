@@ -31,7 +31,9 @@ class RLoginForm extends StatelessWidget {
                 ),
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: RTexts.email,
+                
               ),
+               validator: (value) => RValidator.validateEmptyText('Email', value),
             ),
             const SizedBox(
               height: RSizes.spaceBtwInputFields,
@@ -57,6 +59,7 @@ class RLoginForm extends StatelessWidget {
                       },
                     ),
                   ),
+                  validator: (value) => RValidator.validateEmptyText('Password', value),
                 );
               },
             ),
