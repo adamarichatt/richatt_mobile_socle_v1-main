@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:richatt_mobile_socle_v1/app.dart';
 import 'package:richatt_mobile_socle_v1/data/repositories/authentication_repository.dart';
+import 'package:richatt_mobile_socle_v1/notification/notification.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
 //Widget Binding
@@ -12,6 +14,8 @@ Future<void> main() async {
 
 // local storage
   await GetStorage.init();
+  await NotificationService.init();
+  tz.initializeTimeZones();
 
 //await splach intul other items load
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);

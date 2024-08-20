@@ -28,15 +28,13 @@ class ProfessionalDetailsPage extends StatelessWidget {
     final controller = ProfessionalController.instance;
     final favoriteController = Get.put(FavoriteController());
     final ProfileController customer = Get.put(ProfileController());
-     // Appeler getCustomerByEmail lors de l'initialisation de la page
+    // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
       customer.getCustomerByEmail(emailCustomer);
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Professional Details'),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
           child: Stack(
         clipBehavior: Clip.none, // To allow overflow of Positioned widget
@@ -59,7 +57,6 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 width: double.infinity,
                 height: 100.0,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.elliptical(20, 10),
                     bottomRight: Radius.elliptical(10, 20),
@@ -116,11 +113,13 @@ class ProfessionalDetailsPage extends StatelessWidget {
                             ),
                             onPressed: () async {
                               await favoriteController.toggleFavorite(
-                                professional, customer.customerId.value
-                              );
+                                  professional, customer.customerId.value);
                             },
                           );
                         }),
+                        SizedBox(
+                          width: 15,
+                        ),
                       ],
                     ),
                   ],
@@ -288,7 +287,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
             left: 46, // Adjust as per your requirement
             right: 46, // Adjust as per your requirement
             child: SizedBox(
-              width: 100.0, // Set a specific width for the button
+              // Set a specific width for the button
               child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => AppointmentPage(
@@ -297,12 +296,12 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 },
                 child: Text(
                   'Prendre un rendez-vous',
-                  style: TextStyle(fontSize: 14), // Smaller font size
+                  style: TextStyle(fontSize: 16), // Smaller font size
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 8), // Smaller padding
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10), // Smaller padding
                 ),
               ),
             ),
@@ -437,13 +436,13 @@ Widget _buildServicesList(BuildContext context,
           runSpacing: 8.0, // Espace vertical entre les lignes de boutons
           children: services.map((service) {
             return Container(
-              height: 28,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Color(0xFF0B9AD3),
                   width: 1,
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(28),
               ),
               child: Text(
                 service.name,

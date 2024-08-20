@@ -31,7 +31,7 @@ class _AppointmentsListState extends State<AppointmentsList>
   late Future<List<Appointment>> futureAppointments;
   late TabController _tabController;
   late ProfessionalController _controller = new ProfessionalController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -188,51 +188,47 @@ class _AppointmentsListState extends State<AppointmentsList>
     );
   }
 
-  Future<void> _showFavoriteConfirmationDialog(Professional professional) async {
-  final isFavorite = favoriteController.isFavorite(professional);
+  Future<void> _showFavoriteConfirmationDialog(
+      Professional professional) async {
+    final isFavorite = favoriteController.isFavorite(professional);
 
-  // Message à afficher dans le dialogue
-  final message = isFavorite
-    ? 'Vous voulez supprimer ce professionnel de vos favoris ?'
-    : 'Vous voulez ajouter ce professionnel à vos favoris ?';
+    // Message à afficher dans le dialogue
+    final message = isFavorite
+        ? 'Vous voulez supprimer ce professionnel de vos favoris ?'
+        : 'Vous voulez ajouter ce professionnel à vos favoris ?';
 
-  final action = await showDialog<bool>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('Confirmation'),
-      content: Text(message),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: Text('Non'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
-          child: Text('Oui'),
-        ),
-      ],
-    ),
-  );
+    final action = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Confirmation'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('Non'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text('Oui'),
+          ),
+        ],
+      ),
+    );
 
-  if (action == true) {
-    await _toggleFavorite(professional, customer.customerId.value);
-    await favoriteController.getFavoriteProfessionals(widget.email);
+    if (action == true) {
+      await _toggleFavorite(professional, customer.customerId.value);
+      await favoriteController.getFavoriteProfessionals(widget.email);
+    }
   }
-}
-
 }
 
 final favoriteController = Get.put(FavoriteController());
 final ProfileController customer = Get.put(ProfileController());
 
-  Future<void> _toggleFavorite(Professional professional, String idCustomer) async {
-    
-
-    await favoriteController.toggleFavorite(professional, idCustomer);
-    
-  
-  }
-
+Future<void> _toggleFavorite(
+    Professional professional, String idCustomer) async {
+  await favoriteController.toggleFavorite(professional, idCustomer);
+}
 
 class AppointmentsTab extends StatefulWidget {
   final String email;
@@ -244,7 +240,7 @@ class AppointmentsTab extends StatefulWidget {
   final Function(Professional)? onToggleFavorite;
 
   const AppointmentsTab({
-   required this.email,
+    required this.email,
     required this.appointments,
     required this.showButtons,
     required this.onCancel,
@@ -258,19 +254,13 @@ class AppointmentsTab extends StatefulWidget {
 }
 
 class _AppointmentsTabState extends State<AppointmentsTab> {
- final FavoriteController favoriteController = Get.find();
- 
+  final FavoriteController favoriteController = Get.find();
 
   @override
   void initState() {
     super.initState();
     favoriteController.getFavoriteProfessionals(widget.email);
-  
   }
-
- 
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -506,10 +496,12 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                           ),
                         ),
                         SizedBox(width: 16),
-                          Obx(() {
-                          final isFavorite = favoriteController.isFavorite(appointment.professional!);
+                        Obx(() {
+                          final isFavorite = favoriteController
+                              .isFavorite(appointment.professional!);
                           return InkWell(
-                            onTap: () => widget.onToggleFavorite!(appointment.professional!),
+                            onTap: () => widget
+                                .onToggleFavorite!(appointment.professional!),
                             child: Container(
                               width: 181,
                               height: 40,
@@ -532,7 +524,6 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                             ),
                           );
                         }),
-                     
                       ],
                     ),
                   ),

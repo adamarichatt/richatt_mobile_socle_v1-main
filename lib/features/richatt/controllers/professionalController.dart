@@ -19,15 +19,13 @@ class ProfessionalController extends GetxController {
   RxList<Professional> featuredProf = <Professional>[].obs;
   final selectedSchedules = <Schedule>[].obs;
   RxList<Professional> filteredProfessionals = <Professional>[].obs;
-RxList<String> filteredCities = <String>[].obs;
+  RxList<String> filteredCities = <String>[].obs;
   RxList<String> filteredSpecialities = <String>[].obs;
   RxList<String> filteredEntities = <String>[].obs;
   Rx<Appointment?> nextAppointment = Rx<Appointment?>(null);
   // Favorite Professionals
- var favoriteProfessionals = <Professional>{}.obs;
+  var favoriteProfessionals = <Professional>{}.obs;
   Rx<Professional?> selectedProfessional = Rx<Professional?>(null);
-
-
 
   var selectedCity = ''.obs;
   var selectedEntity = ''.obs;
@@ -37,7 +35,6 @@ RxList<String> filteredCities = <String>[].obs;
   void onInit() {
     getProf();
     super.onInit();
-    
   }
 
   Future<void> getProf() async {
@@ -56,7 +53,8 @@ RxList<String> filteredCities = <String>[].obs;
 
       debugPrint('response:' + response.body);
       if (response.statusCode == 200) {
-        final List<dynamic> responseData = json.decode(response.body);
+        final List<dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
         featuredProf
             .assignAll(responseData.map((data) => Professional.fromJson(data)));
       } else {
@@ -74,82 +72,75 @@ RxList<String> filteredCities = <String>[].obs;
         },
       );
     }
-   
   }
 
+  void filterProfessionalsBySpeciality(String speciality) {
+    selectedSpeciality.value = speciality;
 
-void filterProfessionalsBySpeciality(String speciality) {
-  
-  selectedSpeciality.value = speciality;
+    final specialityLower = speciality.toLowerCase();
+    filteredProfessionals.value = featuredProf.where((professional) {
+      return professional.businessSector != null &&
+          professional.businessSector!.toLowerCase() == specialityLower;
+    }).toList();
+  }
 
-  final specialityLower = speciality.toLowerCase();
-  filteredProfessionals.value = featuredProf.where((professional) {
-    return professional.businessSector != null &&
-           professional.businessSector!.toLowerCase() == specialityLower;
-  }).toList();
-}
+  void filterProfessionalsByEntityName(String entityName) {
+    selectedEntity.value = entityName;
 
-void filterProfessionalsByEntityName(String entityName) {
-  
-  selectedEntity.value = entityName;
+    final entityNameLower = entityName.toLowerCase();
+    filteredProfessionals.value = featuredProf.where((professional) {
+      return professional.entityName != null &&
+          professional.entityName!.toLowerCase() == entityNameLower;
+    }).toList();
+  }
 
-  final entityNameLower = entityName.toLowerCase();
-  filteredProfessionals.value = featuredProf.where((professional) {
-    return professional.entityName != null &&
-           professional.entityName!.toLowerCase() == entityNameLower;
-  }).toList();
-}
+  void filterProfessionalsByCity(String city) {
+    selectedCity.value = city;
 
-void filterProfessionalsByCity(String city) {
-  selectedCity.value = city;
-
-  final cityLower = city.toLowerCase();
-  filteredProfessionals.value = featuredProf.where((professional) {
-    return professional.city != null &&
-           professional.city!.toLowerCase().contains(cityLower);
-  }).toList();
-}
+    final cityLower = city.toLowerCase();
+    filteredProfessionals.value = featuredProf.where((professional) {
+      return professional.city != null &&
+          professional.city!.toLowerCase().contains(cityLower);
+    }).toList();
+  }
 
   void searchProfessionals(String query) {
     searchText.value = query;
     filterProfessionals();
   }
 
-
- // Combined filters
+  // Combined filters
   void filterProfessionalsBySpecialityAndCity(String speciality, String city) {
- 
     selectedSpeciality.value = speciality;
-     selectedCity.value = city;
+    selectedCity.value = city;
     filterProfessionals();
   }
 
   void filterProfessionalsByEntityAndCity(String entityName, String city) {
- 
     selectedEntity.value = entityName;
-     selectedCity.value = city;
+    selectedCity.value = city;
     filterProfessionals();
   }
 
-  void filterProfessionalsBySpecialityAndEntity(String speciality, String entityName) {
-  
+  void filterProfessionalsBySpecialityAndEntity(
+      String speciality, String entityName) {
     selectedSpeciality.value = speciality;
     selectedEntity.value = entityName;
     filterProfessionals();
   }
 
-  void filterProfessionalsByEntityAndSpeciality(String entityName, String speciality) {
+  void filterProfessionalsByEntityAndSpeciality(
+      String entityName, String speciality) {
     filterProfessionalsBySpecialityAndEntity(speciality, entityName);
-    
   }
- 
+
   void filterProfessionals() {
     String query = searchText.value.toLowerCase();
 
     // Filter specialties and entities
     filteredSpecialities.value = featuredProf
         .where((professional) =>
-            professional.businessSector!= null &&
+            professional.businessSector != null &&
             professional.businessSector!.toLowerCase().contains(query))
         .map((professional) => professional.businessSector!)
         .toSet()
@@ -157,7 +148,7 @@ void filterProfessionalsByCity(String city) {
 
     filteredEntities.value = featuredProf
         .where((professional) =>
-            professional.entityName!= null &&
+            professional.entityName != null &&
             professional.entityName!.toLowerCase().contains(query))
         .map((professional) => professional.entityName!)
         .toSet()
@@ -165,29 +156,41 @@ void filterProfessionalsByCity(String city) {
 
     // Filter professionals
     filteredProfessionals.value = featuredProf.where((professional) {
-      bool matchesQuery = professional.firstName.toLowerCase().contains(query) ||
-          professional.name.toLowerCase().contains(query)||
-           (professional.businessSector!= null &&
-            professional.businessSector!.toLowerCase().contains(query))  ||
-            ( professional.entityName!= null &&
-            professional.entityName!.toLowerCase().contains(query));
+      bool matchesQuery =
+          professional.firstName.toLowerCase().contains(query) ||
+              professional.name.toLowerCase().contains(query) ||
+              (professional.businessSector != null &&
+                  professional.businessSector!.toLowerCase().contains(query)) ||
+              (professional.entityName != null &&
+                  professional.entityName!.toLowerCase().contains(query));
 
-    
-      bool matchesSpeciality = selectedSpeciality.value.isEmpty || (professional.businessSector != null && professional.businessSector!.toLowerCase().contains(selectedSpeciality.value.toLowerCase()));
-      bool matchesCity = selectedCity.value.isEmpty || (professional.city != null && professional.city!.toLowerCase().contains(selectedCity.value.toLowerCase()));
-      bool matchesEntity = selectedEntity.value.isEmpty || (professional.entityName != null && professional.entityName!.toLowerCase().contains(selectedEntity.value.toLowerCase()));
+      bool matchesSpeciality = selectedSpeciality.value.isEmpty ||
+          (professional.businessSector != null &&
+              professional.businessSector!
+                  .toLowerCase()
+                  .contains(selectedSpeciality.value.toLowerCase()));
+      bool matchesCity = selectedCity.value.isEmpty ||
+          (professional.city != null &&
+              professional.city!
+                  .toLowerCase()
+                  .contains(selectedCity.value.toLowerCase()));
+      bool matchesEntity = selectedEntity.value.isEmpty ||
+          (professional.entityName != null &&
+              professional.entityName!
+                  .toLowerCase()
+                  .contains(selectedEntity.value.toLowerCase()));
 
       return matchesQuery && matchesSpeciality && matchesCity && matchesEntity;
     }).toList();
   }
 
   void resetFilters() {
-   searchText.value = '';
-  selectedCity.value = '';
-  selectedEntity.value = '';
-  selectedSpeciality.value = '';
-  filteredProfessionals.value = featuredProf; // Reset to all professionals
-}
+    searchText.value = '';
+    selectedCity.value = '';
+    selectedEntity.value = '';
+    selectedSpeciality.value = '';
+    filteredProfessionals.value = featuredProf; // Reset to all professionals
+  }
 
   List<String> getUniqueCities() {
     final cities = <String>{};
@@ -196,71 +199,92 @@ void filterProfessionalsByCity(String city) {
         cities.add(professional.city!);
       }
     }
-    return [''].followedBy(cities).toList(); // Add empty string for no filter option
+    return ['']
+        .followedBy(cities)
+        .toList(); // Add empty string for no filter option
   }
 
   List<String> getCitiesForSpeciality(String speciality) {
     final cities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.city != null && professional.city!.isNotEmpty && professional.businessSector == speciality) {
+      if (professional.city != null &&
+          professional.city!.isNotEmpty &&
+          professional.businessSector == speciality) {
         cities.add(professional.city!);
       }
     }
-    return [''].followedBy(cities).toList(); // Add empty string for no filter option
+    return ['']
+        .followedBy(cities)
+        .toList(); // Add empty string for no filter option
   }
 
-   List<String> getCitiesForEntity(String entity) {
+  List<String> getCitiesForEntity(String entity) {
     final cities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.city != null && professional.city!.isNotEmpty && professional.entityName == entity) {
+      if (professional.city != null &&
+          professional.city!.isNotEmpty &&
+          professional.entityName == entity) {
         cities.add(professional.city!);
       }
     }
-    return [''].followedBy(cities).toList(); // Add empty string for no filter option
+    return ['']
+        .followedBy(cities)
+        .toList(); // Add empty string for no filter option
   }
 
-    List<String> getUniqueSpecialities() {
-       final specialities = <String>{};
+  List<String> getUniqueSpecialities() {
+    final specialities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.businessSector != null && professional.businessSector!.isNotEmpty) {
+      if (professional.businessSector != null &&
+          professional.businessSector!.isNotEmpty) {
         specialities.add(professional.businessSector!);
       }
     }
-    return [''].followedBy(specialities).toList(); // Add empty string for no filter option
-   
+    return ['']
+        .followedBy(specialities)
+        .toList(); // Add empty string for no filter option
   }
-   List<String> getSpecialitiesForEntity(String entity) {
-       final specialities = <String>{};
+
+  List<String> getSpecialitiesForEntity(String entity) {
+    final specialities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.businessSector != null && professional.businessSector!.isNotEmpty && professional.entityName == entity) {
+      if (professional.businessSector != null &&
+          professional.businessSector!.isNotEmpty &&
+          professional.entityName == entity) {
         specialities.add(professional.businessSector!);
       }
     }
-    return [''].followedBy(specialities).toList(); // Add empty string for no filter option
-   
+    return ['']
+        .followedBy(specialities)
+        .toList(); // Add empty string for no filter option
   }
 
   List<String> getUniqueEntities() {
-     final entities = <String>{};
+    final entities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.entityName != null && professional.entityName!.isNotEmpty) {
+      if (professional.entityName != null &&
+          professional.entityName!.isNotEmpty) {
         entities.add(professional.entityName!);
       }
     }
-    return [''].followedBy(entities).toList(); // Add empty string for no filter option
-
+    return ['']
+        .followedBy(entities)
+        .toList(); // Add empty string for no filter option
   }
-   List<String> getEntitiesForSpeciality(String speciality) {
-     final entities = <String>{};
+
+  List<String> getEntitiesForSpeciality(String speciality) {
+    final entities = <String>{};
     for (var professional in featuredProf) {
-      if (professional.entityName != null && professional.entityName!.isNotEmpty && professional.businessSector == speciality) {
+      if (professional.entityName != null &&
+          professional.entityName!.isNotEmpty &&
+          professional.businessSector == speciality) {
         entities.add(professional.entityName!);
       }
     }
-    return [''].followedBy(entities).toList(); // Add empty string for no filter option
-
+    return ['']
+        .followedBy(entities)
+        .toList(); // Add empty string for no filter option
   }
-
 
   Future<void> getProfessionalById(String id) async {
     var headers = {
@@ -277,7 +301,10 @@ void filterProfessionalsByCity(String city) {
       http.Response response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Map<String, dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
+        print('response  ${responseData}');
+
         selectedProfessional.value = Professional.fromJson(responseData);
       } else {
         throw Exception('Failed to load professional');
@@ -606,31 +633,31 @@ void filterProfessionalsByCity(String city) {
     }
   }
 
- Future<void> removeFavoriteProfessional(String customerId, Professional professional) async {
-  var headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
-    'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
-  };
+  Future<void> removeFavoriteProfessional(
+      String customerId, Professional professional) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+    };
 
-  var url = Uri.parse(APIConstants.apiBackend + 'customer/$customerId/favorites/${professional.id}');
+    var url = Uri.parse(APIConstants.apiBackend +
+        'customer/$customerId/favorites/${professional.id}');
 
-  try {
-    final response = await http.delete(
-      url,
-      headers: headers,
-    );
+    try {
+      final response = await http.delete(
+        url,
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      favoriteProfessionals.removeWhere((prof) => prof.id == professional.id);
-    } else {
-      throw Exception('Failed to remove favorite');
+      if (response.statusCode == 200) {
+        favoriteProfessionals.removeWhere((prof) => prof.id == professional.id);
+      } else {
+        throw Exception('Failed to remove favorite');
+      }
+    } catch (error) {
+      Get.snackbar('Error', error.toString());
     }
-  } catch (error) {
-    Get.snackbar('Error', error.toString());
   }
-}
-
-
-
 }

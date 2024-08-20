@@ -17,6 +17,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/Ap
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/FavoriteProfessionalsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home_appb.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
@@ -323,7 +324,7 @@ class HomeScreen extends StatelessWidget {
                   } else {
                     return Center(
                       child: Text(
-                        'No upcoming appointments',
+                        S.of(context).no_upcoming_app,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -345,7 +346,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Favorites',
+                    S.of(context).Favorite,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -377,6 +378,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 35,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -428,7 +432,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Professionals',
+                        S.of(context).available_now,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -438,7 +442,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'See All',
+                        S.of(context).SeeAll,
                         style: TextStyle(
                           color: Color(0xFF0B9AD3),
                           fontSize: 14,
@@ -449,6 +453,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   // Add a small, controlled space
                   Obx(() => GridView.builder(
                         itemCount: controller.featuredProf.length,

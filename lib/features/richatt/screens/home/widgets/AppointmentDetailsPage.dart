@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppointmentDetailsPage extends StatelessWidget {
   final Appointment appointment;
 
   const AppointmentDetailsPage({required this.appointment});
+
+  Future<Map<String, String?>> _getUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+    String? phone = prefs.getString('phone');
+    return {'email': email, 'phone': phone};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +44,10 @@ class AppointmentDetailsPage extends StatelessWidget {
             // Section des informations du professionnel
             Container(
               padding: const EdgeInsets.all(16.0),
-             
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
               child: Row(
                 children: [
                   // Image du professionnel
@@ -55,35 +66,136 @@ class AppointmentDetailsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Dr. ${appointment.professional!.firstName} ${appointment.professional!.name}',
+                          'Dr: ${appointment.professional!.firstName} ${appointment.professional!.name}',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -0.24,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 8),
                         Text(
-                          '${appointment.professional!.businessSector!}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: -0.27,
-                          ),
+                          'Spécialité: ${appointment.professional!.businessSector!}',
+                          style: TextStyle(fontSize: 16),
                         ),
                         SizedBox(height: 8),
                         Text(
-                          '${appointment.professional!.entityName!} - ${appointment.professional!.address!}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: -0.27,
+                          'Hôpital: ${appointment.professional!.entityName!}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Adresse: ${appointment.professional!.address!}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 24),
+            // Section des informations du rendez-vous
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Patient: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    '${appointment.firstName!} ${appointment.lastName!}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Date: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              TextSpan(
+                                text: formattedDate,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Heure: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              TextSpan(
+                                text: formattedTime,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Durée: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${appointment.duration!} minutes',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Service: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              TextSpan(
+                                text: appointment.reason!,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -92,30 +204,6 @@ class AppointmentDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16),
-            // Divider
-            Divider(
-              color: Colors.grey[300],
-              thickness: 1,
-            ),
-            SizedBox(height: 16),
-            // Section des informations du rendez-vous
-            Container(
-              padding: const EdgeInsets.all(16.0),
-             
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildInfoRow('Patient:',
-                      '${appointment.firstName} ${appointment.lastName}'),
-                  _buildInfoRow('Date:', formattedDate),
-                  _buildInfoRow('Heure:', formattedTime),
-                  _buildInfoRow('Durée:', '${appointment.duration} minutes'),
-                  _buildInfoRow('Service:', appointment.reason!),
-                ],
-              ),
-            ),
-
             SizedBox(
               height: 10,
             ),
@@ -146,37 +234,6 @@ class AppointmentDetailsPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildInfoRow(String label, String value) {
-    return Row(
-     
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontSize: 14,
-            fontFamily: 'Nunito',
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.27,
-          ),
-        ),
-        SizedBox(width: 135), // Espacement entre l'étiquette et la valeur
-        
-        Text(
-          value,
-          
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w500,
-            letterSpacing: -0.16,
-          ),
-        ),
-      ],
     );
   }
 }

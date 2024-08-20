@@ -6,6 +6,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
@@ -26,21 +27,23 @@ class ProfileCardVertical extends StatelessWidget {
     final dark = RHelperFunctions.isDarkMode(context);
     final ProfileController customer = Get.put(ProfileController());
     final favoriteController = Get.put(FavoriteController());
-   // Appeler getCustomerByEmail lors de l'initialisation de la page
+    // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
       customer.getCustomerByEmail(emailCustomer);
     });
-   
 
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
         Get.to(() => ProfessionalDetailsPage(
-            professionalId: professional.id!, professional: professional, emailCustomer:emailCustomer,));
+              professionalId: professional.id!,
+              professional: professional,
+              emailCustomer: emailCustomer,
+            ));
       },
       child: Container(
         width: 157,
-        height: 222,
+        height: 240,
         padding: const EdgeInsets.all(RSizes.sm),
         decoration: BoxDecoration(
           border: Border.all(color: Color(0xFFC5C5C5)),
@@ -64,8 +67,9 @@ class ProfileCardVertical extends StatelessWidget {
                       ),
                     ),
                   ),
-                    Obx(() {
-                    bool isFavorite = favoriteController.isFavorite(professional);
+                  Obx(() {
+                    bool isFavorite =
+                        favoriteController.isFavorite(professional);
                     return IconButton(
                       icon: Icon(
                         isFavorite ? Iconsax.heart5 : Iconsax.heart,
@@ -73,7 +77,8 @@ class ProfileCardVertical extends StatelessWidget {
                         size: 16,
                       ),
                       onPressed: () async {
-                        await favoriteController.toggleFavorite(professional, customer.customerId.value);
+                        await favoriteController.toggleFavorite(
+                            professional, customer.customerId.value);
                       },
                     );
                   }),
@@ -92,6 +97,8 @@ class ProfileCardVertical extends StatelessWidget {
             SizedBox(height: 12),
             Text(
               '${professional.firstName} ${professional.name}',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
@@ -113,26 +120,27 @@ class ProfileCardVertical extends StatelessWidget {
                 letterSpacing: -0.23,
               ),
             ),
-            Spacer(),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(0xFF0B9AD3),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    'Book Now',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'FONTSPRING DEMO - Proxima Nova',
-                      fontWeight: FontWeight.w700,
-                    ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              width: 125,
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              decoration: BoxDecoration(
+                color: Color(0xFF0B9AD3),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  S.of(context).Schedule,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
                   ),
                 ),
               ),

@@ -3,67 +3,60 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
 
-
 dependencies:
   flutter:
     sdk: flutter
-    
 
   # utility packages
   table_calendar: ^3.0.0
   http: ^1.1.0
-  intl: ^0.19.0
   logger: ^2.0.1
-  url_launcher: ^6.1.12 
+  url_launcher: ^6.1.12
   flutter_native_splash: ^2.4.0
   smooth_page_indicator: ^1.1.0
   shared_preferences: ^2.2.3
   image_picker: ^1.1.1
-  loading_animation_widget:
+  loading_animation_widget: null
+  
 
   # icons
-  iconsax: ^0.0.8 
+  iconsax: ^0.0.8
   cupertino_icons: ^1.0.6
-  
-  # state  management #
+  flutter_localizations:
+        sdk: flutter
 
+  # state  management #
   get: ^4.6.5
-  get_storage: ^2.1.1 
+  get_storage: ^2.1.1
+  flutter_local_notifications: ^17.2.1+2
+  timezone: ^0.9.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  intl: ^0.19.0
   flutter_launcher_icons: "^0.13.1"
+  intl: ^0.18.1
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/logos/miady.png"
 
- 
   flutter_lints: ^3.0.0
-
-
-
 
 flutter:
 
-  
   uses-material-design: true
 
-  
   assets:
     - assets/images/
     - assets/logos/
     - assets/images/on_boarding_images/
-
 
   fonts:
     - family: Poppins
@@ -79,7 +72,6 @@ flutter:
           weight: 800
         - asset: assets/fonts/Poppins-Black.ttf
           weight: 900
-  
   # fonts:
   #   - family: Schyler
   #     fonts:
@@ -94,3 +86,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

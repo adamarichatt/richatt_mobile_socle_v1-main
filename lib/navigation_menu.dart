@@ -8,10 +8,10 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/Ap
 import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
 import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
- 
+
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
@@ -41,28 +41,28 @@ class NavigationMenu extends StatelessWidget {
     );
   }
 }
- 
+
 class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
   final RxBool isLoading = true.obs; // Variable d'état de chargement
- 
+
   final screens = <Widget>[
     Center(child: CircularProgressIndicator()), // Écran de chargement initial
     Center(child: CircularProgressIndicator()),
     Center(child: CircularProgressIndicator()),
   ];
- 
+
   @override
   void onInit() {
     super.onInit();
     _loadUserData();
   }
- 
+
   Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? phone = prefs.getString('phone');
- 
+
     if (email != null && phone != null) {
       screens[0] = HomeScreen(email: email, phone: phone);
       screens[1] = AppointmentsList(email: email, phone: phone);

@@ -15,14 +15,13 @@ class ProfileCard extends StatelessWidget {
   const ProfileCard({
     super.key,
     required this.professional,
-    required this.emailCustomer, 
+    required this.emailCustomer,
   });
 
   final Professional professional;
   final String emailCustomer;
   @override
   Widget build(BuildContext context) {
-    
     final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
     final ProfileController customer = Get.put(ProfileController());
@@ -36,7 +35,11 @@ class ProfileCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
-        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional, emailCustomer:emailCustomer,));
+        Get.to(() => ProfessionalDetailsPage(
+              professionalId: professional.id!,
+              professional: professional,
+              emailCustomer: emailCustomer,
+            ));
       },
       child: Container(
         width: RHelperFunctions.screenWidth(),
@@ -101,7 +104,8 @@ class ProfileCard extends StatelessWidget {
               child: Column(
                 children: [
                   Obx(() {
-                    bool isFavorite = favoriteController.isFavorite(professional);
+                    bool isFavorite =
+                        favoriteController.isFavorite(professional);
                     return IconButton(
                       icon: Icon(
                         isFavorite ? Iconsax.heart5 : Iconsax.heart,
@@ -109,7 +113,8 @@ class ProfileCard extends StatelessWidget {
                         size: 16,
                       ),
                       onPressed: () async {
-                        await favoriteController.toggleFavorite(professional, customer.customerId.value);
+                        await favoriteController.toggleFavorite(
+                            professional, customer.customerId.value);
                       },
                     );
                   }),
