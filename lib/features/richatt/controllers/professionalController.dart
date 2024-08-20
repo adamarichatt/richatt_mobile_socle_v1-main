@@ -311,7 +311,11 @@ void filterProfessionalsByCity(String city) {
       http.Response response = await http.get(url);
 
       if (response.statusCode == 200) {
+        if (response.body.isEmpty) {
+        return [];
+      }
         final List<dynamic> responseData = json.decode(response.body);
+       
         List<Service> services =
             responseData.map((data) => Service.fromJson(data)).toList();
         return services;
