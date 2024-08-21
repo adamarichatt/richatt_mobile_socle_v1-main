@@ -52,175 +52,208 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 ),
               ),
               // Add some space to ensure the button does not overlap the second container
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                width: double.infinity,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.elliptical(20, 10),
-                    bottomRight: Radius.elliptical(10, 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  width: double.infinity,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.elliptical(20, 10),
+                      bottomRight: Radius.elliptical(10, 20),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Dr. ${professional.firstName} ${professional.name}',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              '${professional.businessSector}',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Nunito',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Icon(Iconsax.share),
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Obx(() {
+                            bool isFavorite =
+                                favoriteController.isFavorite(professional);
+                            return IconButton(
+                              icon: Icon(
+                                isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                                color: isFavorite ? Colors.blue : Colors.grey,
+                                size: 28,
+                              ),
+                              onPressed: () async {
+                                await favoriteController.toggleFavorite(
+                                    professional, customer.customerId.value);
+                              },
+                            );
+                          }),
+                          SizedBox(
+                            width: 15,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Dr. ${professional.firstName} ${professional.name}',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '${professional.businessSector}',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Icon(Iconsax.share),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Obx(() {
-                          bool isFavorite =
-                              favoriteController.isFavorite(professional);
-                          return IconButton(
-                            icon: Icon(
-                              isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                              color: isFavorite ? Colors.blue : Colors.grey,
-                              size: 28,
-                            ),
-                            onPressed: () async {
-                              await favoriteController.toggleFavorite(
-                                  professional, customer.customerId.value);
-                            },
-                          );
-                        }),
-                        SizedBox(
-                          width: 15,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Divider(
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Iconsax.location),
-                            Text(
-                              '${professional.entityName} - ${professional.address}',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.badge),
-                            Text(
-                              'Since 1998',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Text(
-                      'Biography',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Divider(
+                        indent: 10,
+                        endIndent: 10,
                       ),
-                    ),
-                    Text(
-                      '${professional.presentation}',
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Nunito',
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.27,
-                      ),
-                    ),
-                    Text(
-                      'Language Spoken',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                              width: 83,
-                              height: 28,
+                          Row(
+                            children: [
+                              Icon(Iconsax.location),
+                              Text(
+                                '${professional.entityName} - ${professional.address}',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.badge),
+                              Text(
+                                'Since 1998',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        indent: 10,
+                        endIndent: 10,
+                      ),
+                      Text(
+                        'Biography',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        '${professional.presentation}',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Nunito',
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: -0.27,
+                        ),
+                      ),
+                      Text(
+                        'Language Spoken',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: RSizes.spaceBtwItems,
+                      ),
+                      Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xFF0B9AD3),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                child: Text(
+                                  'French',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF0B9AD3),
+                                    fontSize: 16,
+                                    fontFamily:
+                                        'FONTSPRING DEMO - Proxima Nova',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0,
+                                  ),
+                                )),
+                            SizedBox(
+                              width: 15.0,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Color(0xFF0B9AD3),
                                   width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(28),
                               ),
                               child: Text(
                                 'French',
@@ -232,48 +265,28 @@ class ProfessionalDetailsPage extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   height: 0,
                                 ),
-                              )),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Container(
-                            width: 83,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Color(0xFF0B9AD3),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              'French',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF0B9AD3),
-                                fontSize: 16,
-                                fontFamily: 'FONTSPRING DEMO - Proxima Nova',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
                               ),
                             ),
-                          ),
-                        ]),
-                    Text(
-                      'Services',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+                          ]),
+                      SizedBox(
+                        height: 15,
                       ),
-                    ),
-                    SizedBox(
-                      height: RSizes.spaceBtwItems,
-                    ),
-                    _buildServicesList(context, controller, professional.id!),
-                  ],
+                      Text(
+                        'Services',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: RSizes.spaceBtwItems,
+                      ),
+                      _buildServicesList(context, controller, professional.id!),
+                    ],
+                  ),
                 ),
               ),
 
