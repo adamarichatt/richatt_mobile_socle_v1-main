@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
                 RSearchContainer(
-                  text: 'Search a doctor!',
+                  text: S.of(context).search,
                   emailCustomer: email,
                 ),
                 SizedBox(
@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Upcoming Appointment',
+                        S.of(context).upcoming_app,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                               ));
                         },
                         child: Text(
-                          'See All',
+                          S.of(context).SeeAll,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF0B9AD3),
@@ -364,7 +364,7 @@ class HomeScreen extends StatelessWidget {
                           FavoriteProfessionalsPage(emailCustomer: email));
                     },
                     child: Text(
-                      'See All',
+                      S.of(context).SeeAll,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF0B9AD3),

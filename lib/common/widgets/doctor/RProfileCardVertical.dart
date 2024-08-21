@@ -43,7 +43,6 @@ class ProfileCardVertical extends StatelessWidget {
       },
       child: Container(
         width: 157,
-        height: 240,
         padding: const EdgeInsets.all(RSizes.sm),
         decoration: BoxDecoration(
           border: Border.all(color: Color(0xFFC5C5C5)),
@@ -53,7 +52,7 @@ class ProfileCardVertical extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(2.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

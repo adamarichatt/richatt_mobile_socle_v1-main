@@ -100,7 +100,7 @@ class ProfileCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
               child: Column(
                 children: [
                   Obx(() {
