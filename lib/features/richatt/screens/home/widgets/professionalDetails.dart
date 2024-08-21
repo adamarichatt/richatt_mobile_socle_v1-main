@@ -103,9 +103,15 @@ class ProfessionalDetailsPage extends StatelessWidget {
                           SizedBox(
                             width: 30,
                           ),
-                          Icon(Iconsax.share),
+                          IconButton(
+                            icon: Icon(
+                              Iconsax.share,
+                              size: 28,
+                            ),
+                            onPressed: () {},
+                          ),
                           SizedBox(
-                            width: 30,
+                            width: 10,
                           ),
                           Obx(() {
                             bool isFavorite =
