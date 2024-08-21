@@ -133,7 +133,7 @@ class BookingSuccessful extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.off(() => AppointmentDetailsPage(
+                  Get.offAll(() => AppointmentDetailsPage(
                         appointment: appointment,
                       ));
                 },
