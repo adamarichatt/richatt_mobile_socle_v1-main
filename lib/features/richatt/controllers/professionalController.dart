@@ -38,6 +38,7 @@ class ProfessionalController extends GetxController {
   }
 
   Future<void> getProf() async {
+    print('test');
     var headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8733',
