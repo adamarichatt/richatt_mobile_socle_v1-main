@@ -36,7 +36,6 @@ class AppointmentDetailsPage extends StatelessWidget {
             // Section des informations du professionnel
             Container(
               padding: const EdgeInsets.all(16.0),
-             
               child: Row(
                 children: [
                   // Image du professionnel
@@ -102,7 +101,6 @@ class AppointmentDetailsPage extends StatelessWidget {
             // Section des informations du rendez-vous
             Container(
               padding: const EdgeInsets.all(16.0),
-             
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -121,7 +119,7 @@ class AppointmentDetailsPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => NavigationMenu());
+                Get.offAll(() => NavigationMenu());
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -151,7 +149,6 @@ class AppointmentDetailsPage extends StatelessWidget {
 
   Widget _buildInfoRow(String label, String value) {
     return Row(
-     
       children: [
         Text(
           label,
@@ -164,10 +161,9 @@ class AppointmentDetailsPage extends StatelessWidget {
           ),
         ),
         SizedBox(width: 135), // Espacement entre l'étiquette et la valeur
-        
+
         Text(
           value,
-          
           style: TextStyle(
             color: Colors.black,
             fontSize: 16,
