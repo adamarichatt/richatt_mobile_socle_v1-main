@@ -149,28 +149,37 @@ class AppointmentDetailsPage extends StatelessWidget {
 
   Widget _buildInfoRow(String label, String value) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontSize: 14,
-            fontFamily: 'Nunito',
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.27,
-          ),
+        Column(
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.black.withOpacity(0.5),
+                fontSize: 14,
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.27,
+              ),
+            ),
+          ],
         ),
-        SizedBox(width: 135), // Espacement entre l'étiquette et la valeur
+        // Espacement entre l'étiquette et la valeur
 
-        Text(
-          value,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w500,
-            letterSpacing: -0.16,
-          ),
+        Column(
+          children: [
+            Text(
+              value,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+                letterSpacing: -0.16,
+              ),
+            ),
+          ],
         ),
       ],
     );

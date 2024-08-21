@@ -9,29 +9,33 @@ import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 
 class FavoriteController extends GetxController {
   static FavoriteController get instance => Get.find();
-  var favoriteProfessionals = <Professional>{}.obs;  // Using a list instead of a set
+  var favoriteProfessionals =
+      <Professional>{}.obs; // Using a list instead of a set
 
   final ProfessionalController professionalController = Get.find();
 
   bool isFavorite(Professional professional) {
     return favoriteProfessionals.any((fav) => fav.id == professional.id);
-    
   }
 
-  Future<void> toggleFavorite(Professional professional, String idCustomer) async {
+  Future<void> toggleFavorite(
+      Professional professional, String idCustomer) async {
     if (isFavorite(professional)) {
-      await professionalController.removeFavoriteProfessional(idCustomer, professional);
+      await professionalController.removeFavoriteProfessional(
+          idCustomer, professional);
       favoriteProfessionals.removeWhere((fav) => fav.id == professional.id);
     } else {
-      await professionalController.addFavoriteProfessional(idCustomer, professional);
+      await professionalController.addFavoriteProfessional(
+          idCustomer, professional);
       favoriteProfessionals.add(professional);
     }
   }
 
-   Future<void> getFavoriteProfessionals(String email) async {
+  Future<void> getFavoriteProfessionals(String email) async {
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWRtYWhtb3VkZGplYmJhQGdtYWlsLmNvbSIsImlhdCI6MTcxNjg5ODI0MywiZXhwIjoxNzE2ODk4MzQzfQ.Jqp0yPyEcaf27htb3tB3HK5Jui8X9VeflGru1S6X2ScpqFV6lYQeqoAgU0Jq3QCDfrPo4lUF_pmw'
     };
 
     var url = Uri.parse(APIConstants.apiBackend + 'customer/$email/favorites');
@@ -40,10 +44,10 @@ class FavoriteController extends GetxController {
       http.Response response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        final List<dynamic> responseData = json.decode(response.body);
+        final List<dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
         favoriteProfessionals.assignAll(
-          responseData.map((data) => Professional.fromJson(data)).toSet()
-        );
+            responseData.map((data) => Professional.fromJson(data)).toSet());
       } else {
         throw Exception('Failed to load favorite professionals');
       }
