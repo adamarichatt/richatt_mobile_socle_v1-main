@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme": MessageLookupByLibrary.simpleMessage("الموضوع"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "available_now": MessageLookupByLibrary.simpleMessage("متوفر الآن"),
+        "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "completed": MessageLookupByLibrary.simpleMessage("المنجز"),
         "contact": MessageLookupByLibrary.simpleMessage("اتصل بنا"),
         "editprofile":
             MessageLookupByLibrary.simpleMessage("تحرير معلومات الملف الشخصي"),
@@ -59,7 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "النهوض بالرعاية الصحية معًا,"),
         "rdvs": MessageLookupByLibrary.simpleMessage("التعيين"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("إعادة الجدولة"),
         "search": MessageLookupByLibrary.simpleMessage("ابحث عن طبيب"),
+        "upcoming": MessageLookupByLibrary.simpleMessage("القادم"),
         "upcoming_app": MessageLookupByLibrary.simpleMessage("المواعيد القادمة")
       };
 }

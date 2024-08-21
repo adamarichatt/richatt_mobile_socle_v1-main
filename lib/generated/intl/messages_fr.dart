@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "arabic": MessageLookupByLibrary.simpleMessage("Arabe"),
         "available_now":
             MessageLookupByLibrary.simpleMessage("Disponible maintenant"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+        "completed": MessageLookupByLibrary.simpleMessage("Terminé"),
         "contact": MessageLookupByLibrary.simpleMessage("Contactez nous"),
         "editprofile": MessageLookupByLibrary.simpleMessage(
             "Modifier les informations du profil"),
@@ -61,8 +63,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "Faire progresser les soins de santé ensemble,"),
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("Reprogrammer"),
         "search":
             MessageLookupByLibrary.simpleMessage("Rechercher un médecin!"),
+        "upcoming": MessageLookupByLibrary.simpleMessage("À venir"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("Prochain rendez-vous")
       };

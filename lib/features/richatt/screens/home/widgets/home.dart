@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Next appointment',
+                                S.of(context).upcoming_app,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,

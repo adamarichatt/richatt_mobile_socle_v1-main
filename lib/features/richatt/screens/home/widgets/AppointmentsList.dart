@@ -12,9 +12,11 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/Ap
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/edit_appointment_page.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class AppointmentsList extends StatefulWidget {
   final String email;
@@ -115,8 +117,8 @@ class _AppointmentsListState extends State<AppointmentsList>
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(text: 'Upcoming'),
-            Tab(text: 'Completed'),
+            Tab(text: S.of(context).upcoming),
+            Tab(text: S.of(context).completed),
           ],
         ),
       ),
@@ -286,7 +288,6 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
             ));
           },
           child: Container(
-            width: 396,
             height: 256,
             margin: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -425,7 +426,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                         InkWell(
                           onTap: () => widget.onCancel(appointment),
                           child: Container(
-                            width: 181,
+                            width: RDeviceUtils.getScreenWidth(context) / 2.5,
                             height: 40,
                             decoration: BoxDecoration(
                               border: Border.all(color: Color(0xFF0B9AD3)),
@@ -433,7 +434,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                             ),
                             child: Center(
                               child: Text(
-                                'Cancel',
+                                S.of(context).cancel,
                                 style: TextStyle(
                                   color: Color(0xFF0B9AD3),
                                   fontSize: 16,
@@ -447,7 +448,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                         InkWell(
                           onTap: () => widget.onEdit(appointment),
                           child: Container(
-                            width: 181,
+                            width: RDeviceUtils.getScreenWidth(context) / 2.5,
                             height: 40,
                             decoration: BoxDecoration(
                               color: Color(0xFF0B9AD3),
@@ -455,7 +456,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                             ),
                             child: Center(
                               child: Text(
-                                'Reschedule',
+                                S.of(context).reschedule,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -477,7 +478,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                         InkWell(
                           onTap: () => widget.onRedirect!(appointment),
                           child: Container(
-                            width: 181,
+                            width: RDeviceUtils.getScreenWidth(context) / 2.5,
                             height: 40,
                             decoration: BoxDecoration(
                               color: Color(0xFF0B9AD3),
@@ -503,7 +504,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                             onTap: () => widget
                                 .onToggleFavorite!(appointment.professional!),
                             child: Container(
-                              width: 181,
+                              width: RDeviceUtils.getScreenWidth(context) / 2.5,
                               height: 40,
                               decoration: BoxDecoration(
                                 border: Border.all(color: Color(0xFF0B9AD3)),

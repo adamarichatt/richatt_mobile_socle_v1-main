@@ -28,5 +28,10 @@
     "onBoardingSubTitle3" : "vers un avenir plus sain.",
     "english":"Anglais",
     "french":"Français",
-    "arabic":"Arabe"
+    "arabic":"Arabe",
+    "upcoming":"À venir",
+    "completed":"Terminé",
+    "cancel":"Annuler",
+    "reschedule":"Reprogrammer"
+    
 }

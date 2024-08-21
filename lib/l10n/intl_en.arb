@@ -28,5 +28,10 @@
     "onBoardingSubTitle3" : " towards a healthier future.",
     "english":"English",
     "french":"French",
-    "arabic":"Arabic"
+    "arabic":"Arabic",
+    "upcoming":"Upcoming",
+    "completed":"Completed",
+    "cancel":"Cancel",
+    "reschedule":"reschedule"
+    
 }

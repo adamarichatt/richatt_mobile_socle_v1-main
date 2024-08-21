@@ -28,6 +28,10 @@
     "onBoardingSubTitle3" : "نحو مستقبل أكثر صحة",
     "english":"الإنجليزية",
     "french":"الفرنسية",
-    "arabic":"العربية"
+    "arabic":"العربية",
+    "upcoming":"القادم",
+    "completed":"المنجز",
+    "cancel":"إلغاء",
+    "reschedule":"إعادة الجدولة"
     
 }
