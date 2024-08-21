@@ -133,6 +133,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       address: _professional!.address,
       dateTime: widget.schedule.dateTime,
       birthdate: _birthdate,
+      reservationFor: _bookingFor,
       professional: _professional,
     );
 

@@ -15,6 +15,7 @@ class Appointment {
   String? dateTime;
   String? email;
   String? birthdate; 
+  String? reservationFor;
   Professional? professional;
 
   Appointment({
@@ -30,6 +31,7 @@ class Appointment {
     this.dateTime,
     this.email,
     this.birthdate,
+    this.reservationFor,
     this.professional,
   });
 
@@ -54,6 +56,7 @@ class Appointment {
       dateTime: json['dateTime'],
       email: json['email'],
       birthdate: json['birthdate'],
+      reservationFor: json['reservationFor'],
       professional: json['professional'] != null ? Professional.fromJson(json['professional']) : null,
       
     );
@@ -74,6 +77,7 @@ class Appointment {
       'dateTime': dateTime,
       'email': email,
       'birthdate': birthdate, 
+      'reservationFor': reservationFor, 
       'professional': professional?.toJson(),
     };
   }
