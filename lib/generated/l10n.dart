@@ -409,6 +409,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you want to remove this professional from your favorites?`
+  String get addFavoriText {
+    return Intl.message(
+      'Do you want to remove this professional from your favorites?',
+      name: 'addFavoriText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to add this professional to your favorites?`
+  String get deleteFavoriteText {
+    return Intl.message(
+      'Do you want to add this professional to your favorites?',
+      name: 'deleteFavoriteText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmation`
+  String get Confirmation {
+    return Intl.message(
+      'Confirmation',
+      name: 'Confirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No appointments found`
+  String get noAppFound {
+    return Intl.message(
+      'No appointments found',
+      name: 'noAppFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to cancel this appointment?`
+  String get cancelAppText {
+    return Intl.message(
+      'Do you want to cancel this appointment?',
+      name: 'cancelAppText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

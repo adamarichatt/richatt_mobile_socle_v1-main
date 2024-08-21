@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "Favorite": MessageLookupByLibrary.simpleMessage("Favoris"),
         "Help": MessageLookupByLibrary.simpleMessage("Aide & Support"),
         "Home": MessageLookupByLibrary.simpleMessage("Accueil"),
@@ -33,14 +34,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Security": MessageLookupByLibrary.simpleMessage("Sécurité"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("Voir tout"),
         "Theme": MessageLookupByLibrary.simpleMessage("Thème"),
+        "addFavoriText": MessageLookupByLibrary.simpleMessage(
+            "Vous voulez supprimer ce professionnel de vos favoris ?"),
         "addFavorite":
             MessageLookupByLibrary.simpleMessage("Ajouter aux favoris"),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabe"),
         "available_now":
             MessageLookupByLibrary.simpleMessage("Disponible maintenant"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+        "cancelAppText":
+            MessageLookupByLibrary.simpleMessage("Voulez-vous annuler ce RDV?"),
         "completed": MessageLookupByLibrary.simpleMessage("Terminé"),
         "contact": MessageLookupByLibrary.simpleMessage("Contactez nous"),
+        "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
+            "Vous voulez ajouter ce professionnel à vos favoris ?"),
         "editprofile": MessageLookupByLibrary.simpleMessage(
             "Modifier les informations du profil"),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
@@ -49,6 +56,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "gretting2": MessageLookupByLibrary.simpleMessage(
             "Trouvons le bon médecin pour vous"),
         "langue": MessageLookupByLibrary.simpleMessage("Language"),
+        "no": MessageLookupByLibrary.simpleMessage("Non"),
+        "noAppFound":
+            MessageLookupByLibrary.simpleMessage("Aucun rendez-vous trouvé"),
         "no_upcoming_app":
             MessageLookupByLibrary.simpleMessage("Pas de rendez-vous à venir"),
         "notif": MessageLookupByLibrary.simpleMessage("Notifications"),
@@ -65,12 +75,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "Faire progresser les soins de santé ensemble,"),
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
-        "reBook": MessageLookupByLibrary.simpleMessage("Réserver à nouveau"),
+        "reBook": MessageLookupByLibrary.simpleMessage("Reréserver"),
         "reschedule": MessageLookupByLibrary.simpleMessage("Reprogrammer"),
         "search":
             MessageLookupByLibrary.simpleMessage("Rechercher un médecin!"),
         "upcoming": MessageLookupByLibrary.simpleMessage("À venir"),
         "upcoming_app":
-            MessageLookupByLibrary.simpleMessage("Prochain rendez-vous")
+            MessageLookupByLibrary.simpleMessage("Prochain rendez-vous"),
+        "yes": MessageLookupByLibrary.simpleMessage("Oui")
       };
 }

@@ -34,6 +34,14 @@
     "cancel":"Cancel",
     "reschedule":"reschedule",
     "reBook":"Re Book",
-    "addFavorite":"Add to favorites"
+    "addFavorite":"Add to favorites",
+    "addFavoriText":"Do you want to remove this professional from your favorites?",
+    "deleteFavoriteText":"Do you want to add this professional to your favorites?",
+    "yes":"Yes",
+    "no":"No",
+    "Confirmation":"Confirmation",
+    "noAppFound":"No appointments found",
+    "cancelAppText":"Do you want to cancel this appointment?"
+
     
 }

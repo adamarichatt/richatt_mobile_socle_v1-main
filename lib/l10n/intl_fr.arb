@@ -33,7 +33,14 @@
     "completed":"Terminé",
     "cancel":"Annuler",
     "reschedule":"Reprogrammer",
-    "reBook":"Réserver à nouveau",
-    "addFavorite":"Ajouter aux favoris"
+    "reBook":"Reréserver",
+    "addFavorite":"Ajouter aux favoris",
+    "addFavoriText":"Vous voulez supprimer ce professionnel de vos favoris ?",
+    "deleteFavoriteText":"Vous voulez ajouter ce professionnel à vos favoris ?",
+    "yes":"Oui",
+    "no":"Non",
+    "Confirmation":"Confirmation",
+    "noAppFound":"Aucun rendez-vous trouvé",
+    "cancelAppText":"Voulez-vous annuler ce RDV?"
     
 }

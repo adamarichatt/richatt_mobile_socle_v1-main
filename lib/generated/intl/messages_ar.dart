@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Confirmation": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "Favorite": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "Help": MessageLookupByLibrary.simpleMessage("المساعدة والدعم"),
         "Home": MessageLookupByLibrary.simpleMessage("المنزل"),
@@ -32,13 +33,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Security": MessageLookupByLibrary.simpleMessage("الأمن"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("مشاهدة الكل"),
         "Theme": MessageLookupByLibrary.simpleMessage("الموضوع"),
+        "addFavoriText": MessageLookupByLibrary.simpleMessage(
+            "هل ترغب في إزالة هذا المهني من المفضلة لديك؟"),
         "addFavorite":
             MessageLookupByLibrary.simpleMessage("إضافة إلى المفضلة"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "available_now": MessageLookupByLibrary.simpleMessage("متوفر الآن"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "cancelAppText":
+            MessageLookupByLibrary.simpleMessage("هل تريد إلغاء هذا الموعد؟"),
         "completed": MessageLookupByLibrary.simpleMessage("المنجز"),
         "contact": MessageLookupByLibrary.simpleMessage("اتصل بنا"),
+        "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
+            "هل ترغب في إضافة هذا المهني إلى المفضلة لديك؟"),
         "editprofile":
             MessageLookupByLibrary.simpleMessage("تحرير معلومات الملف الشخصي"),
         "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
@@ -47,6 +54,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "gretting2": MessageLookupByLibrary.simpleMessage(
             "دعنا نعثر على الطبيب المناسب لك"),
         "langue": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "noAppFound":
+            MessageLookupByLibrary.simpleMessage("لم يتم العثور على مواعيد"),
         "no_upcoming_app":
             MessageLookupByLibrary.simpleMessage("لا يوجد موعد قادم"),
         "notif": MessageLookupByLibrary.simpleMessage("الإشعارات"),
@@ -67,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reschedule": MessageLookupByLibrary.simpleMessage("إعادة الجدولة"),
         "search": MessageLookupByLibrary.simpleMessage("ابحث عن طبيب"),
         "upcoming": MessageLookupByLibrary.simpleMessage("القادم"),
-        "upcoming_app": MessageLookupByLibrary.simpleMessage("المواعيد القادمة")
+        "upcoming_app":
+            MessageLookupByLibrary.simpleMessage("المواعيد القادمة"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم")
       };
 }

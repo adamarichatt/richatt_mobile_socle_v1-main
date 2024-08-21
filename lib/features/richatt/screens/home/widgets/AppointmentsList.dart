@@ -46,17 +46,17 @@ class _AppointmentsListState extends State<AppointmentsList>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmation'),
-          content: Text('Voulez-vous annuler ce RDV?'),
+          title: Text(S.of(context).Confirmation),
+          content: Text(S.of(context).cancelAppText),
           actions: [
             TextButton(
-              child: Text('Non'),
+              child: Text(S.of(context).no),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Oui'),
+              child: Text(S.of(context).yes),
               onPressed: () async {
                 Navigator.of(context).pop();
                 try {
@@ -183,7 +183,7 @@ class _AppointmentsListState extends State<AppointmentsList>
               ],
             );
           } else {
-            return Center(child: Text('No appointments found'));
+            return Center(child: Text(S.of(context).noAppFound));
           }
         },
       ),
@@ -196,22 +196,22 @@ class _AppointmentsListState extends State<AppointmentsList>
 
     // Message à afficher dans le dialogue
     final message = isFavorite
-        ? 'Vous voulez supprimer ce professionnel de vos favoris ?'
-        : 'Vous voulez ajouter ce professionnel à vos favoris ?';
+        ? S.of(context).addFavoriText
+        : S.of(context).deleteFavoriteText;
 
     final action = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Confirmation'),
+        title: Text(S.of(context).Confirmation),
         content: Text(message),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('Non'),
+            child: Text(S.of(context).no),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Oui'),
+            child: Text(S.of(context).yes),
           ),
         ],
       ),
@@ -514,7 +514,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                                 child: Text(
                                   isFavorite
                                       ? S.of(context).Favorite
-                                      : 'Add to favorites',
+                                      : S.of(context).addFavorite,
                                   style: TextStyle(
                                     color: Color(0xFF0B9AD3),
                                     fontFamily: 'Roboto',
