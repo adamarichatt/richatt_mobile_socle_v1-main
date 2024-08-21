@@ -32,6 +32,8 @@
     "upcoming":"Upcoming",
     "completed":"Completed",
     "cancel":"Cancel",
-    "reschedule":"reschedule"
+    "reschedule":"reschedule",
+    "reBook":"Re Book",
+    "addFavorite":"Add to favorites"
     
 }

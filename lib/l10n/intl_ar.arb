@@ -32,6 +32,8 @@
     "upcoming":"القادم",
     "completed":"المنجز",
     "cancel":"إلغاء",
-    "reschedule":"إعادة الجدولة"
+    "reschedule":"إعادة الجدولة",
+    "reBook":"إعادة الحجز",
+    "addFavorite":"إضافة إلى المفضلة"
     
 }

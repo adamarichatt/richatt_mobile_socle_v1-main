@@ -486,7 +486,7 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                             ),
                             child: Center(
                               child: Text(
-                                'Re Book',
+                                S.of(context).reBook,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -512,7 +512,9 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                               ),
                               child: Center(
                                 child: Text(
-                                  isFavorite ? 'Favori' : 'Add to favorites',
+                                  isFavorite
+                                      ? S.of(context).Favorite
+                                      : 'Add to favorites',
                                   style: TextStyle(
                                     color: Color(0xFF0B9AD3),
                                     fontFamily: 'Roboto',

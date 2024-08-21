@@ -389,6 +389,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Re Book`
+  String get reBook {
+    return Intl.message(
+      'Re Book',
+      name: 'reBook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to favorites`
+  String get addFavorite {
+    return Intl.message(
+      'Add to favorites',
+      name: 'addFavorite',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

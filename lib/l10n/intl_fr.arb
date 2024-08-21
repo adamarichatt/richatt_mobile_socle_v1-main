@@ -32,6 +32,8 @@
     "upcoming":"À venir",
     "completed":"Terminé",
     "cancel":"Annuler",
-    "reschedule":"Reprogrammer"
+    "reschedule":"Reprogrammer",
+    "reBook":"Réserver à nouveau",
+    "addFavorite":"Ajouter aux favoris"
     
 }
