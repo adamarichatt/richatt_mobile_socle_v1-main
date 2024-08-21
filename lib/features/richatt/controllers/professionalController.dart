@@ -342,6 +342,7 @@ class ProfessionalController extends GetxController {
         if (response.body.isEmpty) {
         return [];
       }
+    //  print('hello');
         final List<dynamic> responseData = json.decode(response.body);
        
         List<Service> services =

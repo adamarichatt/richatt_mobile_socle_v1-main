@@ -136,7 +136,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       reservationFor: _bookingFor,
       professional: _professional,
     );
-
+     //print('hello');
     try {
       RHelperFunctions.showLoader();
       await _controller.deleteSchedules([widget.schedule]);
