@@ -4,6 +4,8 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class ProfessionalsBySpecialityPage extends StatefulWidget {
   final String speciality;
@@ -22,13 +24,20 @@ class ProfessionalsBySpecialityPage extends StatefulWidget {
 
 class _ProfessionalsBySpecialityPageState
     extends State<ProfessionalsBySpecialityPage> {
-  final controller = Get.find<ProfessionalController>();
+  final ProfessionalController controller = Get.find<ProfessionalController>();
 
-  // Variables de pagination
   int currentPage = 0;
   final int itemsPerPage = 5;
   final GlobalKey<FormFieldState> _availabilityFilterKey =
       GlobalKey<FormFieldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.filterProfessionalsBySpeciality(widget.speciality);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,135 +49,40 @@ class _ProfessionalsBySpecialityPageState
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: IntrinsicHeight(
+                child: Row(
+                  children: [
+                    _buildDropdown(
                         'By city',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    items: controller
-                        .getCitiesForSpeciality(widget.speciality)
-                        .map((city) {
-                      return DropdownMenuItem<String>(
-                        value: city,
-                        child: Text(city.isEmpty ? 'By city' : city),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsBySpecialityAndCity(
-                            widget.speciality, value ?? '');
-                        // Reset availability filter to 'No filter'
-                        controller.selectedAvailability.value =
-                            ''; // Set controller's selectedAvailability to empty string
-                        controller.filterProfessionalsByAvailability('');
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
+                        controller.getCitiesForSpeciality(widget.speciality),
+                        (value) =>
+                            controller.filterProfessionalsBySpecialityAndCity(
+                                widget.speciality, value ?? '')),
+                    SizedBox(width: 6),
+                    _buildDropdown(
                         'By entity',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    items: controller
-                        .getEntitiesForSpeciality(widget.speciality)
-                        .map((entity) {
-                      return DropdownMenuItem<String>(
-                        value: entity,
-                        child: Text(entity.isEmpty ? 'By entity' : entity),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsBySpecialityAndEntity(
-                            widget.speciality, value ?? '');
-                        // Reset availability filter to 'No filter'
-                        controller.selectedAvailability.value =
-                            ''; // Set controller's selectedAvailability to empty string
-                        controller.filterProfessionalsByAvailability('');
-                      });
-                    },
-                  ),
+                        controller.getEntitiesForSpeciality(widget.speciality),
+                        (value) =>
+                            controller.filterProfessionalsBySpecialityAndEntity(
+                                widget.speciality, value ?? '')),
+                    SizedBox(width: 6),
+                    _buildAvailabilityDropdown(),
+                  ],
                 ),
-                SizedBox(width: 6),
-                // Add this inside the Row widget that contains the other filters
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    key: _availabilityFilterKey,
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'By availability',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    value: controller.selectedAvailability.value.isEmpty
-                        ? ''
-                        : controller.selectedAvailability.value,
-                    items: [
-                      DropdownMenuItem(value: '', child: Text('By availability')),
-                      DropdownMenuItem(
-                          value: 'Aujourd\'hui', child: Text('Aujourd\'hui')),
-                      DropdownMenuItem(
-                          value: 'Dans 3 jours', child: Text('Dans 3 jours')),
-                      DropdownMenuItem(
-                          value: 'Dans une semaine',
-                          child: Text('Dans une semaine')),
-                    ],
-                    onChanged: (value) async {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                      });
-                      controller.filterProfessionalsByAvailability(value ?? '');
-                      setState(
-                          () {}); // Trigger a rebuild after the async operation
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           Expanded(
             child: Obx(() {
+              if (controller.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
               if (controller.filteredProfessionals.isEmpty) {
                 return Center(child: Text("No results found"));
               }
 
-              // Pagination logic
               int totalItems = controller.filteredProfessionals.length;
               int totalPages = (totalItems / itemsPerPage).ceil();
               List<Professional> professionalsToDisplay = controller
@@ -187,7 +101,7 @@ class _ProfessionalsBySpecialityPageState
                         return InkWell(
                           onTap: () {
                             Get.to(() => ProfessionalDetailsPage(
-                                  professionalId: professional.id!,
+                                  professionalId: professional.id ?? '',
                                   professional: professional,
                                   emailCustomer: widget.emailCustomer,
                                 ));
@@ -200,40 +114,101 @@ class _ProfessionalsBySpecialityPageState
                       },
                     ),
                   ),
-                  // Pagination controls
-                  if (totalPages > 1)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          onPressed: currentPage > 0
-                              ? () {
-                                  setState(() {
-                                    currentPage--;
-                                  });
-                                }
-                              : null,
-                        ),
-                        Text('Page ${currentPage + 1} of $totalPages'),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: currentPage < totalPages - 1
-                              ? () {
-                                  setState(() {
-                                    currentPage++;
-                                  });
-                                }
-                              : null,
-                        ),
-                      ],
-                    ),
+                  if (totalPages > 1) _buildPagination(totalPages),
                 ],
               );
             }),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildDropdown(
+      String hint, List<String> items, Function(String?) onChanged) {
+    return SizedBox(
+      width: 120,
+      child: DropdownButtonFormField<String>(
+        isExpanded: true,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          border: OutlineInputBorder(),
+        ),
+        hint: Text(hint, style: TextStyle(fontSize: 13)),
+        items: items
+            .map((item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item.isEmpty ? hint : item,
+                      style: TextStyle(fontSize: 13)),
+                ))
+            .toList(),
+        onChanged: (value) {
+          setState(() {
+            currentPage = 0;
+            onChanged(value);
+            controller.selectedAvailability.value = '';
+            controller.filterProfessionalsByAvailability('');
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildAvailabilityDropdown() {
+    return SizedBox(
+      width: RDeviceUtils.getScreenWidth(context) / 3 + 15,
+      child: DropdownButtonFormField<String>(
+        key: _availabilityFilterKey,
+        isExpanded: true,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          border: OutlineInputBorder(),
+        ),
+        hint: Text('By availability', style: TextStyle(fontSize: 13)),
+        value: controller.selectedAvailability.value.isEmpty
+            ? null
+            : controller.selectedAvailability.value,
+        items: [
+          DropdownMenuItem(
+              value: '',
+              child: Text('By availability', style: TextStyle(fontSize: 13))),
+          DropdownMenuItem(
+              value: 'Aujourd\'hui',
+              child: Text('Aujourd\'hui', style: TextStyle(fontSize: 13))),
+          DropdownMenuItem(
+              value: 'Dans 3 jours',
+              child: Text('Dans 3 jours', style: TextStyle(fontSize: 13))),
+          DropdownMenuItem(
+              value: 'Dans une semaine',
+              child: Text('Dans une semaine', style: TextStyle(fontSize: 13))),
+        ],
+        onChanged: (value) {
+          setState(() {
+            currentPage = 0;
+            controller.filterProfessionalsByAvailability(value ?? '');
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildPagination(int totalPages) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed:
+              currentPage > 0 ? () => setState(() => currentPage--) : null,
+        ),
+        Text('Page ${currentPage + 1} of $totalPages'),
+        IconButton(
+          icon: Icon(Icons.arrow_forward),
+          onPressed: currentPage < totalPages - 1
+              ? () => setState(() => currentPage++)
+              : null,
+        ),
+      ],
     );
   }
 }

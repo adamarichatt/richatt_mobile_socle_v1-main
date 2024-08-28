@@ -24,40 +24,37 @@ class RSearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 158,
-      left: 16,
-      child: GestureDetector(
-        onTap: () {
-          // Navigation vers la nouvelle page de recherche
-          Get.to(() => RSearchPage(emailCustomer: emailCustomer));
-        },
-        child: Container(
-          width: 396,
-          height: 56,
-          padding: const EdgeInsets.all(RSizes.md),
-          decoration: BoxDecoration(
-            color: showBackground
-                ? RHelperFunctions.isDarkMode(context)
-                    ? RColors.dark
-                    : RColors.light
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(28), 
-            border: showBorder ? Border.all(color: RColors.grey) : null,
-          
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: RColors.grey),
-              const SizedBox(width: 4),  // Setting gap to 4px as specified
-              Expanded(
-                child: Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: RColors.grey),
-                ),
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => RSearchPage(emailCustomer: emailCustomer));
+      },
+      child: Container(
+        width: 396,
+        height: 56,
+        padding: const EdgeInsets.all(RSizes.md),
+        decoration: BoxDecoration(
+          color: showBackground
+              ? RHelperFunctions.isDarkMode(context)
+                  ? RColors.dark
+                  : RColors.light
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(28),
+          border: showBorder ? Border.all(color: RColors.grey) : null,
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: RColors.grey),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                text,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: RColors.grey),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

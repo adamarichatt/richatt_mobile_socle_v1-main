@@ -4,6 +4,7 @@ import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professiona
 import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class ProfessionalsByEntityPage extends StatefulWidget {
   final String entityName;
@@ -26,7 +27,8 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
   // Variables de pagination
   int currentPage = 0;
   final int itemsPerPage = 5;
-  final GlobalKey<FormFieldState> _availabilityFilterKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _availabilityFilterKey =
+      GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,127 +40,133 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        hintText: null,
+                        border: OutlineInputBorder(),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        isDense: true,
+                      ),
+                      hint: Text(
                         'By city',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(fontSize: 12, color: Colors.black),
                       ),
+                      items: controller
+                          .getCitiesForEntity(widget.entityName)
+                          .map((city) {
+                        return DropdownMenuItem<String>(
+                          value: city,
+                          child: Text(city.isEmpty ? 'By city' : city,
+                              style: TextStyle(fontSize: 12)),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          currentPage = 0; // Reset to first page
+                          controller.filterProfessionalsByEntityAndCity(
+                              widget.entityName, value ?? '');
+                          controller.selectedAvailability.value = '';
+                          controller.filterProfessionalsByAvailability('');
+                        });
+                      },
                     ),
-                    items: controller
-                        .getCitiesForEntity(widget.entityName)
-                        .map((city) {
-                      return DropdownMenuItem<String>(
-                        value: city,
-                        child: Text(city.isEmpty ? 'By city' : city),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsByEntityAndCity(
-                            widget.entityName, value ?? '');
-                          // Reset availability filter to 'No filter'
-                        controller.selectedAvailability.value =
-                            ''; // Set controller's selectedAvailability to empty string
-                        controller.filterProfessionalsByAvailability('');
-                      });
-                    },
                   ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
+                  SizedBox(width: 8),
+                  SizedBox(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        hintText: null,
+                        border: OutlineInputBorder(),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        isDense: true,
+                      ),
+                      hint: Text(
                         'By speciality',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(fontSize: 12, color: Colors.black),
                       ),
+                      items: controller
+                          .getSpecialitiesForEntity(widget.entityName)
+                          .map((speciality) {
+                        return DropdownMenuItem<String>(
+                          value: speciality,
+                          child: Text(
+                              speciality.isEmpty ? 'By speciality' : speciality,
+                              style: TextStyle(fontSize: 12)),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          currentPage = 0; // Reset to first page
+                          controller.filterProfessionalsByEntityAndSpeciality(
+                              widget.entityName, value ?? '');
+                          controller.selectedAvailability.value = '';
+                          controller.filterProfessionalsByAvailability('');
+                        });
+                      },
                     ),
-                    items: controller
-                        .getSpecialitiesForEntity(widget.entityName)
-                        .map((speciality) {
-                      return DropdownMenuItem<String>(
-                        value: speciality,
-                        child:
-                            Text(speciality.isEmpty ? 'By speciality' : speciality),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                        controller.filterProfessionalsByEntityAndSpeciality(
-                            widget.entityName, value ?? '');
-                          // Reset availability filter to 'No filter'
-                        controller.selectedAvailability.value =
-                            ''; // Set controller's selectedAvailability to empty string
-                        controller.filterProfessionalsByAvailability('');
-                      });
-                    },
                   ),
-                ),
-                SizedBox(width: 6),
-                // Add this inside the Row widget that contains the other filters
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    key: _availabilityFilterKey,
-                    decoration: InputDecoration(
-                      hintText: null,
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                    hint: Align(
-                      alignment: Alignment.center,
-                      child: Text(
+                  SizedBox(width: 8),
+                  SizedBox(
+                    width: RDeviceUtils.getScreenWidth(context) / 3 + 15,
+                    child: DropdownButtonFormField<String>(
+                      key: _availabilityFilterKey,
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        hintText: null,
+                        border: OutlineInputBorder(),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        isDense: true,
+                      ),
+                      hint: Text(
                         'By availability',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(fontSize: 12, color: Colors.black),
                       ),
+                      value: controller.selectedAvailability.value.isEmpty
+                          ? null
+                          : controller.selectedAvailability.value,
+                      items: [
+                        DropdownMenuItem(
+                            value: '',
+                            child: Text('By availability',
+                                style: TextStyle(fontSize: 12))),
+                        DropdownMenuItem(
+                            value: 'Aujourd\'hui',
+                            child: Text('Aujourd\'hui',
+                                style: TextStyle(fontSize: 12))),
+                        DropdownMenuItem(
+                            value: 'Dans 3 jours',
+                            child: Text('Dans 3 jours',
+                                style: TextStyle(fontSize: 12))),
+                        DropdownMenuItem(
+                            value: 'Dans une semaine',
+                            child: Text('Dans une semaine',
+                                style: TextStyle(fontSize: 12))),
+                      ],
+                      onChanged: (value) async {
+                        setState(() {
+                          currentPage = 0; // Reset to first page
+                        });
+                        controller
+                            .filterProfessionalsByAvailability(value ?? '');
+                        setState(
+                            () {}); // Trigger a rebuild after the async operation
+                      },
                     ),
-                    value: controller.selectedAvailability.value.isEmpty
-                        ? ''
-                        : controller.selectedAvailability.value,
-                    items: [
-                      DropdownMenuItem(value: '', child: Text('By availability')),
-                      DropdownMenuItem(
-                          value: 'Aujourd\'hui', child: Text('Aujourd\'hui')),
-                      DropdownMenuItem(
-                          value: 'Dans 3 jours', child: Text('Dans 3 jours')),
-                      DropdownMenuItem(
-                          value: 'Dans une semaine',
-                          child: Text('Dans une semaine')),
-                    ],
-                    onChanged: (value) async {
-                      setState(() {
-                        currentPage = 0; // Reset to first page
-                      });
-                      controller.filterProfessionalsByAvailability(value ?? '');
-                      setState(
-                          () {}); // Trigger a rebuild after the async operation
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
