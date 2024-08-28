@@ -30,7 +30,9 @@ class ProfessionalController extends GetxController {
   var selectedCity = ''.obs;
   var selectedEntity = ''.obs;
   var selectedSpeciality = ''.obs;
+  var selectedAvailability= ''.obs;
   var searchText = ''.obs;
+  
   @override
   void onInit() {
     getProf();
@@ -192,6 +194,86 @@ class ProfessionalController extends GetxController {
     selectedSpeciality.value = '';
     filteredProfessionals.value = featuredProf; // Reset to all professionals
   }
+
+  Future<Schedule?> getNextAvailability(String professionalCode) async {
+  final url = APIConstants.apiBackend +
+      'schedules/nextAvailabilityByProfessionalCode/$professionalCode';
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    if (response.body.isNotEmpty) {
+      print('Availibility: ${response.body}');
+      
+      try {
+        final jsonResponse = json.decode(response.body);
+        if (jsonResponse is Map<String, dynamic>) {
+          return Schedule.fromJson(jsonResponse);
+        } else {
+          print('Unexpected response format for professional $professionalCode');
+          return null;
+        }
+      } catch (e) {
+        print('Error parsing JSON for professional $professionalCode: $e');
+        return null;
+      }
+    } else {
+      print('Empty response for professional $professionalCode');
+      return null;
+    }
+  } else {
+    print('Failed to load next availability for professional $professionalCode');
+    return null;
+  }
+}
+
+
+
+ Future<void> applyAvailabilityFilter(String availability) async {
+  if (availability.isEmpty) {
+    return; // Aucun filtre à appliquer
+  }
+
+  DateTime filterDate;
+  switch (availability) {
+    case 'Aujourd\'hui':
+      filterDate = DateTime.now();
+      break;
+    case 'Dans 3 jours':
+      filterDate = DateTime.now().add(Duration(days: 3));
+      break;
+    case 'Dans une semaine':
+      filterDate = DateTime.now().add(Duration(days: 7));
+      break;
+    default:
+      return; // Filtre non valide
+  }
+
+  List<Professional> availableProfessionals = [];
+
+  for (var professional in filteredProfessionals) {
+    if (professional.id != null) {
+      try {
+        Schedule? nextAvailability = await getNextAvailability(professional.id!);
+        if (nextAvailability != null && nextAvailability.dateTime != null) {
+          DateTime nextAvailabilityDate = DateTime.parse(nextAvailability.dateTime.split('T').first);
+          if (nextAvailabilityDate.isBefore(filterDate) || nextAvailabilityDate.isAtSameMomentAs(filterDate)) {
+            availableProfessionals.add(professional);
+          }
+        }
+      } catch (e) {
+        print('Error fetching availability for ${professional.name}: $e');
+      }
+    }
+  }
+
+  filteredProfessionals.value = availableProfessionals;
+
+}
+void filterProfessionalsByAvailability(String availability) async {
+  selectedAvailability.value = availability;
+  filterProfessionals(); // Appliquez d'abord les autres filtres
+  await applyAvailabilityFilter(availability); // Ensuite, appliquez le filtre de disponibilité
+}
 
   List<String> getUniqueCities() {
     final cities = <String>{};
@@ -661,4 +743,75 @@ class ProfessionalController extends GetxController {
       Get.snackbar('Error', error.toString());
     }
   }
+
+  // Future<Schedule?> getNextAvailability(String professionalCode) async {
+  //   final url = APIConstants.apiBackend +
+  //       'schedules/nextAvailabilityByProfessionalCode/$professionalCode';
+  //   final response = await http.get(Uri.parse(url));
+
+  //   if (response.statusCode == 200) {
+  //     if (response.body.isNotEmpty) {
+  //       print('Availibility: ${response.body}');
+
+  //       return Schedule.fromJson(json.decode(response.body));
+  //     } else {
+  //       return null;
+  //     }
+  //   } else {
+  //     throw Exception('Failed to load next availability');
+  //   }
+  // }
+
+//  void filterProfessionalsByAvailability(String availability) async {
+//   DateTime filterDate;
+
+//   // Déterminer la date de filtre en fonction de la sélection de disponibilité
+//   if (availability == 'Aujourd\'hui') {
+//     filterDate = DateTime.now();
+//   } else if (availability == 'Dans 3 jours') {
+//     filterDate = DateTime.now().add(Duration(days: 3));
+//   } else if (availability == 'Dans une semaine') {
+//     filterDate = DateTime.now().add(Duration(days: 7));
+//   } else {
+//     return; // Aucun filtre appliqué
+//   }
+
+//   List<Professional> tempProfessionals = [];
+
+//   // Filtrer les professionnels en fonction de la prochaine disponibilité
+//   for (var professional in filteredProfessionals) {
+//     // try {
+//       if (professional.id != null) {
+//         print('Fetching availability for professional ID: ${professional.id}');
+//         Schedule? nextAvailability = await getNextAvailability(professional.id!);
+
+//         if (nextAvailability != null) {
+//           // Vérification pour s'assurer que 'nextAvailability.dateTime' n'est pas nul
+//           DateTime nextAvailabilityDate = DateTime.parse(nextAvailability.dateTime.split('T').first);
+
+//           // Ajouter le professionnel à la liste s'il a une disponibilité avant ou à la date de filtre
+//           if (nextAvailabilityDate.isBefore(filterDate) || nextAvailabilityDate.isAtSameMomentAs(filterDate)) {
+//             tempProfessionals.add(professional);
+//           }
+//                 } else {
+//           print('No availability found for ${professional.name}. Excluding from results.');
+//         }
+//       } else {
+//         print('Professional ID is null for ${professional.name}. Excluding from results.');
+//       }
+//     }
+//     // catch (e) {
+//     //   print('Error fetching availability for ${professional.name}: $e');
+//     // }
+//  // }
+
+//   // Mettre à jour la liste des professionnels filtrés
+//   filteredProfessionals.value = tempProfessionals;
+
+//   // Afficher les professionnels filtrés
+//   print('Filtered Professionals: $tempProfessionals');
+// }
+
+  
+
 }
