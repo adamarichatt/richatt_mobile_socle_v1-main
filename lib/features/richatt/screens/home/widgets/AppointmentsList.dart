@@ -21,8 +21,8 @@ import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 class AppointmentsList extends StatefulWidget {
   final String email;
   final String phone;
-
-  const AppointmentsList({required this.email, required this.phone});
+  var image64;
+  AppointmentsList({required this.email, required this.phone});
 
   @override
   _AppointmentsListState createState() => _AppointmentsListState();
@@ -257,7 +257,7 @@ class AppointmentsTab extends StatefulWidget {
 
 class _AppointmentsTabState extends State<AppointmentsTab> {
   final FavoriteController favoriteController = Get.find();
-
+  var image64;
   @override
   void initState() {
     super.initState();
@@ -278,7 +278,15 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
         DateTime dateTime = DateTime.parse(combinedDateTime);
         final formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
         final formattedTime = DateFormat('HH:mm').format(dateTime);
-
+        try {
+          if (appointment.professional!.imageUrl != null) {
+            image64 = base64Decode(
+                appointment.professional!.imageUrl?.split(',').last as String);
+          }
+        } catch (e) {
+          print('Erreur lors de la conversion de l\'image: $e');
+          image64 = '';
+        }
         return InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -341,7 +349,9 @@ class _AppointmentsTabState extends State<AppointmentsTab> {
                     height: 90,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(RImages.doctor1),
+                        image: image64 != null
+                            ? MemoryImage(image64)
+                            : AssetImage(RImages.doctor1) as ImageProvider,
                         fit: BoxFit.fill,
                       ),
                       borderRadius: BorderRadius.circular(16),

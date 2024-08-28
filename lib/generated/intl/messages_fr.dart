@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Security": MessageLookupByLibrary.simpleMessage("Sécurité"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("Voir tout"),
         "Theme": MessageLookupByLibrary.simpleMessage("Thème"),
+        "Verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "addFavoriText": MessageLookupByLibrary.simpleMessage(
             "Vous voulez supprimer ce professionnel de vos favoris ?"),
         "addFavorite":
@@ -46,15 +47,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Voulez-vous annuler ce RDV?"),
         "completed": MessageLookupByLibrary.simpleMessage("Terminé"),
         "contact": MessageLookupByLibrary.simpleMessage("Contactez nous"),
+        "date": MessageLookupByLibrary.simpleMessage("Date:"),
         "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
             "Vous voulez ajouter ce professionnel à vos favoris ?"),
+        "duree": MessageLookupByLibrary.simpleMessage("Durée:"),
         "editprofile": MessageLookupByLibrary.simpleMessage(
             "Modifier les informations du profil"),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
+        "enterCode": MessageLookupByLibrary.simpleMessage(
+            "Entrez le code de vérification"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
+        "goToHome": MessageLookupByLibrary.simpleMessage("Aller à l\'accueil"),
         "gretting": MessageLookupByLibrary.simpleMessage("Bonjour "),
         "gretting2": MessageLookupByLibrary.simpleMessage(
-            "Trouvons le bon médecin pour vous"),
+            "Trouvons le bon Rendez vous  pour vous"),
+        "heure": MessageLookupByLibrary.simpleMessage("Heure:"),
         "langue": MessageLookupByLibrary.simpleMessage("Language"),
         "no": MessageLookupByLibrary.simpleMessage("Non"),
         "noAppFound":
@@ -74,14 +81,22 @@ class MessageLookup extends MessageLookupByLibrary {
             "Construire des communautés plus saines,"),
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "Faire progresser les soins de santé ensemble,"),
+        "patient": MessageLookupByLibrary.simpleMessage("Patient:"),
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
         "reBook": MessageLookupByLibrary.simpleMessage("Reréserver"),
         "reschedule": MessageLookupByLibrary.simpleMessage("Reprogrammer"),
         "search":
             MessageLookupByLibrary.simpleMessage("Rechercher un médecin!"),
+        "service": MessageLookupByLibrary.simpleMessage("Service:"),
+        "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
+        "signUpWith":
+            MessageLookupByLibrary.simpleMessage("ou inscrivez-vous avec"),
+        "signupSubTitle": MessageLookupByLibrary.simpleMessage(
+            "Veuillez compléter vos informations pour vous connecter"),
         "upcoming": MessageLookupByLibrary.simpleMessage("À venir"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("Prochain rendez-vous"),
+        "verif": MessageLookupByLibrary.simpleMessage("Vérifier"),
         "yes": MessageLookupByLibrary.simpleMessage("Oui")
       };
 }

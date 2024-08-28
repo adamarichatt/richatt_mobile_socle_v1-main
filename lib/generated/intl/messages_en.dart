@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Security": MessageLookupByLibrary.simpleMessage("Security"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("See All"),
         "Theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "Verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "addFavoriText": MessageLookupByLibrary.simpleMessage(
             "Do you want to remove this professional from your favorites?"),
         "addFavorite": MessageLookupByLibrary.simpleMessage("Add to favorites"),
@@ -43,15 +44,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Do you want to cancel this appointment?"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
+        "date": MessageLookupByLibrary.simpleMessage("Date:"),
         "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
             "Do you want to add this professional to your favorites?"),
+        "duree": MessageLookupByLibrary.simpleMessage("Duration:"),
         "editprofile":
             MessageLookupByLibrary.simpleMessage("Edit profile information"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "enterCode":
+            MessageLookupByLibrary.simpleMessage("Enter the verification code"),
         "french": MessageLookupByLibrary.simpleMessage("French"),
+        "goToHome": MessageLookupByLibrary.simpleMessage("Go to Home"),
         "gretting": MessageLookupByLibrary.simpleMessage("Hello "),
         "gretting2": MessageLookupByLibrary.simpleMessage(
-            "Let’s Find the right doctor for you"),
+            "Let\'s find the right appointment for you"),
+        "heure": MessageLookupByLibrary.simpleMessage("Time:"),
         "langue": MessageLookupByLibrary.simpleMessage("Language"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noAppFound":
@@ -71,13 +78,22 @@ class MessageLookup extends MessageLookupByLibrary {
             "Building healthier communities."),
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "Advancing healthcare together."),
+        "patient": MessageLookupByLibrary.simpleMessage("Patient:"),
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
         "reBook": MessageLookupByLibrary.simpleMessage("Re Book"),
         "reschedule": MessageLookupByLibrary.simpleMessage("reschedule"),
+        "resetPasswords":
+            MessageLookupByLibrary.simpleMessage("Reset Password:"),
         "search": MessageLookupByLibrary.simpleMessage("Search a doctor!"),
+        "service": MessageLookupByLibrary.simpleMessage("Service:"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "signUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
+        "signupSubTitle": MessageLookupByLibrary.simpleMessage(
+            "Please complete your details to login"),
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("Upcoming Appointment"),
+        "verif": MessageLookupByLibrary.simpleMessage("Verify"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

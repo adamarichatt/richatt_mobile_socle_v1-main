@@ -16,6 +16,7 @@ class RRoundedImage extends StatelessWidget {
     this.backgroundColor = RColors.light,
     this.padding,
     this.onPressed,
+    required this.imageProvider,
   });
 
   final double? width;
@@ -26,6 +27,7 @@ class RRoundedImage extends StatelessWidget {
   final BoxFit? fit;
   final bool applyImageRadius;
   final bool isNetworkImage;
+  final ImageProvider imageProvider;
 
   final Color backgroundColor;
   final EdgeInsetsGeometry? padding;
@@ -47,12 +49,7 @@ class RRoundedImage extends StatelessWidget {
           borderRadius: applyImageRadius
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
-          child: Image(
-            fit: fit,
-            image: isNetworkImage
-                ? NetworkImage(imageUrl)
-                : AssetImage(imageUrl) as ImageProvider,
-          ),
+          child: Image(fit: fit, image: imageProvider),
         ),
       ),
     );

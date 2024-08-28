@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
   final String professionalId;
   final Professional professional;
   final String emailCustomer;
+  var image64;
   ProfessionalDetailsPage({
     required this.professionalId,
     required this.professional,
@@ -26,6 +29,16 @@ class ProfessionalDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProfessionalController.instance;
+    try {
+      if (professional.imageUrl != null) {
+        image64 =
+            base64Decode(professional.imageUrl?.split(',').last as String);
+      }
+    } catch (e) {
+      print('Erreur lors de la conversion de l\'image: $e');
+      image64 = '';
+    }
+    //image64 = base64Decode(professional.imageUrl?.split(',').last as String);
     final favoriteController = Get.put(FavoriteController());
     final ProfileController customer = Get.put(ProfileController());
     // Appeler getCustomerByEmail lors de l'initialisation de la page
@@ -46,7 +59,9 @@ class ProfessionalDetailsPage extends StatelessWidget {
                 height: 250,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(RImages.doctor1),
+                    image: image64 != null
+                        ? MemoryImage(image64)
+                        : AssetImage(RImages.doctor1) as ImageProvider,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -101,7 +116,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            width: 30,
+                            width: 15,
                           ),
                           IconButton(
                             icon: Icon(
@@ -111,7 +126,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
                             onPressed: () {},
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 1,
                           ),
                           Obx(() {
                             bool isFavorite =
@@ -129,7 +144,7 @@ class ProfessionalDetailsPage extends StatelessWidget {
                             );
                           }),
                           SizedBox(
-                            width: 15,
+                            width: 1,
                           ),
                         ],
                       ),
@@ -342,10 +357,6 @@ class ProfessionalDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            RRoundedImage(
-              imageUrl: RImages.doctor1,
-              applyImageRadius: true,
-            ),
             SizedBox(height: 12),
             Text(
               '${professional.firstName} ${professional.name}',

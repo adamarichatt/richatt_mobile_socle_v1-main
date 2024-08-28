@@ -1,4 +1,6 @@
 // This class contains all the App Images in String formats.
+import 'dart:convert';
+
 class RImages {
 // - - App Logos
   static const String darkAppLogo = "assets/logos/logorichatt.png";
@@ -16,4 +18,9 @@ class RImages {
   static const String onBoardingImage3 =
       "assets/images/on_boarding_images/onboard3.png";
   static const String doctor1 = "assets/images/on_boarding_images/docteur1.jpg";
+
+  dynamic decodeBase64(String encoded) {
+    String decoded = utf8.decode(base64Url.decode(encoded));
+    return decoded;
+  }
 }

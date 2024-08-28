@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
-
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 
 class VerificationPage extends StatelessWidget {
   final String email;
@@ -12,21 +12,22 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Verification')),
+      appBar: AppBar(title: Text(S.of(context).Verification)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: verificationCodeController,
-              decoration: InputDecoration(labelText: 'Entrez le code de vérification'),
+              decoration: InputDecoration(labelText: S.of(context).enterCode),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                SignupController.instance.verifyCode(email, verificationCodeController.text);
+                SignupController.instance
+                    .verifyCode(email, verificationCodeController.text);
               },
-              child: Text('Vérifier'),
+              child: Text(S.of(context).verif),
             ),
           ],
         ),
@@ -34,4 +35,3 @@ class VerificationPage extends StatelessWidget {
     );
   }
 }
-

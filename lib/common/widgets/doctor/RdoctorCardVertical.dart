@@ -14,8 +14,12 @@ import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/pr
 import 'package:get/get.dart';
 
 class RDoctorCardVertical extends StatelessWidget {
-  const RDoctorCardVertical({super.key, required this.professional,required this.emailCustomer, });
-  
+  const RDoctorCardVertical({
+    super.key,
+    required this.professional,
+    required this.emailCustomer,
+  });
+
   final Professional professional;
   final String emailCustomer;
   @override
@@ -25,7 +29,11 @@ class RDoctorCardVertical extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await controller.getProfessionalById(professional.id!);
-        Get.to(() => ProfessionalDetailsPage(professionalId: professional.id!, professional: professional, emailCustomer:emailCustomer,));
+        Get.to(() => ProfessionalDetailsPage(
+              professionalId: professional.id!,
+              professional: professional,
+              emailCustomer: emailCustomer,
+            ));
       },
       child: Container(
         width: 180,
@@ -43,10 +51,6 @@ class RDoctorCardVertical extends StatelessWidget {
               backgroundColor: dark ? RColors.dark : RColors.light,
               child: Stack(
                 children: [
-                  const RRoundedImage(
-                    imageUrl: RImages.doctor1,
-                    applyImageRadius: true,
-                  ),
                   Positioned(
                     top: 0,
                     right: 0,

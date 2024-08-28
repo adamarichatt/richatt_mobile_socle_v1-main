@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Security": MessageLookupByLibrary.simpleMessage("الأمن"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("مشاهدة الكل"),
         "Theme": MessageLookupByLibrary.simpleMessage("الموضوع"),
+        "Verification": MessageLookupByLibrary.simpleMessage("التحقق"),
         "addFavoriText": MessageLookupByLibrary.simpleMessage(
             "هل ترغب في إزالة هذا المهني من المفضلة لديك؟"),
         "addFavorite":
@@ -44,15 +45,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل تريد إلغاء هذا الموعد؟"),
         "completed": MessageLookupByLibrary.simpleMessage("المنجز"),
         "contact": MessageLookupByLibrary.simpleMessage("اتصل بنا"),
+        "date": MessageLookupByLibrary.simpleMessage("التاريخ:"),
         "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
             "هل ترغب في إضافة هذا المهني إلى المفضلة لديك؟"),
+        "duree": MessageLookupByLibrary.simpleMessage("المدة:"),
         "editprofile":
             MessageLookupByLibrary.simpleMessage("تحرير معلومات الملف الشخصي"),
         "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
+        "enterCode": MessageLookupByLibrary.simpleMessage("أدخل رمز التحقق"),
         "french": MessageLookupByLibrary.simpleMessage("الفرنسية"),
+        "goToHome": MessageLookupByLibrary.simpleMessage("الذهاب إلى الرئيسية"),
         "gretting": MessageLookupByLibrary.simpleMessage("مرحبا"),
-        "gretting2": MessageLookupByLibrary.simpleMessage(
-            "دعنا نعثر على الطبيب المناسب لك"),
+        "gretting2":
+            MessageLookupByLibrary.simpleMessage("اعثر على الموعد المناسب لك"),
+        "heure": MessageLookupByLibrary.simpleMessage("الساعة:"),
         "langue": MessageLookupByLibrary.simpleMessage("اللغة"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noAppFound":
@@ -72,13 +78,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بناء مجتمعات أكثر صحة,"),
         "onBoardingTitle3": MessageLookupByLibrary.simpleMessage(
             "النهوض بالرعاية الصحية معًا,"),
+        "patient": MessageLookupByLibrary.simpleMessage("المريض:"),
         "rdvs": MessageLookupByLibrary.simpleMessage("التعيين"),
         "reBook": MessageLookupByLibrary.simpleMessage("إعادة الحجز"),
         "reschedule": MessageLookupByLibrary.simpleMessage("إعادة الجدولة"),
         "search": MessageLookupByLibrary.simpleMessage("ابحث عن طبيب"),
+        "service": MessageLookupByLibrary.simpleMessage("الخدمة:"),
+        "signUp": MessageLookupByLibrary.simpleMessage("التسجيل"),
+        "signUpWith": MessageLookupByLibrary.simpleMessage("أو سجل باستخدام"),
+        "signupSubTitle": MessageLookupByLibrary.simpleMessage(
+            "يرجى إكمال بياناتك لتسجيل الدخول"),
         "upcoming": MessageLookupByLibrary.simpleMessage("القادم"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("المواعيد القادمة"),
+        "verif": MessageLookupByLibrary.simpleMessage("تحقق"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم")
       };
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/app.dart';
@@ -18,6 +20,7 @@ import '../models/customer.dart';
 
 class ProfilePage extends StatelessWidget {
   final String email;
+  var image64;
 
   ProfilePage({required this.email});
 
@@ -32,6 +35,12 @@ class ProfilePage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getCustomerByEmail(email);
     });
+    try {
+      image64 = base64Decode(customer.image.split(',').last);
+    } catch (e) {
+      print('Erreur lors de la conversion de l\'image: $e');
+      image64 = '';
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +59,9 @@ class ProfilePage extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(RImages.doctor1),
+                      backgroundImage: image64 != ''
+                          ? MemoryImage(image64)
+                          : AssetImage(RImages.doctor1) as ImageProvider,
                     ),
                     Positioned(
                       right: -12,

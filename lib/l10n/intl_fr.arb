@@ -1,6 +1,6 @@
 {
     "gretting":"Bonjour ",
-    "gretting2":"Trouvons le bon médecin pour vous",
+    "gretting2":"Trouvons le bon Rendez vous  pour vous",
     "search":"Rechercher un médecin!",
     "upcoming_app":"Prochain rendez-vous",
     "no_upcoming_app":"Pas de rendez-vous à venir",
@@ -41,6 +41,23 @@
     "no":"Non",
     "Confirmation":"Confirmation",
     "noAppFound":"Aucun rendez-vous trouvé",
-    "cancelAppText":"Voulez-vous annuler ce RDV?"
+    "cancelAppText":"Voulez-vous annuler ce RDV?",
+    "Verification":"Verification",
+    "enterCode":"Entrez le code de vérification",
+    "verif":"Vérifier",
+    "signUp": "S'inscrire",
+    "signupSubTitle": "Veuillez compléter vos informations pour vous connecter",
+    "signUpWith": "ou inscrivez-vous avec",
+    "detailsrv":"Détails du Rendez-vous",
+    "patient":"Patient:",
+    "date":"Date:",
+    "heure":"Heure:",
+    "duree":"Durée:",
+    "service":"Service:",
+    "goToHome":"Aller à l'accueil"
+
+
+
+
     
 }

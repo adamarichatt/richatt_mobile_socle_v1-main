@@ -6,8 +6,8 @@ import 'package:richatt_mobile_socle_v1/utils/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class LanguageController extends GetxController {
-  var locale = const Locale('en').obs;
-  var currentLanguage = 'en'.obs;
+  var locale = const Locale('fr').obs;
+  var currentLanguage = 'fr'.obs;
 
   void changeLanguage(String languageCode) {
     currentLanguage.value = languageCode;
@@ -33,7 +33,7 @@ class App extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       themeMode: ThemeMode.system,
       theme: RAppTheme.lightTheme,
-      darkTheme: RAppTheme.darkTheme,
+      darkTheme: RAppTheme.lightTheme,
       home: const Scaffold(
         backgroundColor: RColors.primary,
         body: Center(

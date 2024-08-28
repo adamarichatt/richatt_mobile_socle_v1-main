@@ -1,6 +1,6 @@
 {
     "gretting":"Hello ",
-    "gretting2":"Let’s Find the right doctor for you",
+    "gretting2":"Let's find the right appointment for you",
     "search":"Search a doctor!",
     "upcoming_app":"Upcoming Appointment",
     "no_upcoming_app":"No Upcoming Appointment",
@@ -41,7 +41,23 @@
     "no":"No",
     "Confirmation":"Confirmation",
     "noAppFound":"No appointments found",
-    "cancelAppText":"Do you want to cancel this appointment?"
+    "cancelAppText":"Do you want to cancel this appointment?",
+    "Verification": "Verification",
+    "enterCode": "Enter the verification code",
+    "verif": "Verify",
+    "signUp":"Sign Up",
+    "signupSubTitle":"Please complete your details to login",
+    "signUpWith":"or sign up with",
+    "patient":"Patient:",
+    "date":"Date:",
+    "heure":"Time:",
+    "duree":"Duration:",
+    "service":"Service:",
+    "goToHome":"Go to Home",
+    "resetPasswords":"Reset Password:"
+
+
+
 
     
 }

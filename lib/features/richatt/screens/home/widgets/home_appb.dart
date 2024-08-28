@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,13 +13,19 @@ import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
 
 class RHomeAppBar extends StatelessWidget {
-  const RHomeAppBar({
+  RHomeAppBar({
     super.key,
   });
-
+  var image64;
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
+    try {
+      image64 = base64Decode(controller.image.value.split(',').last);
+    } catch (e) {
+      print('Erreur lors de la conversion de l\'image: $e');
+      image64 = '';
+    }
     return RAppBar(
       title: Row(children: [
         Container(
@@ -25,7 +33,9 @@ class RHomeAppBar extends StatelessWidget {
           height: 52,
           decoration: ShapeDecoration(
             image: DecorationImage(
-              image: AssetImage(RImages.doctor1),
+              image: image64 != ''
+                  ? MemoryImage(image64)
+                  : AssetImage(RImages.doctor1) as ImageProvider,
               fit: BoxFit.fill,
             ),
             shape: RoundedRectangleBorder(

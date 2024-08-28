@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Let’s Find the right doctor for you`
+  /// `Let's find the right appointment for you`
   String get gretting2 {
     return Intl.message(
-      'Let’s Find the right doctor for you',
+      'Let\'s find the right appointment for you',
       name: 'gretting2',
       desc: '',
       args: [],
@@ -475,6 +475,136 @@ class S {
     return Intl.message(
       'Do you want to cancel this appointment?',
       name: 'cancelAppText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verification`
+  String get Verification {
+    return Intl.message(
+      'Verification',
+      name: 'Verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the verification code`
+  String get enterCode {
+    return Intl.message(
+      'Enter the verification code',
+      name: 'enterCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify`
+  String get verif {
+    return Intl.message(
+      'Verify',
+      name: 'verif',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get signUp {
+    return Intl.message(
+      'Sign Up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please complete your details to login`
+  String get signupSubTitle {
+    return Intl.message(
+      'Please complete your details to login',
+      name: 'signupSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `or sign up with`
+  String get signUpWith {
+    return Intl.message(
+      'or sign up with',
+      name: 'signUpWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient:`
+  String get patient {
+    return Intl.message(
+      'Patient:',
+      name: 'patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date:`
+  String get date {
+    return Intl.message(
+      'Date:',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time:`
+  String get heure {
+    return Intl.message(
+      'Time:',
+      name: 'heure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duration:`
+  String get duree {
+    return Intl.message(
+      'Duration:',
+      name: 'duree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service:`
+  String get service {
+    return Intl.message(
+      'Service:',
+      name: 'service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Home`
+  String get goToHome {
+    return Intl.message(
+      'Go to Home',
+      name: 'goToHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password:`
+  String get resetPasswords {
+    return Intl.message(
+      'Reset Password:',
+      name: 'resetPasswords',
       desc: '',
       args: [],
     );

@@ -1,17 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
 import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
 import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
 import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
 
 class AppointmentDetailsPage extends StatelessWidget {
   final Appointment appointment;
-
-  const AppointmentDetailsPage({required this.appointment});
+  var image64;
+  AppointmentDetailsPage({required this.appointment});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,15 @@ class AppointmentDetailsPage extends StatelessWidget {
     DateTime dateTime = DateTime.parse(combinedDateTime);
     final formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
     final formattedTime = DateFormat('HH:mm').format(dateTime);
+    try {
+      if (appointment.professional!.imageUrl != null) {
+        image64 = base64Decode(
+            appointment.professional!.imageUrl?.split(',').last as String);
+      }
+    } catch (e) {
+      print('Erreur lors de la conversion de l\'image: $e');
+      image64 = '';
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -44,6 +56,9 @@ class AppointmentDetailsPage extends StatelessWidget {
                     height: 100,
                     child: RRoundedImage(
                       imageUrl: RImages.doctor1,
+                      imageProvider: image64 != null
+                          ? MemoryImage(image64)
+                          : AssetImage(RImages.doctor1) as ImageProvider,
                       applyImageRadius: true,
                     ),
                   ),
@@ -104,12 +119,13 @@ class AppointmentDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInfoRow('Patient:',
+                  _buildInfoRow(S.of(context).patient,
                       '${appointment.firstName} ${appointment.lastName}'),
-                  _buildInfoRow('Date:', formattedDate),
-                  _buildInfoRow('Heure:', formattedTime),
-                  _buildInfoRow('Durée:', '${appointment.duration} minutes'),
-                  _buildInfoRow('Service:', appointment.reason!),
+                  _buildInfoRow(S.of(context).date, formattedDate),
+                  _buildInfoRow(S.of(context).heure, formattedTime),
+                  _buildInfoRow(
+                      S.of(context).duree, '${appointment.duration} minutes'),
+                  _buildInfoRow(S.of(context).service, appointment.reason!),
                 ],
               ),
             ),

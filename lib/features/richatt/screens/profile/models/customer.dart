@@ -6,7 +6,7 @@ class Customer {
   final String lastName;
   final String email;
   final String phone;
-  
+
   final String? name;
   final String? lange;
   final String? presentation;
@@ -19,7 +19,6 @@ class Customer {
     required this.lastName,
     required this.email,
     required this.phone,
- 
     this.name,
     this.lange,
     this.presentation,
@@ -29,14 +28,14 @@ class Customer {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     var list = json['favoriteProfessionals'] as List;
-    List<Professional> favsList = list.map((i) => Professional.fromJson(i)).toList();
+    List<Professional> favsList =
+        list.map((i) => Professional.fromJson(i)).toList();
     return Customer(
       id: json['id'],
       firstName: json['firstName'],
       lastName: json['lasttName'],
       email: json['email'],
       phone: json['phone'],
-      
       name: json['name'],
       lange: json['lange'],
       presentation: json['presentation'],
@@ -52,12 +51,12 @@ class Customer {
       'lasttName': lastName,
       'email': email,
       'phone': phone,
-      
       'name': name,
       'lange': lange,
       'presentation': presentation,
       'imageUrl': imageUrl,
-      'favoriteProfessionals': favoriteProfessionals!.map((i) => i.toJson()).toList(),
+      'favoriteProfessionals':
+          favoriteProfessionals!.map((i) => i.toJson()).toList(),
     };
   }
 }

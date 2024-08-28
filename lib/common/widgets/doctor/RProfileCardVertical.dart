@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,19 +15,28 @@ import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
 
 class ProfileCardVertical extends StatelessWidget {
-  const ProfileCardVertical({
+  ProfileCardVertical({
     super.key,
     required this.professional,
     required this.emailCustomer,
   });
   final Professional professional;
   final String emailCustomer;
-
+  var image64;
   @override
   Widget build(BuildContext context) {
     final controller = ProfessionalController.instance;
     final dark = RHelperFunctions.isDarkMode(context);
     final ProfileController customer = Get.put(ProfileController());
+    try {
+      if (professional.imageUrl != null) {
+        image64 =
+            base64Decode(professional.imageUrl?.split(',').last as String);
+      }
+    } catch (e) {
+      print('Erreur lors de la conversion de l\'image: $e');
+      image64 = '';
+    }
     final favoriteController = Get.put(FavoriteController());
     // Appeler getCustomerByEmail lors de l'initialisation de la page
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -87,6 +98,9 @@ class ProfileCardVertical extends StatelessWidget {
             Container(
               child: RRoundedImage(
                   imageUrl: RImages.doctor1,
+                  imageProvider: image64 != null
+                      ? MemoryImage(image64)
+                      : AssetImage(RImages.doctor1) as ImageProvider,
                   applyImageRadius: true,
                   width: 60,
                   height: 60,

@@ -9,28 +9,29 @@ import '../models/customer.dart';
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
- final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final customerId = ''.obs;
   final firstName = ''.obs;
   final lastName = ''.obs;
   final email = ''.obs;
   final phone = ''.obs;
-  
+  final image = ''.obs;
 
   Future<void> getCustomerByEmail(String email) async {
     var headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
     };
-     
-    var url = Uri.parse(APIConstants.apiBackend + 'customer/getCustomerByEmail/$email');
+
+    var url = Uri.parse(
+        APIConstants.apiBackend + 'customer/getCustomerByEmail/$email');
 
     try {
       http.Response response = await http.get(url);
-      debugPrint('response:'+response.body);
+      debugPrint('response:' + response.body);
 
       if (response.statusCode == 200) {
-       final json = jsonDecode(response.body);
+        final json = jsonDecode(response.body);
         final customer = Customer.fromJson(json);
         debugPrint('json:' + json.toString());
         customerId.value = customer.id!;
@@ -38,7 +39,11 @@ class ProfileController extends GetxController {
         lastName.value = customer.lastName;
         this.email.value = customer.email;
         phone.value = customer.phone;
-        
+        if (customer.imageUrl == null) {
+          image.value = '';
+        } else {
+          image.value = customer.imageUrl!;
+        }
       } else {
         throw Exception('Failed to load customer');
       }
@@ -56,13 +61,14 @@ class ProfileController extends GetxController {
     }
   }
 
-   Future<void> updateCustomer() async {
+  Future<void> updateCustomer() async {
     var headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
     };
 
-    var url = Uri.parse(APIConstants.apiBackend + 'customer/updateCustomer/${customerId.value}');
+    var url = Uri.parse(APIConstants.apiBackend +
+        'customer/updateCustomer/${customerId.value}');
 
     try {
       Customer customer = Customer(
@@ -75,7 +81,6 @@ class ProfileController extends GetxController {
         lange: null,
         presentation: null,
         imageUrl: null,
-       
       );
 
       debugPrint('cust:' + customer.toJson().toString());
