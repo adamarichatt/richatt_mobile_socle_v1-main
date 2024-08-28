@@ -26,6 +26,7 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
   // Variables de pagination
   int currentPage = 0;
   final int itemsPerPage = 5;
+  final GlobalKey<FormFieldState> _availabilityFilterKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +43,15 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
-                      hintText: null, 
+                      hintText: null,
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal:
-                              10.0), 
+                          vertical: 15.0, horizontal: 10.0),
                     ),
                     hint: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Filter by city',
+                        'By city',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black),
                       ),
@@ -62,7 +61,7 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                         .map((city) {
                       return DropdownMenuItem<String>(
                         value: city,
-                        child: Text(city.isEmpty ? 'No filter' : city),
+                        child: Text(city.isEmpty ? 'By city' : city),
                       );
                     }).toList(),
                     onChanged: (value) {
@@ -70,6 +69,10 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                         currentPage = 0; // Reset to first page
                         controller.filterProfessionalsByEntityAndCity(
                             widget.entityName, value ?? '');
+                          // Reset availability filter to 'No filter'
+                        controller.selectedAvailability.value =
+                            ''; // Set controller's selectedAvailability to empty string
+                        controller.filterProfessionalsByAvailability('');
                       });
                     },
                   ),
@@ -77,18 +80,16 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                 SizedBox(width: 8),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                   decoration: InputDecoration(
-                      hintText: null, 
+                    decoration: InputDecoration(
+                      hintText: null,
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal:
-                              10.0), 
+                          vertical: 15.0, horizontal: 10.0),
                     ),
                     hint: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Filter by speciality',
+                        'By speciality',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black),
                       ),
@@ -99,7 +100,7 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                       return DropdownMenuItem<String>(
                         value: speciality,
                         child:
-                            Text(speciality.isEmpty ? 'No filter' : speciality),
+                            Text(speciality.isEmpty ? 'By speciality' : speciality),
                       );
                     }).toList(),
                     onChanged: (value) {
@@ -107,7 +108,53 @@ class _ProfessionalsByEntityPageState extends State<ProfessionalsByEntityPage> {
                         currentPage = 0; // Reset to first page
                         controller.filterProfessionalsByEntityAndSpeciality(
                             widget.entityName, value ?? '');
+                          // Reset availability filter to 'No filter'
+                        controller.selectedAvailability.value =
+                            ''; // Set controller's selectedAvailability to empty string
+                        controller.filterProfessionalsByAvailability('');
                       });
+                    },
+                  ),
+                ),
+                SizedBox(width: 6),
+                // Add this inside the Row widget that contains the other filters
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    key: _availabilityFilterKey,
+                    decoration: InputDecoration(
+                      hintText: null,
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 10.0),
+                    ),
+                    hint: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'By availability',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    value: controller.selectedAvailability.value.isEmpty
+                        ? ''
+                        : controller.selectedAvailability.value,
+                    items: [
+                      DropdownMenuItem(value: '', child: Text('By availability')),
+                      DropdownMenuItem(
+                          value: 'Aujourd\'hui', child: Text('Aujourd\'hui')),
+                      DropdownMenuItem(
+                          value: 'Dans 3 jours', child: Text('Dans 3 jours')),
+                      DropdownMenuItem(
+                          value: 'Dans une semaine',
+                          child: Text('Dans une semaine')),
+                    ],
+                    onChanged: (value) async {
+                      setState(() {
+                        currentPage = 0; // Reset to first page
+                      });
+                      controller.filterProfessionalsByAvailability(value ?? '');
+                      setState(
+                          () {}); // Trigger a rebuild after the async operation
                     },
                   ),
                 ),

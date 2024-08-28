@@ -136,7 +136,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
       reservationFor: _bookingFor,
       professional: _professional,
     );
-     //print('hello');
+    //print('hello');
     try {
       RHelperFunctions.showLoader();
       await _controller.deleteSchedules([widget.schedule]);
@@ -148,8 +148,13 @@ class _BookingFormPageState extends State<BookingFormPage> {
     } catch (error) {
       Get.snackbar('Error', error.toString());
     }
+    List<String> dateTimeParts = appointment.dateTime!.split('T');
+    String datePart = dateTimeParts.first;
+    String timePart = dateTimeParts.last.split('-').first;
+    DateTime parsedDate = DateTime.parse(datePart);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(parsedDate);
     NotificationService.showInstantNotification('RICHATT RDV ',
-        'Prise de rendez vous confirmer a ${appointment.dateTime} ');
+        'Prise de rendez vous confirmer Le $formattedDate à $timePart ');
     Get.to(() => BookingSuccessful(
           appointment: appointment,
         ));
