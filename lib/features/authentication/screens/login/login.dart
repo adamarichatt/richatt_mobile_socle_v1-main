@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/common/styles/spacing_styles.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/form_divider.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/social_buttons.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/widgets/login_form.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/widgets/login_header.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/common/styles/spacing_styles.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/form_divider.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/social_buttons.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/login/widgets/login_form.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/login/widgets/login_header.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

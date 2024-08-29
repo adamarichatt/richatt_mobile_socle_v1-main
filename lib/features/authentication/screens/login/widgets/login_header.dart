@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
 
 class RLoginHeader extends StatelessWidget {
   const RLoginHeader({

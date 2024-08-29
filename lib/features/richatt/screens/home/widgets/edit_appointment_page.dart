@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Schedule.dart';
 
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/AppointmentsList.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/professionalController.dart';
 import 'package:collection/collection.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
 
 class EditAppointmentPage extends StatefulWidget {
   final Appointment appointment;

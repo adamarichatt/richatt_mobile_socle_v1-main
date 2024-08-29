@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/onboarding/onboarding.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/login/login.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:richatt_mobile_rimeet/navigation_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationRepository extends GetxController {

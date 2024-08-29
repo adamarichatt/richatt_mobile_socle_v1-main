@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/login/login.dart';
+import 'package:richatt_mobile_rimeet/navigation_menu.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/api_constants.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,8 @@ class LoginController extends GetxController {
         isLoggedIn.value = true;
         Get.offAll(() => const NavigationMenu());
       } else {
-        throw jsonDecode(response.body)["Message"] ?? "Nom d'utilisateur ou mot de passe incorrect.";
+        throw jsonDecode(response.body)["Message"] ??
+            "Nom d'utilisateur ou mot de passe incorrect.";
       }
     } catch (error) {
       Get.back();

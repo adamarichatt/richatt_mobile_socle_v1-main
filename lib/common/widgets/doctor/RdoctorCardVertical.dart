@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/common/styles/shadows.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:richatt_mobile_rimeet/common/styles/shadows.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/custom_shapes/containers/rounded_image.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/colors.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/professionalDetails.dart';
 import 'package:get/get.dart';
 
 class RDoctorCardVertical extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/customer.dart';
 

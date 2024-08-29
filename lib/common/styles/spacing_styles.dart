@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
 
 class RSpacingStyle {
   static const EdgeInsetsGeometry paddingWithAppBarHeight = EdgeInsets.only(

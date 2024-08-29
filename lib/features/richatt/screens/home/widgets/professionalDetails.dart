@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentPage.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/FavoriteController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/AppointmentPage.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/service.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Schedule.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/custom_shapes/containers/rounded_image.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
 
 class ProfessionalDetailsPage extends StatelessWidget {
   final String professionalId;

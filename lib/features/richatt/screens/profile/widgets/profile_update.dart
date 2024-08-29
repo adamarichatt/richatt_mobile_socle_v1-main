@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/profile/widgets/profile.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
 
 class profile_update extends StatelessWidget {
   const profile_update({
@@ -25,7 +25,8 @@ class profile_update extends StatelessWidget {
         child: Column(
           children: [
             TextField(
-              controller: TextEditingController(text: controller.firstName.value),
+              controller:
+                  TextEditingController(text: controller.firstName.value),
               onChanged: (value) => controller.firstName.value = value,
               decoration: const InputDecoration(
                 labelText: RTexts.firstName,
@@ -36,7 +37,8 @@ class profile_update extends StatelessWidget {
               height: RSizes.spaceBtwInputFields,
             ),
             TextField(
-              controller: TextEditingController(text: controller.lastName.value),
+              controller:
+                  TextEditingController(text: controller.lastName.value),
               onChanged: (value) => controller.lastName.value = value,
               decoration: const InputDecoration(
                 labelText: RTexts.lastName,

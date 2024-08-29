@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/doctor/RProfileCard.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/device/device_utility.dart';
 
 class ProfessionalsBySpecialityPage extends StatefulWidget {
   final String speciality;

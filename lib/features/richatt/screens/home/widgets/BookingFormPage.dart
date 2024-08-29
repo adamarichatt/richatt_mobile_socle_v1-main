@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/notification/notification.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingSuccesful.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/controllers/professionalController.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Schedule.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/service.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_rimeet/notification/notification.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/BookingSuccesful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
 
 class BookingFormPage extends StatefulWidget {
   final String professionalId;

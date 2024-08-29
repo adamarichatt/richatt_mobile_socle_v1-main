@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/onboarding/onboarding_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/controllers/onboarding/onboarding_controller.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/colors.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/device/device_utility.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingDotNavigation extends StatelessWidget {

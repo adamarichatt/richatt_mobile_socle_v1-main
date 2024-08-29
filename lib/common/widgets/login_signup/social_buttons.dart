@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/colors.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
 
 class RSocialButtons extends StatelessWidget {
   const RSocialButtons({

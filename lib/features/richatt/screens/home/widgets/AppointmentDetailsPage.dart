@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/custom_shapes/containers/rounded_image.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_rimeet/generated/l10n.dart';
+import 'package:richatt_mobile_rimeet/navigation_menu.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/device/device_utility.dart';
 
 class AppointmentDetailsPage extends StatelessWidget {
   final Appointment appointment;

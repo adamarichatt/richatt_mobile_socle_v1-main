@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/home/widgets/home.dart';
+import 'package:richatt_mobile_rimeet/navigation_menu.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/device/device_utility.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/Appointment.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
 
 class BookingSuccessful extends StatelessWidget {
   final Appointment appointment;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/form_divider.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/social_buttons.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/form_divider.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/social_buttons.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/colors.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/validators/validation.dart';
 
 class RSignupForm extends StatefulWidget {
   const RSignupForm({

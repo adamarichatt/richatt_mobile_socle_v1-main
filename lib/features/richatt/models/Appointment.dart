@@ -1,6 +1,5 @@
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/models/professional.dart';
 import 'dart:math';
-
 
 class Appointment {
   String? id;
@@ -14,7 +13,7 @@ class Appointment {
   String? phone;
   String? dateTime;
   String? email;
-  String? birthdate; 
+  String? birthdate;
   String? reservationFor;
   Professional? professional;
 
@@ -34,7 +33,6 @@ class Appointment {
     this.reservationFor,
     this.professional,
   });
-
 
   static String generateId() {
     final random = Random();
@@ -57,8 +55,9 @@ class Appointment {
       email: json['email'],
       birthdate: json['birthdate'],
       reservationFor: json['reservationFor'],
-      professional: json['professional'] != null ? Professional.fromJson(json['professional']) : null,
-      
+      professional: json['professional'] != null
+          ? Professional.fromJson(json['professional'])
+          : null,
     );
   }
 //  print('hello');
@@ -76,8 +75,8 @@ class Appointment {
       'phone': phone,
       'dateTime': dateTime,
       'email': email,
-      'birthdate': birthdate, 
-      'reservationFor': reservationFor, 
+      'birthdate': birthdate,
+      'reservationFor': reservationFor,
       'professional': professional?.toJson(),
     };
   }

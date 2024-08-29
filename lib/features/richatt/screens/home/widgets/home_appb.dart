@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/appbar/appbar.dart';
+import 'package:richatt_mobile_rimeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:richatt_mobile_rimeet/generated/l10n.dart';
 
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/colors.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/image_strings.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/text_strings.dart';
 
 class RHomeAppBar extends StatelessWidget {
   const RHomeAppBar({super.key});

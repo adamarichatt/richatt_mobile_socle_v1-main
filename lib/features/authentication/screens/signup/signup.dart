@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/form_divider.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/login_signup/social_buttons.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/widgets/signup_form.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/form_divider.dart';
+import 'package:richatt_mobile_rimeet/common/widgets/login_signup/social_buttons.dart';
+import 'package:richatt_mobile_rimeet/generated/l10n.dart';
+import 'package:richatt_mobile_rimeet/utils/constants/sizes.dart';
+import 'package:richatt_mobile_rimeet/utils/helpers/helper_functions.dart';
+import 'package:richatt_mobile_rimeet/features/authentication/screens/signup/widgets/signup_form.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});

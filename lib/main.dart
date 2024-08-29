@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:richatt_mobile_socle_v1/app.dart';
-import 'package:richatt_mobile_socle_v1/data/repositories/authentication_repository.dart';
-import 'package:richatt_mobile_socle_v1/notification/notification.dart';
+import 'package:richatt_mobile_rimeet/app.dart';
+import 'package:richatt_mobile_rimeet/data/repositories/authentication_repository.dart';
+import 'package:richatt_mobile_rimeet/notification/notification.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
