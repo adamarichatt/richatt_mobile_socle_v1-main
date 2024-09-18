@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
@@ -21,11 +23,23 @@ class _AppointmentPageState extends State<AppointmentPage> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   late ProfessionalController _controller;
+  bool _isUserConnected = false;
 
   @override
   void initState() {
     super.initState();
     _controller = ProfessionalController.instance;
+    _checkUserConnection();
+  }
+
+  void _checkUserConnection() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+
+    // Update the _isUserConnected variable based on whether email is null or not
+    setState(() {
+      _isUserConnected = email != null;
+    });
   }
 
   @override
@@ -127,14 +141,46 @@ class _AppointmentPageState extends State<AppointmentPage> {
         runSpacing: 8.0, // Espace vertical entre les lignes de boutons
         children: schedules.map((schedule) {
           return ElevatedButton(
-            onPressed: () {
-              Get.to(() => BookingFormPage(
-                  professionalId: widget.professionalId,
-                  schedule: schedule,
-                  professional: widget.professional));
+            onPressed: () async {
+              // Check if the user is connected
+              if (!_isUserConnected) {
+                // Show a dialog if the user is not connected
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Not Connected'),
+                      content: Text('You need to be logged in to continue.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                            // Navigate to login or account creation page
+                            Get.to(() => LoginScreen()); // Or your login route
+                          },
+                          child: Text('Login / Create Account'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text('Cancel'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                // User is connected, navigate to the booking form page
+                Get.to(() => BookingFormPage(
+                      professionalId: widget.professionalId,
+                      schedule: schedule,
+                      professional: widget.professional,
+                    ));
+              }
             },
             child: Text(schedule.dateTime
-                .substring(11, 16)), // Afficher seulement l'heure (HH:MM)
+                .substring(11, 16)), // Display only the time (HH:MM)
           );
         }).toList(),
       ),

@@ -9,7 +9,7 @@
     "Home":"Accueil",
     "Profile":"Profil",
     "rdvs":"RDVs",
-    "Schedule":"reservé",
+    "Schedule":"Reservez",
     "SeeAll":"Voir tout",
     "editprofile":"Modifier les informations du profil",
     "notif":"Notifications",
@@ -54,7 +54,12 @@
     "heure":"Heure:",
     "duree":"Durée:",
     "service":"Service:",
-    "goToHome":"Aller à l'accueil"
+    "goToHome":"Aller à l'accueil",
+    "appointmentList": "Liste des rendez-vous",
+    "failledUpdate": "Échec de l'annulation du rendez-vous !",
+    "noMatchingSchedule": "Aucun horaire correspondant trouvé",
+    "Reserved": "Réservé",
+    "Available_at": "Disponible à"
 
 
 

@@ -53,7 +53,12 @@
     "heure":"الساعة:",
     "duree":"المدة:",
     "service":"الخدمة:",
-    "goToHome":"الذهاب إلى الرئيسية"
+    "goToHome":"الذهاب إلى الرئيسية",
+    "appointmentList": "قائمة المواعيد",
+    "failledUpdate": "فشل إلغاء الموعد!",
+    "noMatchingSchedule": "لم يتم العثور على جدول زمني مطابق",
+    "Reserved": "محجوز",
+    "Available_at": "متاح في"
 
 
 

@@ -54,7 +54,14 @@
     "duree":"Duration:",
     "service":"Service:",
     "goToHome":"Go to Home",
-    "resetPasswords":"Reset Password:"
+    "resetPasswords":"Reset Password:",
+    "appointmentList":"Appointments List",
+    "failledUpdate":"Failed to cancel appointment!:",
+    "noMatchingSchedule":"No matching schedule found",
+    "Reserved":"Reserved",
+    "Available_at":"Available at"
+
+
 
 
 

@@ -83,7 +83,7 @@ class _AppointmentsListState extends State<AppointmentsList>
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                           content:
-                              Text('Failed to cancel appointment!: $error')),
+                              Text(S.of(context).failledUpdate + ' $error')),
                     );
                   });
                 }
@@ -113,7 +113,8 @@ class _AppointmentsListState extends State<AppointmentsList>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appointments List'),
+        title: Text(S.of(context).appointmentList),
+        centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           tabs: [

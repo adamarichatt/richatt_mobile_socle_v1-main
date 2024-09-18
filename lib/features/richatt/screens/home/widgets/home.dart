@@ -59,7 +59,10 @@ class HomeScreen extends StatelessWidget {
                   height: RSizes.spaceBtwSections,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -120,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                     return Column(children: [
                       Stack(clipBehavior: Clip.none, children: [
                         Container(
-                          width: 396,
+                          width: RDeviceUtils.getScreenWidth(context) - 20,
                           height: 156,
                           padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 21),
@@ -248,7 +251,7 @@ class HomeScreen extends StatelessWidget {
                               -31, // Positionné à moitié dans le premier Container
                           left: 59,
                           child: Container(
-                            width: 278,
+                            width: RDeviceUtils.getScreenWidth(context) - 150,
                             height: 62,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -308,10 +311,6 @@ class HomeScreen extends StatelessWidget {
                                   ],
                                 ),
                                 Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 16),
-                                  child: FlutterLogo(size: 18),
-                                ),
                               ],
                             ),
                           ),
@@ -341,7 +340,10 @@ class HomeScreen extends StatelessWidget {
               height: 60,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -425,7 +427,10 @@ class HomeScreen extends StatelessWidget {
               height: 30,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 2.0,
+              ),
               child: Column(
                 children: [
                   Row(

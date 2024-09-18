@@ -25,7 +25,8 @@ class profile_update extends StatelessWidget {
         child: Column(
           children: [
             TextField(
-              controller: TextEditingController(text: controller.firstName.value),
+              controller:
+                  TextEditingController(text: controller.firstName.value),
               onChanged: (value) => controller.firstName.value = value,
               decoration: const InputDecoration(
                 labelText: RTexts.firstName,
@@ -36,7 +37,8 @@ class profile_update extends StatelessWidget {
               height: RSizes.spaceBtwInputFields,
             ),
             TextField(
-              controller: TextEditingController(text: controller.lastName.value),
+              controller:
+                  TextEditingController(text: controller.lastName.value),
               onChanged: (value) => controller.lastName.value = value,
               decoration: const InputDecoration(
                 labelText: RTexts.lastName,
@@ -71,7 +73,10 @@ class profile_update extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 controller.updateCustomer();
-                Get.to(() => ProfilePage(email: controller.email.value));
+                Get.to(() => ProfilePage(
+                      email: controller.email.value,
+                      isGuest: false,
+                    ));
               },
               child: Text('Update'),
             ),

@@ -16,8 +16,39 @@ class ProfileController extends GetxController {
   final email = ''.obs;
   final phone = ''.obs;
   final image = ''.obs;
+  final isGuest = false.obs;
+  final _isUserConnected = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _checkUserConnection();
+  }
+
+  void _checkUserConnection() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+
+    // Update the _isUserConnected variable based on whether email is null or not
+
+    _isUserConnected.value = email != null;
+  }
+
+  void loadGuestData() {
+    customerId.value = 'guest123';
+    firstName.value = 'Guest';
+    lastName.value = 'User';
+    email.value = 'guest@example.com';
+    phone.value = '+1234567890';
+    image.value = ''; // You can set a default guest image URL here if needed
+  }
 
   Future<void> getCustomerByEmail(String email) async {
+    if (_isUserConnected.value == false) {
+      loadGuestData();
+      return;
+    }
+
     var headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
@@ -28,22 +59,18 @@ class ProfileController extends GetxController {
 
     try {
       http.Response response = await http.get(url);
-      debugPrint('response:' + response.body);
+      debugPrint('response: ${response.body}');
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         final customer = Customer.fromJson(json);
-        debugPrint('json:' + json.toString());
+        debugPrint('json: $json');
         customerId.value = customer.id!;
         firstName.value = customer.firstName;
         lastName.value = customer.lastName;
         this.email.value = customer.email;
         phone.value = customer.phone;
-        if (customer.imageUrl == null) {
-          image.value = '';
-        } else {
-          image.value = customer.imageUrl!;
-        }
+        image.value = customer.imageUrl ?? '';
       } else {
         throw Exception('Failed to load customer');
       }
@@ -62,6 +89,11 @@ class ProfileController extends GetxController {
   }
 
   Future<void> updateCustomer() async {
+    if (isGuest.value) {
+      Get.snackbar("Info", "Guest profile cannot be updated");
+      return;
+    }
+
     var headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
@@ -83,7 +115,7 @@ class ProfileController extends GetxController {
         imageUrl: null,
       );
 
-      debugPrint('cust:' + customer.toJson().toString());
+      debugPrint('customer: ${customer.toJson()}');
 
       http.Response response = await http.put(
         url,
@@ -91,7 +123,7 @@ class ProfileController extends GetxController {
         body: jsonEncode(customer.toJson()),
       );
 
-      debugPrint('body:' + response.body);
+      debugPrint('body: ${response.body}');
 
       if (response.statusCode == 200) {
         Get.snackbar("Success", "Customer updated successfully");
@@ -109,6 +141,21 @@ class ProfileController extends GetxController {
           );
         },
       );
+    }
+  }
+
+  void toggleGuestMode(bool isGuestMode) {
+    isGuest.value = isGuestMode;
+    if (isGuestMode) {
+      loadGuestData();
+    } else {
+      // Clear data when switching to regular mode
+      customerId.value = '';
+      firstName.value = '';
+      lastName.value = '';
+      email.value = '';
+      phone.value = '';
+      image.value = '';
     }
   }
 }

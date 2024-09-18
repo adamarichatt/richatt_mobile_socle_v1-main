@@ -6,8 +6,21 @@ import 'package:richatt_mobile_socle_v1/utils/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class LanguageController extends GetxController {
-  var locale = const Locale('fr').obs;
-  var currentLanguage = 'fr'.obs;
+  var locale = const Locale('ar').obs;
+  var currentLanguage = 'ar'.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    initializeLocale();
+  }
+
+  void initializeLocale() {
+    final deviceLocale = Get.deviceLocale;
+    if (deviceLocale != null) {
+      changeLanguage(deviceLocale.languageCode);
+    }
+  }
 
   void changeLanguage(String languageCode) {
     currentLanguage.value = languageCode;

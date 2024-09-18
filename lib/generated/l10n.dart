@@ -609,6 +609,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Appointments List`
+  String get appointmentList {
+    return Intl.message(
+      'Appointments List',
+      name: 'appointmentList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to cancel appointment!:`
+  String get failledUpdate {
+    return Intl.message(
+      'Failed to cancel appointment!:',
+      name: 'failledUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No matching schedule found`
+  String get noMatchingSchedule {
+    return Intl.message(
+      'No matching schedule found',
+      name: 'noMatchingSchedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reserved`
+  String get Reserved {
+    return Intl.message(
+      'Reserved',
+      name: 'Reserved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available at`
+  String get Available_at {
+    return Intl.message(
+      'Available at',
+      name: 'Available_at',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -47,17 +47,20 @@ class LoginController extends GetxController {
         var token = json['accessToken'];
         var email = json['email'];
         var phone = json['phone'];
+        var roles = json['roles'];
         final SharedPreferences? prefs = await _prefs;
         await prefs?.setString('token', token);
         await prefs?.setString('email', email);
         await prefs?.setString('phone', phone);
 
         print(prefs);
+        print('le role $roles');
 
         isLoggedIn.value = true;
         Get.offAll(() => const NavigationMenu());
       } else {
-        throw jsonDecode(response.body)["Message"] ?? "Nom d'utilisateur ou mot de passe incorrect.";
+        throw jsonDecode(response.body)["Message"] ??
+            "Nom d'utilisateur ou mot de passe incorrect.";
       }
     } catch (error) {
       Get.back();

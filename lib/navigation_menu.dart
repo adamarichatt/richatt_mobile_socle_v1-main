@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/camera/camera.dart';
+import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/HomeGeust.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home.dart';
 import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
@@ -66,17 +66,35 @@ class NavigationController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? phone = prefs.getString('phone');
+    debugPrint('User data loaded1: email=$email, phone=$phone');
 
     if (email != null && phone != null) {
+      debugPrint('User data loaded2: email=$email, phone=$phone');
       screens[0] = HomeScreen(email: email, phone: phone);
       screens[1] = AppointmentsList(email: email, phone: phone);
-      screens[2] = ProfilePage(email: email);
-      debugPrint('User data loaded: email=$email, phone=$phone');
+      screens[2] = ProfilePage(
+        email: email,
+        isGuest: false,
+      );
     } else {
-      screens[0] = Container(child: Center(child: Text('User not found')));
-      screens[1] = Container(child: Center(child: Text('User info not found')));
-      screens[2] =
-          Container(child: Center(child: Text('User email not found')));
+      screens[0] = HomeGeustScreen();
+      screens[1] = Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                    'vous devez vous connecter ou cree un compte ticket loading.....'),
+              ),
+            ],
+          ),
+        ),
+      );
+      screens[2] = ProfilePage(
+        email: '',
+        isGuest: true,
+      );
     }
     isLoading.value = false; // Les données sont chargées, mise à jour de l'état
   }

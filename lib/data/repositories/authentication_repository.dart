@@ -13,6 +13,10 @@ class AuthenticationRepository extends GetxController {
   final deviseStorage = GetStorage();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  // Add a flag to track if the user is authenticated
+  final RxBool _isAuthenticated = false.obs;
+  bool get isAuthenticated => _isAuthenticated.value;
+
   @override
   void onReady() {
     FlutterNativeSplash.remove();
@@ -20,7 +24,6 @@ class AuthenticationRepository extends GetxController {
   }
 
   screenRedirect() async {
-    // Local Storage
     if (kDebugMode) {
       print('=========================GET STORAGE +++++++++++++++++++++++');
       print(deviseStorage.read('IsFirstTime'));
@@ -32,10 +35,24 @@ class AuthenticationRepository extends GetxController {
 
     if (deviseStorage.read('IsFirstTime') == true) {
       Get.offAll(const OnBoardingScreen());
-    } else if (token != null) {
-      Get.offAll(() => const NavigationMenu());
     } else {
-      Get.offAll(() => const LoginScreen());
+      // Allow access to the app regardless of authentication status
+      _isAuthenticated.value = token != null;
+      Get.offAll(() => const NavigationMenu());
     }
+  }
+
+  // Add a method to handle login
+  Future<void> login(String token) async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.setString('token', token);
+    _isAuthenticated.value = true;
+  }
+
+  // Add a method to handle logout
+  Future<void> logout() async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.remove('token');
+    _isAuthenticated.value = false;
   }
 }

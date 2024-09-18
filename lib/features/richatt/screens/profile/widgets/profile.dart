@@ -20,9 +20,10 @@ import '../models/customer.dart';
 
 class ProfilePage extends StatelessWidget {
   final String email;
+  final bool isGuest;
   var image64;
 
-  ProfilePage({required this.email});
+  ProfilePage({required this.email, required this.isGuest});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class ProfilePage extends StatelessWidget {
     final LoginController logincontroller = LoginController();
     final LanguageController languageController =
         Get.find<LanguageController>();
+    controller.toggleGuestMode(this.isGuest);
     final customer = ProfileController.instance;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

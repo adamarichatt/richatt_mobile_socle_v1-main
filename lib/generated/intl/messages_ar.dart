@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Available_at": MessageLookupByLibrary.simpleMessage("متاح في"),
         "Confirmation": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "Favorite": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "Help": MessageLookupByLibrary.simpleMessage("المساعدة والدعم"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Logout": MessageLookupByLibrary.simpleMessage(" الخرو"),
         "Privacy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
         "Profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "Reserved": MessageLookupByLibrary.simpleMessage("محجوز"),
         "Schedule": MessageLookupByLibrary.simpleMessage("الجدول الزمني"),
         "Security": MessageLookupByLibrary.simpleMessage("الأمن"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("مشاهدة الكل"),
@@ -38,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل ترغب في إزالة هذا المهني من المفضلة لديك؟"),
         "addFavorite":
             MessageLookupByLibrary.simpleMessage("إضافة إلى المفضلة"),
+        "appointmentList":
+            MessageLookupByLibrary.simpleMessage("قائمة المواعيد"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "available_now": MessageLookupByLibrary.simpleMessage("متوفر الآن"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
@@ -53,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تحرير معلومات الملف الشخصي"),
         "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
         "enterCode": MessageLookupByLibrary.simpleMessage("أدخل رمز التحقق"),
+        "failledUpdate":
+            MessageLookupByLibrary.simpleMessage("فشل إلغاء الموعد!"),
         "french": MessageLookupByLibrary.simpleMessage("الفرنسية"),
         "goToHome": MessageLookupByLibrary.simpleMessage("الذهاب إلى الرئيسية"),
         "gretting": MessageLookupByLibrary.simpleMessage("مرحبا"),
@@ -63,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noAppFound":
             MessageLookupByLibrary.simpleMessage("لم يتم العثور على مواعيد"),
+        "noMatchingSchedule": MessageLookupByLibrary.simpleMessage(
+            "لم يتم العثور على جدول زمني مطابق"),
         "no_upcoming_app":
             MessageLookupByLibrary.simpleMessage("لا يوجد موعد قادم"),
         "notif": MessageLookupByLibrary.simpleMessage("الإشعارات"),

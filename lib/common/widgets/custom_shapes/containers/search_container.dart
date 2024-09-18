@@ -29,7 +29,7 @@ class RSearchContainer extends StatelessWidget {
         Get.to(() => RSearchPage(emailCustomer: emailCustomer));
       },
       child: Container(
-        width: 396,
+        width: RDeviceUtils.getScreenWidth(context) - 30,
         height: 56,
         padding: const EdgeInsets.all(RSizes.md),
         decoration: BoxDecoration(
