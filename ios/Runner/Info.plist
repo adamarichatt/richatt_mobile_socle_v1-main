@@ -86,7 +86,7 @@
 		<true></true>
 		<key>IS_SIGNIN_ENABLED</key>
 		<true></true>
-		<key>GOOGLE_Agg PP_ID</key>
+		<key>GOOGLE_APP_ID</key>
 		<string>1:209528276305:ios:412d6881607316ce24ff70</string>
 
 		<!-- Google Sign-In configuration -->
@@ -101,25 +101,7 @@
 		</array>
 		<key>GIDClientID</key>
 		<string>209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua.apps.googleusercontent.com</string>
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>fb{your-app-id}</string>
-				</array>
-			</dict>
-		</array>
-		<key>FacebookAppID</key>
-		<string>{your-app-id}</string>
-		<key>FacebookClientToken</key>
-		<string>CLIENT-TOKEN</string>
-		<key>FacebookDisplayName</key>
-		<string>{your-app-name}</string>
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
-			<string>fbapi</string>
-			<string>fb-messenger-share-api</string>
-		</array>
+
+
 	</dict>
 </plist>
