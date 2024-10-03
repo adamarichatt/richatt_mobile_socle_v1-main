@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
+import 'package:Remeet/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:Remeet/utils/validators/validation.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final emailController = TextEditingController();
@@ -25,13 +25,14 @@ class ResetPasswordPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.emailAddress,
-                validator:RValidator.validateEmail,
+                validator: RValidator.validateEmail,
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    debugPrint('emailController.text:  '+ emailController.text);
+                    debugPrint(
+                        'emailController.text:  ' + emailController.text);
                     controller.sendResetPasswordEmail(emailController.text);
                   } else {
                     Get.snackbar("Erreur", "Veuillez entrer un email valide.");

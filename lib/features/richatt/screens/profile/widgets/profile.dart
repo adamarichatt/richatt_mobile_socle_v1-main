@@ -2,18 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/app.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/appbar/appbar.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile_update.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:Remeet/app.dart';
+import 'package:Remeet/common/widgets/appbar/appbar.dart';
+import 'package:Remeet/features/authentication/controllers/login/login_controller.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:Remeet/features/richatt/screens/profile/widgets/profile_update.dart';
+import 'package:Remeet/generated/l10n.dart';
+import 'package:Remeet/utils/constants/image_strings.dart';
+import 'package:Remeet/utils/device/device_utility.dart';
 import '../controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/constants/text_strings.dart';
+import 'package:Remeet/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 import '../models/customer.dart';
 // Make sure to import your LanguageController
@@ -24,6 +24,26 @@ class ProfilePage extends StatelessWidget {
   var image64;
 
   ProfilePage({required this.email, required this.isGuest});
+  void _showConfirmationDialog(
+      BuildContext context, bool value, ProfileController controller) {
+    Get.defaultDialog(
+      title: value ? "Activer Face ID ?" : "Désactiver Face ID ?",
+      middleText: value
+          ? "Êtes-vous sûr de vouloir activer l'authentification Face ID ?"
+          : "Êtes-vous sûr de vouloir désactiver l'authentification Face ID ?",
+      textCancel: "Annuler",
+      textConfirm: "Confirmer",
+      confirmTextColor: Colors.white,
+      onCancel: () {
+        // Ne rien faire, le switch reste dans l'état actuel
+      },
+      onConfirm: () {
+        // Mettre à jour l'état du switch seulement si confirmé
+        controller.toggleFaceId(value);
+        Get.back(); // Fermer la boîte de dialogue
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +227,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 30.0),
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
-              height: 115,
+              height: 170,
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -226,6 +246,15 @@ class ProfilePage extends StatelessWidget {
                   CustomListTile(
                       title: S.of(context).Security,
                       icon: Iconsax.security_user),
+                  Obx(() => SwitchListTile(
+                        title: Text('Face ID'),
+                        secondary: const Icon(Iconsax.security_user),
+                        value: controller.isFaceIdEnabled.value,
+                        activeColor: Colors.blue,
+                        onChanged: (value) {
+                          _showConfirmationDialog(context, value, controller);
+                        },
+                      )),
                   CustomListTile(
                     title: S.of(context).Theme,
                     icon: Iconsax.moon,

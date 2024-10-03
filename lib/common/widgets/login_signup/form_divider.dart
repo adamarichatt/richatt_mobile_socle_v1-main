@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
 
 class RFormDivider extends StatelessWidget {
   const RFormDivider({

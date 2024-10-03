@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
+import 'package:Remeet/common/widgets/doctor/RProfileCard.dart';
+import 'package:Remeet/features/richatt/controllers/professionalController.dart';
 
 class SearchResultsView extends StatelessWidget {
   final String emailCustomer;

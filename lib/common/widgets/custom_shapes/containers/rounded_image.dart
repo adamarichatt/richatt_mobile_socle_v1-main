@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
 
 class RRoundedImage extends StatelessWidget {
   const RRoundedImage({

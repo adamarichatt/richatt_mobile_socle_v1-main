@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/HomeGeust.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/home.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/AppointmentsList.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/HomeGeust.dart';
+import 'package:Remeet/features/richatt/screens/profile/widgets/profile.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/home.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentsList.dart';
+import 'package:Remeet/generated/l10n.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NavigationMenu extends StatelessWidget {

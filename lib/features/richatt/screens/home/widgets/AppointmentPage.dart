@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
+import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/BookingFormPage.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/controllers/professionalController.dart';
+import 'package:Remeet/features/richatt/models/Schedule.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/BookingFormPage.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
 
 class AppointmentPage extends StatefulWidget {
   final String professionalId;

@@ -1,4 +1,4 @@
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
 
 class Customer {
   final String? id;

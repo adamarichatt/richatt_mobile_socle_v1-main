@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/widgets/profile.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
+import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:Remeet/features/richatt/screens/profile/widgets/profile.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/constants/text_strings.dart';
 
 class profile_update extends StatelessWidget {
   const profile_update({

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/controllers/professionalController.dart';
+import 'package:Remeet/utils/constants/api_constants.dart';
 
 class FavoriteController extends GetxController {
   static FavoriteController get instance => Get.find();

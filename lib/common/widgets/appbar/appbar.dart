@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/device/device_utility.dart';
 
 class RAppBar extends StatelessWidget implements PreferredSizeWidget {
   const RAppBar(

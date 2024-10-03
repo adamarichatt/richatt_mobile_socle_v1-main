@@ -1,4 +1,4 @@
-# richatt_mobile_socle_v1
+# Remeet
 
 A new Flutter project.
 

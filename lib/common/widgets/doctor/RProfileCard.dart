@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/custom_shapes/containers/rounded_image.dart';
+import 'package:Remeet/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:intl/intl.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/FavoriteController.dart';
+import 'package:Remeet/features/richatt/controllers/professionalController.dart';
+import 'package:Remeet/features/richatt/models/Schedule.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:Remeet/utils/constants/image_strings.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
+import 'package:Remeet/features/richatt/controllers/FavoriteController.dart';
 
 class ProfileCard extends StatelessWidget {
   ProfileCard({
@@ -118,12 +118,12 @@ class ProfileCard extends StatelessWidget {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return Text('Chargement...');
-                        } 
+                        }
                         // else if (snapshot.hasError) {
                         //   return Text(
                         //       'Erreur de chargement des disponibilités');
                         // }
-                         else if (snapshot.hasData && snapshot.data != null) {
+                        else if (snapshot.hasData && snapshot.data != null) {
                           // Extraire et formater la date
                           String datePart =
                               snapshot.data!.dateTime.split('T').first;

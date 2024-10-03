@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/login/login.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:Remeet/data/repositories/authentication_repository.dart';
+import 'package:Remeet/features/authentication/screens/login/login.dart';
+import 'package:Remeet/navigation_menu.dart';
+import 'package:Remeet/utils/constants/api_constants.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +23,9 @@ class LoginController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var isLoggedIn = false.obs;
   RxBool isPasswordVisible = false.obs;
+  final isGoogleLoading = false.obs;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   void onInit() {
@@ -91,9 +98,67 @@ class LoginController extends GetxController {
 
   Future<void> logout() async {
     RHelperFunctions.showLoader();
-    final SharedPreferences prefs = await _prefs;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Sauvegarder l'état de Face ID dans une variable temporaire
+    bool faceIdEnabled = prefs.getBool('face_id_enabled') ?? false;
+
+    // Effacer toutes les préférences sauf Face ID
     await prefs.clear();
+
+    // Restaurer l'état de Face ID
+    await prefs.setBool('face_id_enabled', faceIdEnabled);
+
     isLoggedIn.value = false;
+
+    // Rediriger vers l'écran de connexion
     Get.offAll(() => const LoginScreen());
+  }
+
+  Future<void> googleSignIn() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return;
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      // Handle successful sign-in (e.g., navigate to home screen)
+    } catch (error) {
+      print('Error during Google Sign-In: $error');
+      // Handle the error (e.g., show an error message to the user)
+      Get.snackbar('Error', 'Failed to sign in with Google. Please try again.');
+    }
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Check if the login was successful
+    if (loginResult.status == LoginStatus.success) {
+      // Create a credential from the access token
+      final AccessToken? accessToken = loginResult.accessToken;
+
+      if (accessToken != null) {
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(accessToken.tokenString);
+
+        // Once signed in, return the UserCredential
+        return await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+      } else {
+        throw Exception("Access token is null.");
+      }
+    } else {
+      // Handle the login failure
+      throw Exception("Facebook login failed: ${loginResult.message}");
+    }
   }
 }

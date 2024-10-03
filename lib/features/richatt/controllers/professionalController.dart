@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/service.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Schedule.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/Appointment.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/models/service.dart';
+import 'package:Remeet/features/richatt/models/Schedule.dart';
+import 'package:Remeet/features/richatt/models/Appointment.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/profile/models/customer.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
+import 'package:Remeet/features/richatt/screens/profile/models/customer.dart';
+import 'package:Remeet/utils/constants/api_constants.dart';
 
 class ProfessionalController extends GetxController {
   static ProfessionalController get instance => Get.find();
@@ -30,9 +30,9 @@ class ProfessionalController extends GetxController {
   var selectedCity = ''.obs;
   var selectedEntity = ''.obs;
   var selectedSpeciality = ''.obs;
-  var selectedAvailability= ''.obs;
+  var selectedAvailability = ''.obs;
   var searchText = ''.obs;
-  
+
   @override
   void onInit() {
     getProf();
@@ -196,84 +196,88 @@ class ProfessionalController extends GetxController {
   }
 
   Future<Schedule?> getNextAvailability(String professionalCode) async {
-  final url = APIConstants.apiBackend +
-      'schedules/nextAvailabilityByProfessionalCode/$professionalCode';
-  final response = await http.get(Uri.parse(url));
+    final url = APIConstants.apiBackend +
+        'schedules/nextAvailabilityByProfessionalCode/$professionalCode';
+    final response = await http.get(Uri.parse(url));
 
-  if (response.statusCode == 200) {
-    if (response.body.isNotEmpty) {
-      print('Availibility: ${response.body}');
-      
-      try {
-        final jsonResponse = json.decode(response.body);
-        if (jsonResponse is Map<String, dynamic>) {
-          return Schedule.fromJson(jsonResponse);
-        } else {
-          print('Unexpected response format for professional $professionalCode');
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        print('Availibility: ${response.body}');
+
+        try {
+          final jsonResponse = json.decode(response.body);
+          if (jsonResponse is Map<String, dynamic>) {
+            return Schedule.fromJson(jsonResponse);
+          } else {
+            print(
+                'Unexpected response format for professional $professionalCode');
+            return null;
+          }
+        } catch (e) {
+          print('Error parsing JSON for professional $professionalCode: $e');
           return null;
         }
-      } catch (e) {
-        print('Error parsing JSON for professional $professionalCode: $e');
+      } else {
+        print('Empty response for professional $professionalCode');
         return null;
       }
     } else {
-      print('Empty response for professional $professionalCode');
+      print(
+          'Failed to load next availability for professional $professionalCode');
       return null;
     }
-  } else {
-    print('Failed to load next availability for professional $professionalCode');
-    return null;
-  }
-}
-
-
-
- Future<void> applyAvailabilityFilter(String availability) async {
-  if (availability.isEmpty) {
-    return; // Aucun filtre à appliquer
   }
 
-  DateTime filterDate;
-  switch (availability) {
-    case 'Aujourd\'hui':
-      filterDate = DateTime.now();
-      break;
-    case 'Dans 3 jours':
-      filterDate = DateTime.now().add(Duration(days: 3));
-      break;
-    case 'Dans une semaine':
-      filterDate = DateTime.now().add(Duration(days: 7));
-      break;
-    default:
-      return; // Filtre non valide
-  }
+  Future<void> applyAvailabilityFilter(String availability) async {
+    if (availability.isEmpty) {
+      return; // Aucun filtre à appliquer
+    }
 
-  List<Professional> availableProfessionals = [];
+    DateTime filterDate;
+    switch (availability) {
+      case 'Aujourd\'hui':
+        filterDate = DateTime.now();
+        break;
+      case 'Dans 3 jours':
+        filterDate = DateTime.now().add(Duration(days: 3));
+        break;
+      case 'Dans une semaine':
+        filterDate = DateTime.now().add(Duration(days: 7));
+        break;
+      default:
+        return; // Filtre non valide
+    }
 
-  for (var professional in filteredProfessionals) {
-    if (professional.id != null) {
-      try {
-        Schedule? nextAvailability = await getNextAvailability(professional.id!);
-        if (nextAvailability != null && nextAvailability.dateTime != null) {
-          DateTime nextAvailabilityDate = DateTime.parse(nextAvailability.dateTime.split('T').first);
-          if (nextAvailabilityDate.isBefore(filterDate) || nextAvailabilityDate.isAtSameMomentAs(filterDate)) {
-            availableProfessionals.add(professional);
+    List<Professional> availableProfessionals = [];
+
+    for (var professional in filteredProfessionals) {
+      if (professional.id != null) {
+        try {
+          Schedule? nextAvailability =
+              await getNextAvailability(professional.id!);
+          if (nextAvailability != null && nextAvailability.dateTime != null) {
+            DateTime nextAvailabilityDate =
+                DateTime.parse(nextAvailability.dateTime.split('T').first);
+            if (nextAvailabilityDate.isBefore(filterDate) ||
+                nextAvailabilityDate.isAtSameMomentAs(filterDate)) {
+              availableProfessionals.add(professional);
+            }
           }
+        } catch (e) {
+          print('Error fetching availability for ${professional.name}: $e');
         }
-      } catch (e) {
-        print('Error fetching availability for ${professional.name}: $e');
       }
     }
+
+    filteredProfessionals.value = availableProfessionals;
   }
 
-  filteredProfessionals.value = availableProfessionals;
-
-}
-void filterProfessionalsByAvailability(String availability) async {
-  selectedAvailability.value = availability;
-  filterProfessionals(); // Appliquez d'abord les autres filtres
-  await applyAvailabilityFilter(availability); // Ensuite, appliquez le filtre de disponibilité
-}
+  void filterProfessionalsByAvailability(String availability) async {
+    selectedAvailability.value = availability;
+    filterProfessionals(); // Appliquez d'abord les autres filtres
+    await applyAvailabilityFilter(
+        availability); // Ensuite, appliquez le filtre de disponibilité
+  }
 
   List<String> getUniqueCities() {
     final cities = <String>{};
@@ -811,7 +815,4 @@ void filterProfessionalsByAvailability(String availability) async {
 //   // Afficher les professionnels filtrés
 //   print('Filtered Professionals: $tempProfessionals');
 // }
-
-  
-
 }
