@@ -161,4 +161,9 @@ class LoginController extends GetxController {
       throw Exception("Facebook login failed: ${loginResult.message}");
     }
   }
+
+  Future<UserCredential> signInWithApple() async {
+    final appleProvider = AppleAuthProvider();
+    return await FirebaseAuth.instance.signInWithProvider(appleProvider);
+  }
 }

@@ -65,7 +65,7 @@ class RSocialButtons extends StatelessWidget {
           child: Text('face id'),
         ),
         ElevatedButton(
-          onPressed: () async => await controller.signInWithFacebook(),
+          onPressed: () => controller.signInWithApple(),
           child: Text('facebook'),
         ),
       ],
