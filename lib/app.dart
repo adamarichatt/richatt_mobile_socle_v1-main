@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/theme/theme.dart';
+import 'package:Remeet/generated/l10n.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class LanguageController extends GetxController {

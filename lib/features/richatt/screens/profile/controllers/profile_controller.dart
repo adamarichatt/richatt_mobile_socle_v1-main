@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:richatt_mobile_socle_v1/utils/constants/api_constants.dart';
+import 'package:Remeet/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/customer.dart';
 
@@ -18,11 +18,26 @@ class ProfileController extends GetxController {
   final image = ''.obs;
   final isGuest = false.obs;
   final _isUserConnected = false.obs;
+  var isFaceIdEnabled = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    loadFaceIdPreference();
     _checkUserConnection();
+  }
+
+  Future<void> loadFaceIdPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isFaceIdEnabled.value = prefs.getBool('face_id_enabled') ?? false;
+    print('enable faceid ${isFaceIdEnabled.value}');
+  }
+
+  Future<void> toggleFaceId(bool value) async {
+    isFaceIdEnabled.value = value;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('face_id_enabled', value);
+    print('toogle faceid ${isFaceIdEnabled.value}');
   }
 
   void _checkUserConnection() async {

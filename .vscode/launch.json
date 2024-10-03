@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "richatt_mobile_socle_v1-main",
+            "name": "Remeet-main",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "richatt_mobile_socle_v1-main (profile mode)",
+            "name": "Remeet-main (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "richatt_mobile_socle_v1-main (release mode)",
+            "name": "Remeet-main (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

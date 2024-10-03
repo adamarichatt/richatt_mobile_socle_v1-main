@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/image_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:Remeet/features/authentication/controllers/login/login_controller.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/constants/image_strings.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
 
 class RSocialButtons extends StatelessWidget {
+  static final _auth = LocalAuthentication();
   const RSocialButtons({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    LoginController controller = Get.put(LoginController());
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -37,6 +44,29 @@ class RSocialButtons extends StatelessWidget {
             height: RSizes.iconMd,
             image: AssetImage(RImages.facebook),
           ),
+        ),
+        ElevatedButton(
+          onPressed: () => controller.googleSignIn(),
+          child: Text('tesst'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            final bool canAuthenticateWithBiometrics =
+                await _auth.canCheckBiometrics;
+            if (canAuthenticateWithBiometrics) {
+              final bool didAuthenticate = await _auth.authenticate(
+                localizedReason: 'please authenticate to access ur data ',
+                options: const AuthenticationOptions(
+                  biometricOnly: false,
+                ),
+              );
+            }
+          },
+          child: Text('face id'),
+        ),
+        ElevatedButton(
+          onPressed: () async => await controller.signInWithFacebook(),
+          child: Text('facebook'),
         ),
       ],
     );

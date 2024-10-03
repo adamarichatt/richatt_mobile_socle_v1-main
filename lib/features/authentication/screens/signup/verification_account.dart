@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/signup/signup_controller.dart';
-import 'package:richatt_mobile_socle_v1/generated/l10n.dart';
+import 'package:Remeet/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:Remeet/generated/l10n.dart';
 
 class VerificationPage extends StatelessWidget {
   final String email;

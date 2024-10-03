@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209528276305",
+    "project_id": "remeet-f50dc",
+    "storage_bucket": "remeet-f50dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209528276305:android:12150e5ed2927b5d24ff70",
+        "android_client_info": {
+          "package_name": "com.example.Remeet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh1lEauKZcC2h9lsMsJqqDH4FS_s4CWCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

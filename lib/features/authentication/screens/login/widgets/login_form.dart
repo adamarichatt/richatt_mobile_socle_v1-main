@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/login/login_controller.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/ResetPasswordPage.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/screens/signup/signup.dart';
-import 'package:richatt_mobile_socle_v1/navigation_menu.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/text_strings.dart';
-import 'package:richatt_mobile_socle_v1/utils/validators/validation.dart';
+import 'package:Remeet/features/authentication/controllers/login/login_controller.dart';
+import 'package:Remeet/features/authentication/screens/signup/ResetPasswordPage.dart';
+import 'package:Remeet/features/authentication/screens/signup/signup.dart';
+import 'package:Remeet/navigation_menu.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/constants/text_strings.dart';
+import 'package:Remeet/utils/validators/validation.dart';
 
 class RLoginForm extends StatelessWidget {
   const RLoginForm({
@@ -31,9 +31,9 @@ class RLoginForm extends StatelessWidget {
                 ),
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: RTexts.email,
-                
               ),
-               validator: (value) => RValidator.validateEmptyText('Email', value),
+              validator: (value) =>
+                  RValidator.validateEmptyText('Email', value),
             ),
             const SizedBox(
               height: RSizes.spaceBtwInputFields,
@@ -59,7 +59,8 @@ class RLoginForm extends StatelessWidget {
                       },
                     ),
                   ),
-                  validator: (value) => RValidator.validateEmptyText('Password', value),
+                  validator: (value) =>
+                      RValidator.validateEmptyText('Password', value),
                 );
               },
             ),
@@ -81,9 +82,10 @@ class RLoginForm extends StatelessWidget {
                 ),
 
                 // Forget Password
-                 TextButton(
+                TextButton(
                   onPressed: () {
-                    Get.to(() => ResetPasswordPage());  // Naviguez vers la page de réinitialisation
+                    Get.to(() =>
+                        ResetPasswordPage()); // Naviguez vers la page de réinitialisation
                   },
                   child: const Text(RTexts.forgetPassword),
                 ),

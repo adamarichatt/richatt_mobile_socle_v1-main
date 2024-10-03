@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/authentication/controllers/onboarding/onboarding_controller.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:Remeet/features/authentication/controllers/onboarding/onboarding_controller.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/device/device_utility.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
 
 class OnBoardingNextButton extends StatelessWidget {
   const OnBoardingNextButton({

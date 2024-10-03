@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/controllers/professionalController.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/models/professional.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/ProfessionalsByEntityPage.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/ProfessionalsBySpecialityPage.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/professionalDetails.dart';
-import 'package:richatt_mobile_socle_v1/common/widgets/doctor/RProfileCard.dart';
+import 'package:Remeet/features/richatt/controllers/professionalController.dart';
+import 'package:Remeet/features/richatt/models/professional.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/ProfessionalsByEntityPage.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/ProfessionalsBySpecialityPage.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/professionalDetails.dart';
+import 'package:Remeet/common/widgets/doctor/RProfileCard.dart';
 
 class RSearchPage extends StatefulWidget {
   const RSearchPage({super.key, required this.emailCustomer});

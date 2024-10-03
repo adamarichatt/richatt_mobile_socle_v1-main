@@ -1,5 +1,7 @@
-package com.example.richatt_mobile_socle_v1
+package com.example.Remeet
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity: FlutterFragmentActivity() {
+    // ...
+}

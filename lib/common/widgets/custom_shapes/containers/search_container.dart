@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:richatt_mobile_socle_v1/features/richatt/screens/home/widgets/RSearchPage.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/colors.dart';
-import 'package:richatt_mobile_socle_v1/utils/constants/sizes.dart';
-import 'package:richatt_mobile_socle_v1/utils/device/device_utility.dart';
-import 'package:richatt_mobile_socle_v1/utils/helpers/helper_functions.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/RSearchPage.dart';
+import 'package:Remeet/utils/constants/colors.dart';
+import 'package:Remeet/utils/constants/sizes.dart';
+import 'package:Remeet/utils/device/device_utility.dart';
+import 'package:Remeet/utils/helpers/helper_functions.dart';
 
 class RSearchContainer extends StatelessWidget {
   const RSearchContainer({
