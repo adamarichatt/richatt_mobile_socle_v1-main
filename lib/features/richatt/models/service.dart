@@ -1,5 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
 class Service {
   final String? id;
   final String name;
@@ -8,11 +6,11 @@ class Service {
   final String? description;
 
   Service({
-     this.id,
+    this.id,
     required this.name,
     this.duration,
-     this.price,
-     this.description,
+    this.price,
+    this.description,
   });
 
   factory Service.fromJson(Map<String, dynamic> json) {

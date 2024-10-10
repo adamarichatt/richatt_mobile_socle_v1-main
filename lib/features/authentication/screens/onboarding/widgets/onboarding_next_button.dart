@@ -25,8 +25,8 @@ class OnBoardingNextButton extends StatelessWidget {
           child: OutlinedButton(
             style: ButtonStyle(
               backgroundColor:
-                  MaterialStateColor.resolveWith((states) => Colors.blue),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  WidgetStateColor.resolveWith((states) => Colors.blue),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                       24), // Définissez le rayon du bord ici

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Remeet/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:Remeet/utils/constants/colors.dart';
-import 'package:Remeet/utils/constants/sizes.dart';
 import 'package:Remeet/utils/device/device_utility.dart';
 import 'package:Remeet/utils/helpers/helper_functions.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

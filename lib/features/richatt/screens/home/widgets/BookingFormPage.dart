@@ -10,7 +10,6 @@ import 'package:Remeet/features/richatt/models/professional.dart';
 import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:Remeet/notification/notification.dart';
 import 'package:Remeet/utils/constants/sizes.dart';
-import 'package:Remeet/utils/constants/text_strings.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/BookingSuccesful.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Remeet/utils/helpers/helper_functions.dart';

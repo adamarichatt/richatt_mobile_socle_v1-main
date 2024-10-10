@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
-import 'package:Remeet/features/richatt/screens/profile/widgets/profile.dart';
-import 'package:Remeet/utils/constants/sizes.dart';
-import 'package:Remeet/utils/constants/text_strings.dart';
 
 class profile_security extends StatelessWidget {
   const profile_security({

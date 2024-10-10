@@ -1,16 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
-import 'package:Remeet/features/richatt/screens/home/widgets/home.dart';
 import 'package:Remeet/navigation_menu.dart';
 import 'package:Remeet/utils/constants/image_strings.dart';
 import 'package:Remeet/utils/device/device_utility.dart';
 import 'package:Remeet/features/richatt/models/Appointment.dart';
-import 'package:Remeet/features/richatt/models/professional.dart';
 
 class BookingSuccessful extends StatelessWidget {
   final Appointment appointment;

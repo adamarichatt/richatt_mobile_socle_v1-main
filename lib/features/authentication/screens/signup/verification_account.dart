@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:Remeet/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:Remeet/generated/l10n.dart';
 

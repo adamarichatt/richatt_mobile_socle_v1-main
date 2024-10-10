@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:Remeet/features/richatt/controllers/FavoriteController.dart';
@@ -9,8 +8,6 @@ import 'package:Remeet/features/richatt/controllers/professionalController.dart'
 import 'package:Remeet/features/richatt/models/professional.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:Remeet/features/richatt/models/service.dart';
-import 'package:Remeet/features/richatt/models/Schedule.dart';
-import 'package:Remeet/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:Remeet/utils/constants/image_strings.dart';
 import 'package:Remeet/utils/constants/sizes.dart';

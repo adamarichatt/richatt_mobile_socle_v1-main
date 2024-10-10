@@ -10,8 +10,6 @@ import 'package:Remeet/generated/l10n.dart';
 
 import 'package:Remeet/utils/constants/image_strings.dart';
 
-import 'package:Remeet/utils/constants/text_strings.dart';
-
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
 

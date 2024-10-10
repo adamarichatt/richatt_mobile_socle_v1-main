@@ -4,7 +4,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:Remeet/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:Remeet/navigation_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';

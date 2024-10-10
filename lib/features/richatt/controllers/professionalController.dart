@@ -255,7 +255,7 @@ class ProfessionalController extends GetxController {
         try {
           Schedule? nextAvailability =
               await getNextAvailability(professional.id!);
-          if (nextAvailability != null && nextAvailability.dateTime != null) {
+          if (nextAvailability != null) {
             DateTime nextAvailabilityDate =
                 DateTime.parse(nextAvailability.dateTime.split('T').first);
             if (nextAvailabilityDate.isBefore(filterDate) ||

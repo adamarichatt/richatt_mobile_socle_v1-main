@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:Remeet/common/widgets/custom_shapes/containers/rounded_image.dart';
 import 'package:Remeet/features/richatt/models/Appointment.dart';

@@ -95,9 +95,9 @@ class _EditAppointmentPageState extends State<EditAppointmentPage> {
         await _controller.updateAppointment(
             widget.appointment.id!, widget.appointment);
         await _controller.enableSchedules([originalSchedule]);
-        await _controller.deleteSchedules([newSchedule!!]);
-        await _controller.addSchedules([newSchedule!!]);
-        await _controller.reserveSchedules([newSchedule!!]);
+        await _controller.deleteSchedules([newSchedule!]);
+        await _controller.addSchedules([newSchedule!]);
+        await _controller.reserveSchedules([newSchedule!]);
         Navigator.of(context).pop();
       }
       // } else {

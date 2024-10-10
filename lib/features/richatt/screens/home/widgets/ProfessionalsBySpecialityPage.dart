@@ -4,7 +4,6 @@ import 'package:Remeet/features/richatt/controllers/professionalController.dart'
 import 'package:Remeet/features/richatt/models/professional.dart';
 import 'package:Remeet/common/widgets/doctor/RProfileCard.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/professionalDetails.dart';
-import 'package:Remeet/utils/constants/sizes.dart';
 import 'package:Remeet/utils/device/device_utility.dart';
 
 class ProfessionalsBySpecialityPage extends StatefulWidget {

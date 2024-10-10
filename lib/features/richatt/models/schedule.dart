@@ -1,5 +1,3 @@
-import 'package:Remeet/features/richatt/models/professional.dart';
-
 class Schedule {
   final String id;
   final String status;

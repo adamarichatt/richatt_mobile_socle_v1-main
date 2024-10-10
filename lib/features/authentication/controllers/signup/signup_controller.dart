@@ -6,7 +6,6 @@ import 'package:Remeet/data/repositories/authentication_repository.dart';
 import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:Remeet/utils/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:Remeet/navigation_menu.dart';
 import 'package:Remeet/features/authentication/screens/signup/verification_account.dart';
 
 class SignupController extends GetxController {
