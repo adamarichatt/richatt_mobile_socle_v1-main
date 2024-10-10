@@ -71,7 +71,7 @@ class SignupController extends GetxController {
             body: jsonEncode(signupBody), headers: headers);
 
         if (signupResponse.statusCode == 200) {
-          auth.phoneAuthentication(verificationCode);
+          //auth.phoneAuthentication(verificationCode);
           Get.to(() => VerificationPage(email: email.text.trim()));
         } else {
           throw jsonDecode(signupResponse.body)["Message"] ??
