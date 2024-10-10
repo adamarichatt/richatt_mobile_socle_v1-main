@@ -68,16 +68,12 @@ class _AppointmentsListState extends State<AppointmentsList>
                         schedule.status == "Reserved",
                   );
 
-                  if (correspondingSchedule != null) {
-                    await _controller.enableSchedules([correspondingSchedule]);
-                    await _controller.deleteAppointment(appointment.id!);
-                    setState(() {
-                      futureAppointments =
-                          _controller.fetchAppointmentsByEmail(widget.email);
-                    });
-                  } else {
-                    throw Exception('No matching schedule found');
-                  }
+                  await _controller.enableSchedules([correspondingSchedule]);
+                  await _controller.deleteAppointment(appointment.id!);
+                  setState(() {
+                    futureAppointments =
+                        _controller.fetchAppointmentsByEmail(widget.email);
+                  });
                 } catch (error) {
                   Future.delayed(Duration(milliseconds: 300), () {
                     ScaffoldMessenger.of(context).showSnackBar(

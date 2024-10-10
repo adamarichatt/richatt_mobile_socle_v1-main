@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:Remeet/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:Remeet/common/widgets/doctor/RProfileCard.dart';
 import 'package:Remeet/features/richatt/controllers/professionalController.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/home_appb.dart';
 import 'package:Remeet/generated/l10n.dart';
 import 'package:Remeet/utils/constants/sizes.dart';
-import 'package:Remeet/utils/device/device_utility.dart';
 
 class HomeGeustScreen extends StatelessWidget {
   const HomeGeustScreen();

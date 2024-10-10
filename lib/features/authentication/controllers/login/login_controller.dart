@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:Remeet/data/repositories/authentication_repository.dart';
 import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:Remeet/navigation_menu.dart';
 import 'package:Remeet/utils/constants/api_constants.dart';
@@ -14,6 +12,7 @@ import 'package:Remeet/utils/helpers/helper_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -162,8 +161,45 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<UserCredential> signInWithApple() async {
-    final appleProvider = AppleAuthProvider();
-    return await FirebaseAuth.instance.signInWithProvider(appleProvider);
+  Future<void> signInWithApple() async {
+    print("Début de la fonction signInWithApple");
+    try {
+      print("Vérification de la disponibilité de Sign In with Apple");
+      final isAvailable = await SignInWithApple.isAvailable();
+      print("Sign In with Apple est disponible: $isAvailable");
+
+      if (!isAvailable) {
+        print("Sign In with Apple n'est pas disponible sur cet appareil");
+        return;
+      }
+
+      print("Tentative d'obtention des credentials Apple");
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      print("Credentials Apple obtenus");
+
+      print("Création des credentials OAuth");
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+      print("Credentials OAuth créés");
+
+      print("Tentative de connexion à Firebase");
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      print("Connexion à Firebase réussie : ${userCredential.user?.uid}");
+    } catch (e) {
+      print('Erreur capturée dans signInWithApple: $e');
+      if (e is SignInWithAppleAuthorizationException) {
+        print('Code d\'erreur SignInWithApple: ${e.code}');
+        print('Message d\'erreur SignInWithApple: ${e.message}');
+      }
+    }
+    print("Fin de la fonction signInWithApple");
   }
 }

@@ -1,5 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
 class Professional {
   final String? id;
   final String firstName;
@@ -17,24 +15,22 @@ class Professional {
   final String? entityName;
   final String? city;
 
-  
-  Professional({
-    this.id,
-    required this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.businessSector,
-    this.address,
-    required this.name,
-    this.lange,
-    this.presentation,
-    this.imageUrl,
-    this.entityName,
-    this.speciality,
-    this.statut,
-    this.city
-  });
+  Professional(
+      {this.id,
+      required this.firstName,
+      this.lastName,
+      this.email,
+      this.phone,
+      this.businessSector,
+      this.address,
+      required this.name,
+      this.lange,
+      this.presentation,
+      this.imageUrl,
+      this.entityName,
+      this.speciality,
+      this.statut,
+      this.city});
 
   factory Professional.fromJson(Map<String, dynamic> json) =>
       _$ProfessionalFromJson(json);
@@ -78,5 +74,5 @@ Map<String, dynamic> _$ProfessionalToJson(Professional instance) =>
       'statut': instance.statut,
       'speciality': instance.speciality,
       'entityName': instance.entityName,
-      'city':instance.city,
+      'city': instance.city,
     };

@@ -95,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                           onPressed: () {},
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.grey),
+                                WidgetStateProperty.all<Color>(Colors.grey),
                           ),
                           child: Icon(
                             Iconsax.camera,

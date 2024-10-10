@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:Remeet/features/authentication/controllers/login/login_controller.dart';
 import 'package:Remeet/features/authentication/screens/signup/ResetPasswordPage.dart';
 import 'package:Remeet/features/authentication/screens/signup/signup.dart';
-import 'package:Remeet/navigation_menu.dart';
 import 'package:Remeet/utils/constants/sizes.dart';
 import 'package:Remeet/utils/constants/text_strings.dart';
 import 'package:Remeet/utils/validators/validation.dart';

@@ -3,15 +3,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import 'package:Remeet/common/widgets/appbar/appbar.dart';
 import 'package:Remeet/features/richatt/screens/profile/controllers/profile_controller.dart';
 import 'package:Remeet/generated/l10n.dart';
 
-import 'package:Remeet/utils/constants/colors.dart';
 import 'package:Remeet/utils/constants/image_strings.dart';
-import 'package:Remeet/utils/constants/text_strings.dart';
 
 class RHomeAppBar extends StatelessWidget {
   const RHomeAppBar({super.key});
@@ -56,7 +53,7 @@ class RHomeAppBar extends StatelessWidget {
                 '${S.of(context).gretting} ${controller.firstName.value} 👋🏽',
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                 ))),
@@ -64,7 +61,7 @@ class RHomeAppBar extends StatelessWidget {
               S.of(context).gretting2,
               style: TextStyle(
                 color: Colors.black.withOpacity(0.5),
-                fontSize: 14,
+                fontSize: 12,
                 fontFamily: 'Nunito',
                 fontWeight: FontWeight.w400,
               ),

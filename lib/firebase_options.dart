@@ -70,6 +70,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '209528276305',
     projectId: 'remeet-f50dc',
     storageBucket: 'remeet-f50dc.appspot.com',
-    iosBundleId: 'com.example.richattMobileSocleV1',
+    iosBundleId: 'com.richatt.meet',
   );
 }

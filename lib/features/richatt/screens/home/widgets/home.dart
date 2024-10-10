@@ -1,15 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
-import 'package:Remeet/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:Remeet/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:Remeet/common/widgets/doctor/RProfileCard.dart';
 import 'package:Remeet/common/widgets/doctor/RProfileCardVertical.dart';
-import 'package:Remeet/common/widgets/doctor/RdoctorCardVertical.dart';
 import 'package:Remeet/features/richatt/controllers/FavoriteController.dart';
 import 'package:Remeet/features/richatt/controllers/professionalController.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentDetailsPage.dart';
@@ -22,7 +16,6 @@ import 'package:Remeet/utils/constants/image_strings.dart';
 
 import 'package:Remeet/utils/constants/sizes.dart';
 import 'package:Remeet/utils/device/device_utility.dart';
-import 'package:Remeet/utils/helpers/helper_functions.dart';
 
 class HomeScreen extends StatelessWidget {
   final String email;

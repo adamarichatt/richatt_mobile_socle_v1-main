@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Why is my app authenticating using face id?</string>
+		<key>ANDROID_CLIENT_ID</key>
+		<string>209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua.apps.googleusercontent.com</string>
+		<key>API_KEY</key>
+		<string>AIzaSyCL2AtUkhr2rjDFF2Z_jz7FlaYIw6nclMU</string>
+		<key>BUNDLE_ID</key>
+		<string>com.example.richattMobileSocleV1</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -12,18 +20,46 @@
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>ar</string>
+		</array>
 		<key>CFBundleName</key>
-		<string>richatt_mobile_socle_v1</string>
+		<string>com.example.richattMobileSocleV1</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
 		<string>$(FLUTTER_BUILD_NAME)</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.example.richattMobileSocleV1</string>
+					<string>com.googleusercontent.apps.209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua</string>
+
+				</array>
+			</dict>
+		</array>
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>LSRequiresIPhoneOS</key>
-		<true />
+		<key>GIDClientID</key>
+		<string>209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua.apps.googleusercontent.com</string>
+		<key>GOOGLE_APP_ID</key>
+		<string>1:209528276305:ios:412d6881607316ce24ff70</string>
+		<key>GCM_SENDER_ID</key>
+		<string>209528276305</string>
+		<key>REVERSED_CLIENT_ID</key>
+		<string>com.googleusercontent.apps.209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua</string>
+		<key>STORAGE_BUCKET</key>
+		<string>remeet-f50dc.appspot.com</string>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<string></string>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
@@ -41,67 +77,9 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
+		<key>com.apple.developer.applesignin</key>
+		<string>Default</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true />
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true />
-		<key>UIStatusBarHidden</key>
-		<false />
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Allow permission to access to photo library</string>
-		<key>NSCameraUsageDescription</key>
-		<string>Allow permission to access your camera</string>
-		<key>CFBundleLocalizations</key>
-		<array>
-			<string>en</string>
-			<string>ar</string>
-		</array>
-
-		<!-- Firebase configuration -->
-		<key>CLIENT_ID</key>
-		<string>209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua.apps.googleusercontent.com</string>
-		<key>REVERSED_CLIENT_ID</key>
-		<string>com.googleusercontent.apps.209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua</string>
-		<key>ANDROID_CLIENT_ID</key>
-		<string>209528276305-478ef4g5hhk2jant3eun1a2762ou3g4k.apps.googleusercontent.com</string>
-		<key>API_KEY</key>
-		<string>AIzaSyCL2AtUkhr2rjDFF2Z_jz7FlaYIw6nclMU</string>
-		<key>GCM_SENDER_ID</key>
-		<string>209528276305</string>
-		<key>PLIST_VERSION</key>
-		<string>1</string>
-		<key>BUNDLE_ID</key>
-		<string>com.example.richattMobileSocleV1</string>
-		<key>PROJECT_ID</key>
-		<string>remeet-f50dc</string>
-		<key>STORAGE_BUCKET</key>
-		<string>remeet-f50dc.appspot.com</string>
-		<key>IS_ADS_ENABLED</key>
-		<false></false>
-		<key>IS_ANALYTICS_ENABLED</key>
-		<false></false>
-		<key>IS_APPINVITE_ENABLED</key>
-		<true></true>
-		<key>IS_GCM_ENABLED</key>
-		<true></true>
-		<key>IS_SIGNIN_ENABLED</key>
-		<true></true>
-		<key>GOOGLE_APP_ID</key>
-		<string>1:209528276305:ios:412d6881607316ce24ff70</string>
-
-		<!-- Google Sign-In configuration -->
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>com.googleusercontent.apps.209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua</string>
-				</array>
-			</dict>
-		</array>
-		<key>GIDClientID</key>
-		<string>209528276305-dmt5cd1vjmr2vds730pqkh2hv4s5j8ua.apps.googleusercontent.com</string>
-
-
 	</dict>
 </plist>
