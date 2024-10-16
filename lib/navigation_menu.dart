@@ -6,6 +6,7 @@ import 'package:Remeet/features/richatt/screens/profile/widgets/profile.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/home.dart';
 import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentsList.dart';
 import 'package:Remeet/generated/l10n.dart';
+
 import 'package:Remeet/utils/constants/colors.dart';
 import 'package:Remeet/utils/helpers/helper_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';

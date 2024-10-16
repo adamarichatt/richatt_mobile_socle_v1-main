@@ -94,6 +94,7 @@ class ProfileCard extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
+                      maxLines: 1,
                     ),
                     Text(
                       professional.businessSector ?? 'N/A',
@@ -132,12 +133,13 @@ class ProfileCard extends StatelessWidget {
                               DateFormat('dd/MM/yyyy').format(parsedDate);
 
                           return Text(
-                            'Prochaine disponibilité: Le $formattedDate',
+                            'disponible: Le $formattedDate',
                             style: TextStyle(
                               color: Colors.green,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
                             ),
+                            maxLines: 2,
                           );
                         } else {
                           return Text(
@@ -147,6 +149,7 @@ class ProfileCard extends StatelessWidget {
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
                             ),
+                            maxLines: 1,
                           );
                         }
                       },
