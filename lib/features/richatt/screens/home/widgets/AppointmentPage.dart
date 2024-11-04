@@ -1,3 +1,4 @@
+import 'package:Remeet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Prendre un rendez-vous'),
+        title: Text(S.of(context).makeAppointment),
       ),
       body: Column(
         children: [
@@ -113,8 +114,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(
-                      child: Text('No active schedules for selected day'));
+                  return Center(child: Text(S.of(context).noActiveSchedule));
                 } else {
                   List<Schedule> schedules = snapshot.data!;
                   schedules.sort((a, b) => a.dateTime.compareTo(b.dateTime));

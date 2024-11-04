@@ -540,6 +540,16 @@ class S {
     );
   }
 
+  /// `Appointement details`
+  String get detailsrv {
+    return Intl.message(
+      'Appointement details',
+      name: 'detailsrv',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Patient:`
   String get patient {
     return Intl.message(
@@ -655,6 +665,106 @@ class S {
     return Intl.message(
       'Available at',
       name: 'Available_at',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `error`
+  String get error {
+    return Intl.message(
+      'error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get Skip {
+    return Intl.message(
+      'Skip',
+      name: 'Skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validate`
+  String get validate {
+    return Intl.message(
+      'Validate',
+      name: 'validate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter password`
+  String get enterPassword {
+    return Intl.message(
+      'enter password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Reset Password`
+  String get sendResetPassword {
+    return Intl.message(
+      'Send Reset Password',
+      name: 'sendResetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take a appointment`
+  String get makeAppointment {
+    return Intl.message(
+      'Take a appointment',
+      name: 'makeAppointment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No active schedules for selected day`
+  String get noActiveSchedule {
+    return Intl.message(
+      'No active schedules for selected day',
+      name: 'noActiveSchedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Professionals`
+  String get favProf {
+    return Intl.message(
+      'Favorite Professionals',
+      name: 'favProf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No favorite professionals yet.`
+  String get noFavProf {
+    return Intl.message(
+      'No favorite professionals yet.',
+      name: 'noFavProf',
       desc: '',
       args: [],
     );

@@ -1,3 +1,4 @@
+import 'package:Remeet/features/authentication/screens/login/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -43,7 +44,7 @@ class AuthenticationRepository extends GetxController {
     } else {
       // Allow access to the app regardless of authentication status
       _isAuthenticated.value = token != null;
-      Get.offAll(() => const NavigationMenu());
+      Get.offAll(() => const LoginScreen());
     }
   }
 

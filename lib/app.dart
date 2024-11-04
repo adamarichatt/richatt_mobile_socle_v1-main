@@ -1,3 +1,6 @@
+import 'package:Remeet/features/authentication/screens/login/login.dart';
+import 'package:Remeet/features/authentication/screens/signup/signup.dart';
+import 'package:Remeet/features/richatt/screens/home/widgets/AppointmentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Remeet/generated/l10n.dart';
@@ -36,6 +39,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageController = Get.put(LanguageController());
     return GetMaterialApp(
+      getPages: [
+        GetPage(
+          name: '/login',
+          page: () => LoginScreen(),
+        ),
+        GetPage(
+          name: '/register',
+          page: () => SignupScreen(),
+        ),
+      ],
       locale: languageController.locale.value,
       localizationsDelegates: const [
         S.delegate,

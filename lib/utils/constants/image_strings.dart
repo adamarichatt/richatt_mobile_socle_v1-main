@@ -9,6 +9,7 @@ class RImages {
   static const String google = "assets/logos/google-icon.png";
   static const String confrim = "assets/logos/confirm.png";
   static const String facebook = "assets/logos/facebook-icon.png";
+  static const String apple = "assets/logos/apple.png";
 
   // -- OnBoarding Texts
   static const String onBoardingImage1 =

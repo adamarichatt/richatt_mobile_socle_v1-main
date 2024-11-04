@@ -37,7 +37,7 @@ class AppointmentDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Détails du Rendez-vous'),
+        title: Text(S.of(context).detailsrv),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

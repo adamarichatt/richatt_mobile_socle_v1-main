@@ -1,3 +1,4 @@
+import 'package:Remeet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Remeet/features/richatt/controllers/FavoriteController.dart';
@@ -14,7 +15,7 @@ class FavoriteProfessionalsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorite Professionals'),
+        title: Text(S.of(context).favProf),
       ),
       body: Obx(() {
         Set<Professional> favoriteProfessionals =
@@ -22,7 +23,7 @@ class FavoriteProfessionalsPage extends StatelessWidget {
 
         if (favoriteProfessionals.isEmpty) {
           return Center(
-            child: Text('No favorite professionals yet.'),
+            child: Text(S.of(context).noFavProf),
           );
         }
 

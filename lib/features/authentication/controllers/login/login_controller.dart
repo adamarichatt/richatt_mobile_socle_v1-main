@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Remeet/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -16,6 +17,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
+  final isRememberMe = false.obs;
 
   final email = TextEditingController();
   final password = TextEditingController();
@@ -30,6 +32,7 @@ class LoginController extends GetxController {
   void onInit() {
     super.onInit();
     _checkLoginStatus();
+    loadSavedCredentials();
   }
 
   Future<void> loginWithEmail() async {
@@ -74,7 +77,7 @@ class LoginController extends GetxController {
           context: Get.context!,
           builder: (context) {
             return SimpleDialog(
-              title: const Text('Error'),
+              title: Text(S.of(context).error),
               contentPadding: const EdgeInsets.all(20),
               children: [Text(error.toString())],
             );
@@ -104,7 +107,10 @@ class LoginController extends GetxController {
     bool faceIdEnabled = prefs.getBool('face_id_enabled') ?? false;
 
     // Effacer toutes les préférences sauf Face ID
-    await prefs.clear();
+    //await prefs.clear();
+    await prefs.remove('token');
+    await prefs.remove('email');
+    await prefs.remove('phone');
 
     // Restaurer l'état de Face ID
     await prefs.setBool('face_id_enabled', faceIdEnabled);
@@ -190,8 +196,28 @@ class LoginController extends GetxController {
       print("Credentials OAuth créés");
 
       print("Tentative de connexion à Firebase");
+      var headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
+      };
       final userCredential =
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      var signupUrl = Uri.parse(APIConstants.apiBackend + 'auth/signup');
+      Map signupBody = {
+        'firstName': appleCredential.givenName,
+        'email': appleCredential.email,
+      };
+
+      http.Response signupResponse = await http.post(signupUrl,
+          body: jsonEncode(signupBody), headers: headers);
+      if (signupResponse.statusCode == 200) {
+        //auth.phoneAuthentication(verificationCode);
+        print('sa marche');
+      } else {
+        throw jsonDecode(signupResponse.body)["Message"] ??
+            "Une erreur inconnue s'est produite";
+      }
+
       print("Connexion à Firebase réussie : ${userCredential.user?.uid}");
     } catch (e) {
       print('Erreur capturée dans signInWithApple: $e');
@@ -201,5 +227,32 @@ class LoginController extends GetxController {
       }
     }
     print("Fin de la fonction signInWithApple");
+  }
+
+  void loadSavedCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('rememberMe') ?? false) {
+      email.text = prefs.getString('emailrem') ?? '';
+      password.text = prefs.getString('passwordrem') ?? '';
+      isRememberMe.value = true;
+    }
+  }
+
+  // Save or remove credentials based on checkbox
+  void handleRememberMe(bool? value) async {
+    isRememberMe.value = value ?? false;
+    final prefs = await SharedPreferences.getInstance();
+
+    if (isRememberMe.value) {
+      // Save credentials
+      await prefs.setBool('rememberMe', true);
+      await prefs.setString('emailrem', email.text);
+      await prefs.setString('passwordrem', password.text);
+    } else {
+      // Remove saved credentials
+      await prefs.remove('rememberMe');
+      await prefs.remove('emailrem');
+      await prefs.remove('passwordrem');
+    }
   }
 }

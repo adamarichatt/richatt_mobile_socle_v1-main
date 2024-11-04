@@ -165,17 +165,20 @@ class ProfileCard extends StatelessWidget {
                   Obx(() {
                     bool isFavorite =
                         favoriteController.isFavorite(professional);
-                    return IconButton(
-                      icon: Icon(
-                        isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                        color: isFavorite ? Colors.blue : Colors.grey,
-                        size: 16,
-                      ),
-                      onPressed: () async {
-                        await favoriteController.toggleFavorite(
-                            professional, customer.customerId.value);
-                      },
-                    );
+                    if (this.emailCustomer != '') {
+                      return IconButton(
+                        icon: Icon(
+                          isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                          color: isFavorite ? Colors.blue : Colors.grey,
+                          size: 16,
+                        ),
+                        onPressed: () async {
+                          await favoriteController.toggleFavorite(
+                              professional, customer.customerId.value);
+                        },
+                      );
+                    }
+                    return Text('');
                   }),
                   SizedBox(height: 8),
                   Padding(

@@ -1,3 +1,4 @@
+import 'package:Remeet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Remeet/features/authentication/controllers/signup/signup_controller.dart';
@@ -11,7 +12,7 @@ class ResetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Reset Password')),
+      appBar: AppBar(title: Text(S.of(context).resetPassword)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -38,7 +39,7 @@ class ResetPasswordPage extends StatelessWidget {
                     Get.snackbar("Erreur", "Veuillez entrer un email valide.");
                   }
                 },
-                child: Text('Send Reset Password'),
+                child: Text(S.of(context).sendResetPassword),
               ),
             ],
           ),

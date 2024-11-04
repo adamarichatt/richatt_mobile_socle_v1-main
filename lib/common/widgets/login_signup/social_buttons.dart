@@ -27,7 +27,7 @@ class RSocialButtons extends StatelessWidget {
         ),
         const SizedBox(width: RSizes.spaceBtwItems),
         _buildSocialButton(
-          image: RImages.facebook,
+          image: RImages.apple,
           onTap: () => controller.signInWithApple(),
         ),
         const SizedBox(width: RSizes.spaceBtwItems),

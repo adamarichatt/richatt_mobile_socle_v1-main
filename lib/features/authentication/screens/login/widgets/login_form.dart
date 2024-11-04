@@ -75,7 +75,12 @@ class RLoginForm extends StatelessWidget {
                 //remember me
                 Row(
                   children: [
-                    Checkbox(value: true, onChanged: (value) {}),
+                    Obx(
+                      () => Checkbox(
+                        value: controller.isRememberMe.value,
+                        onChanged: controller.handleRememberMe,
+                      ),
+                    ),
                     const Text(RTexts.rememberMe),
                   ],
                 ),

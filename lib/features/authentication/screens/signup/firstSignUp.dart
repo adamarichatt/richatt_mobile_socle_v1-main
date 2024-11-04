@@ -1,18 +1,20 @@
+import 'package:Remeet/features/authentication/screens/signup/verification_account.dart';
+import 'package:Remeet/navigation_menu.dart';
 import 'package:Remeet/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:Remeet/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:Remeet/generated/l10n.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class VerificationPage extends StatelessWidget {
-  final String email;
+class FirstSignUp extends StatelessWidget {
   final verificationCodeController = TextEditingController();
 
-  VerificationPage({required this.email});
+  FirstSignUp();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -22,7 +24,7 @@ class VerificationPage extends StatelessWidget {
               height: 150,
               image: AssetImage(RImages.lightAppLogo),
             ),
-            Text(S.of(context).enterCode),
+            Text(S.of(context).enterPassword),
             SizedBox(height: 20),
             TextField(
               controller: verificationCodeController,
@@ -30,10 +32,11 @@ class VerificationPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                SignupController.instance
-                    .verifyCode(email, verificationCodeController.text);
+                Get.to(() => VerificationPage(
+                      email: 'holla',
+                    ));
               },
-              child: Text(S.of(context).verif),
+              child: Text(S.of(context).validate),
             ),
           ],
         ),

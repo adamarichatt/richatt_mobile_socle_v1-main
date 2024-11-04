@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Schedule": MessageLookupByLibrary.simpleMessage("Reservez"),
         "Security": MessageLookupByLibrary.simpleMessage("Sécurité"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("Voir tout"),
+        "Skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "Theme": MessageLookupByLibrary.simpleMessage("Thème"),
         "Verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "addFavoriText": MessageLookupByLibrary.simpleMessage(
@@ -54,14 +55,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "date": MessageLookupByLibrary.simpleMessage("Date:"),
         "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
             "Vous voulez ajouter ce professionnel à vos favoris ?"),
+        "detailsrv":
+            MessageLookupByLibrary.simpleMessage("Détails du Rendez-vous"),
         "duree": MessageLookupByLibrary.simpleMessage("Durée:"),
         "editprofile": MessageLookupByLibrary.simpleMessage(
             "Modifier les informations du profil"),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
         "enterCode": MessageLookupByLibrary.simpleMessage(
             "Entrez le code de vérification"),
+        "enterPassword":
+            MessageLookupByLibrary.simpleMessage("saisir votre Mot de passe"),
+        "error": MessageLookupByLibrary.simpleMessage("Erreur"),
         "failledUpdate": MessageLookupByLibrary.simpleMessage(
             "Échec de l\'annulation du rendez-vous !"),
+        "favProf":
+            MessageLookupByLibrary.simpleMessage("professionnel Favoris"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "goToHome": MessageLookupByLibrary.simpleMessage("Aller à l\'accueil"),
         "gretting": MessageLookupByLibrary.simpleMessage("Bonjour "),
@@ -69,9 +77,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Trouvons le bon Rendez vous  pour vous"),
         "heure": MessageLookupByLibrary.simpleMessage("Heure:"),
         "langue": MessageLookupByLibrary.simpleMessage("Language"),
+        "makeAppointment":
+            MessageLookupByLibrary.simpleMessage("Prendre un rendez-vous"),
         "no": MessageLookupByLibrary.simpleMessage("Non"),
+        "noActiveSchedule":
+            MessageLookupByLibrary.simpleMessage("pas de creneau disponible"),
         "noAppFound":
             MessageLookupByLibrary.simpleMessage("Aucun rendez-vous trouvé"),
+        "noFavProf": MessageLookupByLibrary.simpleMessage(
+            "Pas de professionnel favoris."),
         "noMatchingSchedule": MessageLookupByLibrary.simpleMessage(
             "Aucun horaire correspondant trouvé"),
         "no_upcoming_app":
@@ -93,8 +107,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
         "reBook": MessageLookupByLibrary.simpleMessage("Reréserver"),
         "reschedule": MessageLookupByLibrary.simpleMessage("Reprogrammer"),
+        "resetPassword":
+            MessageLookupByLibrary.simpleMessage("Reinitialiser Mot de passe"),
         "search":
             MessageLookupByLibrary.simpleMessage("Rechercher un médecin!"),
+        "sendResetPassword": MessageLookupByLibrary.simpleMessage(
+            "Envoyer code de reinitialisation"),
         "service": MessageLookupByLibrary.simpleMessage("Service:"),
         "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
         "signUpWith":
@@ -104,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upcoming": MessageLookupByLibrary.simpleMessage("À venir"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("Prochain rendez-vous"),
+        "validate": MessageLookupByLibrary.simpleMessage("Valider"),
         "verif": MessageLookupByLibrary.simpleMessage("Vérifier"),
         "yes": MessageLookupByLibrary.simpleMessage("Oui")
       };

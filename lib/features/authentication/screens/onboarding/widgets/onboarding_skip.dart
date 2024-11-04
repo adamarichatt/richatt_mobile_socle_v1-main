@@ -1,3 +1,4 @@
+import 'package:Remeet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:Remeet/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:Remeet/utils/constants/sizes.dart';
@@ -15,7 +16,7 @@ class OnBoardingSkip extends StatelessWidget {
       right: RSizes.defaultSpace,
       child: TextButton(
         onPressed: () => OnBoardingController.instance.skipPage(),
-        child: const Text('Skip'),
+        child: Text(S.of(context).Skip),
       ),
     );
   }

@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
         "Security": MessageLookupByLibrary.simpleMessage("Security"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("See All"),
+        "Skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "Theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "Verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "addFavoriText": MessageLookupByLibrary.simpleMessage(
@@ -51,14 +52,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "date": MessageLookupByLibrary.simpleMessage("Date:"),
         "deleteFavoriteText": MessageLookupByLibrary.simpleMessage(
             "Do you want to add this professional to your favorites?"),
+        "detailsrv":
+            MessageLookupByLibrary.simpleMessage("Appointement details"),
         "duree": MessageLookupByLibrary.simpleMessage("Duration:"),
         "editprofile":
             MessageLookupByLibrary.simpleMessage("Edit profile information"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enterCode":
             MessageLookupByLibrary.simpleMessage("Enter the verification code"),
+        "enterPassword": MessageLookupByLibrary.simpleMessage("enter password"),
+        "error": MessageLookupByLibrary.simpleMessage("error"),
         "failledUpdate": MessageLookupByLibrary.simpleMessage(
             "Failed to cancel appointment!:"),
+        "favProf":
+            MessageLookupByLibrary.simpleMessage("Favorite Professionals"),
         "french": MessageLookupByLibrary.simpleMessage("French"),
         "goToHome": MessageLookupByLibrary.simpleMessage("Go to Home"),
         "gretting": MessageLookupByLibrary.simpleMessage("Hello "),
@@ -66,9 +73,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Let\'s find the right appointment for you"),
         "heure": MessageLookupByLibrary.simpleMessage("Time:"),
         "langue": MessageLookupByLibrary.simpleMessage("Language"),
+        "makeAppointment":
+            MessageLookupByLibrary.simpleMessage("Take a appointment"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noActiveSchedule": MessageLookupByLibrary.simpleMessage(
+            "No active schedules for selected day"),
         "noAppFound":
             MessageLookupByLibrary.simpleMessage("No appointments found"),
+        "noFavProf": MessageLookupByLibrary.simpleMessage(
+            "No favorite professionals yet."),
         "noMatchingSchedule":
             MessageLookupByLibrary.simpleMessage("No matching schedule found"),
         "no_upcoming_app":
@@ -90,9 +103,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "rdvs": MessageLookupByLibrary.simpleMessage("RDVs"),
         "reBook": MessageLookupByLibrary.simpleMessage("Re Book"),
         "reschedule": MessageLookupByLibrary.simpleMessage("reschedule"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "resetPasswords":
             MessageLookupByLibrary.simpleMessage("Reset Password:"),
         "search": MessageLookupByLibrary.simpleMessage("Search a doctor!"),
+        "sendResetPassword":
+            MessageLookupByLibrary.simpleMessage("Send Reset Password"),
         "service": MessageLookupByLibrary.simpleMessage("Service:"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
@@ -101,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "upcoming_app":
             MessageLookupByLibrary.simpleMessage("Upcoming Appointment"),
+        "validate": MessageLookupByLibrary.simpleMessage("Validate"),
         "verif": MessageLookupByLibrary.simpleMessage("Verify"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Remeet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -56,7 +57,7 @@ class FavoriteController extends GetxController {
         context: Get.context!,
         builder: (context) {
           return SimpleDialog(
-            title: const Text('Error'),
+            title: Text(S.of(context).error),
             contentPadding: const EdgeInsets.all(20),
             children: [Text(error.toString())],
           );

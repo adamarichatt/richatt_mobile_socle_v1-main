@@ -1,3 +1,5 @@
+import 'package:Remeet/features/authentication/controllers/signup/firstSignUpController.dart';
+import 'package:Remeet/features/authentication/screens/signup/firstSignUp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +32,8 @@ class OnBoardingController extends GetxController {
         print(storage.read('IsFirstTime'));
       }
       storage.write('IsFirstTime', false);
-      Get.offAll(const LoginScreen());
+      Get.put(FirstSignUpController());
+      Get.offAll(() => FirstSignUp());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

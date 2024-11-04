@@ -19,66 +19,61 @@ class HomeGeustScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            RHomeAppBar(),
-            SizedBox(height: RSizes.spaceBtwSections),
-            RSearchContainer(
-              text: S.of(context).search,
-              emailCustomer: '',
-            ),
-            SizedBox(height: RSizes.spaceBtwSections),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 2.0,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.getProf();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              RHomeAppBar(),
+              SizedBox(height: RSizes.spaceBtwSections),
+              RSearchContainer(
+                text: S.of(context).search,
+                emailCustomer: '',
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        S.of(context).available_now,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: -0.38,
-                        ),
-                      ),
-                      Text(
-                        S.of(context).SeeAll,
-                        style: TextStyle(
-                          color: Color(0xFF0B9AD3),
-                          fontSize: 14,
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: -0.27,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: RSizes.spaceBtwItems),
-                  Obx(() => ListView.builder(
-                        itemCount: controller.featuredProf.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (_, index) => Padding(
-                          padding:
-                              EdgeInsets.only(bottom: RSizes.spaceBtwItems),
-                          child: ProfileCard(
-                            professional: controller.featuredProf[index],
-                            emailCustomer: '',
+              SizedBox(height: RSizes.spaceBtwSections),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 2.0,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          S.of(context).available_now,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: -0.38,
                           ),
                         ),
-                      )),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: RSizes.spaceBtwItems),
+                    Obx(() => ListView.builder(
+                          itemCount: controller.featuredProf.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (_, index) => Padding(
+                            padding:
+                                EdgeInsets.only(bottom: RSizes.spaceBtwItems),
+                            child: ProfileCard(
+                              professional: controller.featuredProf[index],
+                              emailCustomer: '',
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
