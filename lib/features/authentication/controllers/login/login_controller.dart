@@ -134,6 +134,25 @@ class LoginController extends GetxController {
       );
 
       await _auth.signInWithCredential(credential);
+      var headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://195.35.25.110:8774',
+      };
+      var signupUrl = Uri.parse(APIConstants.apiBackend + 'auth/signup');
+      Map signupBody = {
+        'firstName': googleUser.displayName,
+        'email': googleUser.email,
+      };
+
+      http.Response signupResponse = await http.post(signupUrl,
+          body: jsonEncode(signupBody), headers: headers);
+      if (signupResponse.statusCode == 200) {
+        //auth.phoneAuthentication(verificationCode);
+        print('sa marche');
+      } else {
+        throw jsonDecode(signupResponse.body)["Message"] ??
+            "Une erreur inconnue s'est produite";
+      }
       // Handle successful sign-in (e.g., navigate to home screen)
     } catch (error) {
       print('Error during Google Sign-In: $error');

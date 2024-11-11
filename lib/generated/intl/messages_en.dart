@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
         "Help": MessageLookupByLibrary.simpleMessage("Help & Support"),
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
+        "Login": MessageLookupByLibrary.simpleMessage("connexion"),
         "Logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "Privacy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
         "Profile": MessageLookupByLibrary.simpleMessage("Profile"),

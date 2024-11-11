@@ -108,9 +108,16 @@ class ProfessionalController extends GetxController {
     }).toList();
   }
 
-  void searchProfessionals(String query) {
-    searchText.value = query;
-    filterProfessionals();
+  Future<void> searchProfessionals(String query) async {
+    try {
+      searchText.value = query;
+      // Add a small delay to simulate network call and show loading
+      await Future.delayed(const Duration(milliseconds: 300));
+      filterProfessionals();
+    } catch (e) {
+      print('Error searching professionals: $e');
+      rethrow;
+    }
   }
 
   // Combined filters

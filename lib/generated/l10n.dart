@@ -260,6 +260,16 @@ class S {
     );
   }
 
+  /// `connexion`
+  String get Login {
+    return Intl.message(
+      'connexion',
+      name: 'Login',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your health is our priority.`
   String get onBoardingTitle1 {
     return Intl.message(

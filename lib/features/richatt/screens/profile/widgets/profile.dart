@@ -24,6 +24,7 @@ class ProfilePage extends StatelessWidget {
   var image64;
 
   ProfilePage({required this.email, required this.isGuest});
+
   void _showConfirmationDialog(
       BuildContext context, bool value, ProfileController controller) {
     Get.defaultDialog(
@@ -34,13 +35,10 @@ class ProfilePage extends StatelessWidget {
       textCancel: "Annuler",
       textConfirm: "Confirmer",
       confirmTextColor: Colors.white,
-      onCancel: () {
-        // Ne rien faire, le switch reste dans l'état actuel
-      },
+      onCancel: () {},
       onConfirm: () {
-        // Mettre à jour l'état du switch seulement si confirmé
         controller.toggleFaceId(value);
-        Get.back(); // Fermer la boîte de dialogue
+        Get.back();
       },
     );
   }
@@ -55,8 +53,11 @@ class ProfilePage extends StatelessWidget {
     final customer = ProfileController.instance;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.getCustomerByEmail(email);
+      if (!isGuest) {
+        controller.getCustomerByEmail(email);
+      }
     });
+
     try {
       image64 = base64Decode(customer.image.split(',').last);
     } catch (e) {
@@ -72,6 +73,7 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Profile Image Section - Show placeholder for guest
             Center(
               child: SizedBox(
                 height: 115,
@@ -81,33 +83,34 @@ class ProfilePage extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     CircleAvatar(
-                      backgroundImage: image64 != ''
-                          ? MemoryImage(image64)
-                          : AssetImage(RImages.doctor1) as ImageProvider,
+                      backgroundImage: AssetImage(RImages.doctor1),
                     ),
-                    Positioned(
-                      right: -12,
-                      bottom: 0,
-                      child: SizedBox(
-                        height: 46,
-                        width: 46,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor:
-                                WidgetStateProperty.all<Color>(Colors.grey),
-                          ),
-                          child: Icon(
-                            Iconsax.camera,
-                            color: Colors.white,
+                    if (!isGuest)
+                      Positioned(
+                        right: -12,
+                        bottom: 0,
+                        child: SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.grey),
+                            ),
+                            child: Icon(
+                              Iconsax.camera,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
             ),
+
+            // Profile Info Section - Show generic text for guest
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
@@ -122,26 +125,31 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Obx(
-                () => Text(
-                  '${controller.email.value} | ${controller.phone.value}',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontFamily: 'FONTSPRING DEMO - Proxima Nova',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+
+            if (!isGuest)
+              Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Obx(
+                  () => Text(
+                    '${controller.email.value} | ${controller.phone.value}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontFamily: 'FONTSPRING DEMO - Proxima Nova',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
                   ),
                 ),
               ),
-            ),
+
             SizedBox(height: 50.0),
+
+            // First Container - Basic Settings
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
-              height: 170,
+              height: isGuest ? 70 : 170, // Reduced height for guest mode
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -156,22 +164,23 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               child: Column(children: [
-                CustomListTile(
-                  title: S.of(context).editprofile,
-                  icon: Iconsax.edit,
-                  onPressed: () async {
-                    print('tap');
-                    Get.to(() => profile_update(controller: controller));
-                  },
-                ),
-                CustomListTile(
-                  title: S.of(context).notif,
-                  icon: Iconsax.notification,
-                  trailing: Text(
-                    'ON'.tr,
-                    style: TextStyle(color: Colors.blue),
+                if (!isGuest)
+                  CustomListTile(
+                    title: S.of(context).editprofile,
+                    icon: Iconsax.edit,
+                    onPressed: () {
+                      Get.to(() => profile_update(controller: controller));
+                    },
                   ),
-                ),
+                if (!isGuest)
+                  CustomListTile(
+                    title: S.of(context).notif,
+                    icon: Iconsax.notification,
+                    trailing: Text(
+                      'ON'.tr,
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
                 Obx(() => CustomListTile(
                       title: S.of(context).langue,
                       icon: Iconsax.global,
@@ -213,9 +222,6 @@ class ProfilePage extends StatelessWidget {
                                     Get.back();
                                   },
                                 ),
-                                SizedBox(
-                                  height: 50,
-                                )
                               ],
                             ),
                           ),
@@ -224,52 +230,59 @@ class ProfilePage extends StatelessWidget {
                     )),
               ]),
             ),
+
             SizedBox(height: 30.0),
-            Container(
-              width: RDeviceUtils.getScreenWidth(context) - 20,
-              height: 170,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 1),
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
-              child: Column(
-                children: [
-                  CustomListTile(
-                      title: S.of(context).Security,
-                      icon: Iconsax.security_user),
-                  Obx(() => SwitchListTile(
-                        title: Text('Face ID'),
-                        secondary: const Icon(Iconsax.security_user),
-                        value: controller.isFaceIdEnabled.value,
-                        activeColor: Colors.blue,
-                        onChanged: (value) {
-                          _showConfirmationDialog(context, value, controller);
-                        },
-                      )),
-                  CustomListTile(
-                    title: S.of(context).Theme,
-                    icon: Iconsax.moon,
-                    trailing: Text(
-                      'Light mode',
-                      style: TextStyle(color: Colors.blue),
+
+            // Security Container - Hide for guest
+            if (!isGuest)
+              Container(
+                width: RDeviceUtils.getScreenWidth(context) - 20,
+                height: 170,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 1),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    CustomListTile(
+                        title: S.of(context).Security,
+                        icon: Iconsax.security_user),
+                    Obx(() => SwitchListTile(
+                          title: Text('Face ID'),
+                          secondary: const Icon(Iconsax.security_user),
+                          value: controller.isFaceIdEnabled.value,
+                          activeColor: Colors.blue,
+                          onChanged: (value) {
+                            _showConfirmationDialog(context, value, controller);
+                          },
+                        )),
+                    CustomListTile(
+                      title: S.of(context).Theme,
+                      icon: Iconsax.moon,
+                      trailing: Text(
+                        'Light mode',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+
             SizedBox(height: 30.0),
+
+            // Help and Support Container
             Container(
               width: RDeviceUtils.getScreenWidth(context) - 20,
-              height: 240,
+              height: isGuest ? 120 : 240,
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -289,31 +302,40 @@ class ProfilePage extends StatelessWidget {
                     title: S.of(context).Help,
                     icon: Iconsax.message_question,
                   ),
+                  if (!isGuest) ...[
+                    CustomListTile(
+                      title: S.of(context).contact,
+                      icon: Iconsax.message,
+                    ),
+                    CustomListTile(
+                      title: S.of(context).Privacy,
+                      icon: Iconsax.security_safe4,
+                    ),
+                  ],
                   CustomListTile(
-                    title: S.of(context).contact,
-                    icon: Iconsax.message,
-                  ),
-                  CustomListTile(
-                    title: S.of(context).Privacy,
-                    icon: Iconsax.security_safe4,
-                  ),
-                  CustomListTile(
-                    title: S.of(context).Logout,
-                    icon: Iconsax.logout,
+                    title: isGuest ? S.of(context).Login : S.of(context).Logout,
+                    icon: isGuest ? Iconsax.login : Iconsax.logout,
                     onPressed: () {
                       Get.defaultDialog(
-                        title: 'Are you sure you want to log out?'.tr,
+                        title: isGuest
+                            ? 'Login to access all features'.tr
+                            : 'Are you sure you want to log out?'.tr,
                         titleStyle: TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.w300),
                         titlePadding: EdgeInsets.all(12.0),
                         content: Container(),
-                        textConfirm: "YES".tr,
+                        textConfirm: isGuest ? "LOGIN".tr : "YES".tr,
                         textCancel: "NO".tr,
                         cancelTextColor: Colors.black,
                         backgroundColor: Colors.white,
                         buttonColor: Colors.blueAccent,
                         onConfirm: () {
-                          logincontroller.logout();
+                          if (isGuest) {
+                            // Navigate to login page
+                            Get.offAllNamed('/login');
+                          } else {
+                            logincontroller.logout();
+                          }
                         },
                         onCancel: () {},
                       );
